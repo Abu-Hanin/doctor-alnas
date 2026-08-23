@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>لوحة التحكم - مسوق أمازون مصر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0B0E11;
+            color: #EAECEF;
+            padding: 20px;
+        }
+        .container { max-width: 1300px; margin: 0 auto; }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 2px solid #F0B90B;
+            margin-bottom: 30px;
+        }
+        .logo { font-size: 26px; font-weight: 900; color: #F0B90B; }
+        .logo span { color: #EAECEF; }
+        .pulse-dot {
+            display: inline-block;
+            width: 12px; height: 12px; background: #00C853; border-radius: 50%;
+            animation: pulse 1.5s infinite;
+            margin: 0 10px;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0,200,83,0.7); }
+            70% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(0,200,83,0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0,200,83,0); }
+        }
+        .btn-logout {
+            background: #2B3139; color: #EAECEF; border: none;
+            padding: 10px 25px; border-radius: 8px; font-weight: 700;
+            cursor: pointer; font-family: 'Cairo', sans-serif;
+        }
+        .btn-logout:hover { background: #FF4444; color: white; }
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        @media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } }
+        .form-card, .list-card {
+            background: #1E2329;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #2B3139;
+        }
+        .form-card h2, .list-card h2 {
+            color: #F0B90B;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #B7BDC6;
+            font-size: 14px;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid #2B3139;
+            background: #0B0E11;
+            color: #EAECEF;
+            font-family: 'Cairo', sans-serif;
+            font-size: 15px;
+        }
+        .form-group textarea { min-height: 80px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #F0B90B;
+        }
+        .form-group .hint {
+            font-size: 12px;
+            color: #848E9C;
+            margin-top: 4px;
+        }
+        .btn-save {
+            background: #F0B90B; color: #0B0E11; border: none;
+            padding: 14px 30px; border-radius: 10px; font-weight: 900;
+            font-size: 18px; cursor: pointer; width: 100%;
+            transition: 0.3s; font-family: 'Cairo', sans-serif;
+        }
+        .btn-save:hover { background: #FCD535; transform: scale(1.02); }
+        .btn-cancel-edit {
+            background: #2B3139; color: #EAECEF; border: none;
+            padding: 10px 20px; border-radius: 8px; font-weight: 700;
+            cursor: pointer; margin-right: 10px; font-family: 'Cairo', sans-serif;
+        }
+        .product-item {
+            background: #0B0E11; padding: 15px; border-radius: 10px;
+            margin-bottom: 12px; border-right: 4px solid #F0B90B;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px;
+        }
+        .product-item .info { flex: 1; }
+        .product-item .info h4 { font-size: 16px; margin-bottom: 4px; }
+        .product-item .info small { color: #848E9C; }
+        .product-item .actions button {
+            border: none; padding: 8px 16px; border-radius: 6px;
+            font-weight: 700; cursor: pointer; font-family: 'Cairo', sans-serif;
+            margin: 0 5px;
+        }
+        .btn-edit { background: #F0B90B; color: #0B0E11; }
+        .btn-edit:hover { background: #FCD535; }
+        .btn-delete { background: #FF4444; color: white; }
+        .btn-delete:hover { background: #FF6666; }
+        .no-products { text-align: center; color: #848E9C; padding: 30px; }
+        .toast {
+            position: fixed; bottom: 30px; left: 30px;
+            background: #1E2329; border-right: 6px solid #F0B90B;
+            padding: 15px 25px; border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            display: none; z-index: 999; font-weight: 700;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <span class="logo">مسوق <span>أمازون</span> مصر</span>
+                <span class="pulse-dot"></span>
+                <span style="color:#00C853; font-weight:700;">لوحة التحكم</span>
+            </div>
+            <button class="btn-logout" onclick="handleLogout()">🚪 تسجيل الخروج</button>
+        </div>
+
+        <div class="admin-grid">
+            <div class="form-card">
+                <h2 id="formTitle">➕ إضافة منتج جديد</h2>
+                <form id="productForm" onsubmit="event.preventDefault(); saveProduct();">
+                    <div class="form-group">
+                        <label>🏷️ عنوان المنتج *</label>
+                        <input type="text" id="prodTitle" placeholder="مثلاً: ميكروفون لاسلكي احترافي..." required />
+                    </div>
+                    <div class="form-group">
+                        <label>🔗 رابط الشراء من أمازون *</label>
+                        <input type="url" id="prodLink" placeholder="https://www.amazon.eg/dp/XXXXX" required />
+                    </div>
+                    <div class="form-group">
+                        <label>💰 السعر (اختياري)</label>
+                        <input type="text" id="prodPrice" placeholder="مثلاً: 1,200 جنيه أو راجع السعر" />
+                    </div>
+                    <div class="form-group">
+                        <label>📄 الوصف التفصيلي</label>
+                        <textarea id="prodDesc" placeholder="اكتب وصفاً كاملاً وجذاباً للمنتج..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>✨ المميزات (كل مميزة في سطر منفصل)</label>
+                        <textarea id="prodFeatures" placeholder="جودة صوت عالية&#10;بطارية تدوم 10 ساعات"></textarea>
+                        <div class="hint">أدخل كل مميزة في سطر جديد</div>
+                    </div>
+                    <div class="form-group">
+                        <label>🖼️ روابط الصور (كل رابط في سطر منفصل)</label>
+                        <textarea id="prodImages" placeholder="https://m.media-amazon.com/images/I/61XXX.jpg&#10;https://m.media-amazon.com/images/I/71XXX.jpg"></textarea>
+                        <div class="hint">انسخ روابط الصور من أمازون والصقها هنا (كل رابط في سطر)</div>
+                    </div>
+                    <input type="hidden" id="editId" value="" />
+                    <button type="submit" class="btn-save" id="submitBtn">💾 حفظ المنتج</button>
+                    <button type="button" class="btn-cancel-edit" id="cancelEditBtn" style="display:none;" onclick="cancelEdit()">❌ إلغاء التعديل</button>
+                </form>
+            </div>
+
+            <div class="list-card">
+                <h2>📦 المنتجات الحالية</h2>
+                <div id="productsList">
+                    <div class="no-products">⏳ جاري التحميل...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        // ============================================================
+        //  التحقق من المصادقة (لو دخل على الصفحة مباشرة)
+        // ============================================================
+        if (!sessionStorage.getItem('admin_authenticated')) {
+            window.location.href = 'index.html';
+        }
+
+        // ============================================================
+        //  إعدادات JSONBin.io (عدل القيم دي بقيمك أنت)
+        // ============================================================
+        const BIN_ID = '6a8b7ea8da38895dfe0845e7';  // حط Bin ID بتاعك هنا
+        const API_KEY = '$2a$10$nGQxhRIYk94oJyfj2jqmveVaH39NWAxIhUyc/5QPAaFGlKAcyQu52'; // حط Master Key بتاعك هنا
+
+        // ============================================================
+        //  دوال جلب وحفظ البيانات من/إلى JSONBin
+        // ============================================================
+        async function loadProductsFromCloud() {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+                    headers: { 'X-Master-Key': API_KEY }
+                });
+                if (!res.ok) throw new Error('فشل جلب البيانات');
+                const data = await res.json();
+                return data.record || [];
+            } catch (e) {
+                console.error('خطأ في جلب المنتجات:', e);
+                return [];
+            }
+        }
+
+        async function saveProductsToCloud(products) {
+            try {
+                const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': API_KEY
+                    },
+                    body: JSON.stringify(products)
+                });
+                if (!res.ok) throw new Error('فشل حفظ البيانات');
+                return true;
+            } catch (e) {
+                console.error('خطأ في حفظ المنتجات:', e);
+                return false;
+            }
+        }
+
+        // ============================================================
+        //  المتغيرات والدوال المحلية
+        // ============================================================
+        let currentEditId = null;
+
+        async function loadAdminProducts() {
+            const list = document.getElementById('productsList');
+            const products = await loadProductsFromCloud();
+            if (products.length === 0) {
+                list.innerHTML = `<div class="no-products">🚀 لا توجد منتجات. أضف منتجك الأول!</div>`;
+                return;
+            }
+            products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            list.innerHTML = products.map(p => `
+                    <div class="product-item">
+                        <div class="info">
+                            <h4>${p.title}</h4>
+                            <small>📅 ${new Date(p.createdAt).toLocaleDateString('ar-EG')} | 🖼️ ${p.images ? p.images.length : 0} صور</small>
+                        </div>
+                        <div class="actions">
+                            <button class="btn-edit" onclick="editProduct('${p.id}')">✏️ تعديل</button>
+                            <button class="btn-delete" onclick="deleteProduct('${p.id}')">🗑️ حذف</button>
+                        </div>
+                    </div>
+                `).join('');
+        }
+
+        async function saveProduct() {
+            const title = document.getElementById('prodTitle').value.trim();
+            const amazonLink = document.getElementById('prodLink').value.trim();
+            const price = document.getElementById('prodPrice').value.trim();
+            const description = document.getElementById('prodDesc').value.trim();
+            const features = document.getElementById('prodFeatures').value;
+            const images = document.getElementById('prodImages').value;
+            const editId = document.getElementById('editId').value;
+
+            if (!title || !amazonLink) {
+                showToast('⚠️ من فضلك املأ العنوان ورابط أمازون');
+                return;
+            }
+
+            let products = await loadProductsFromCloud();
+            const newProduct = {
+                id: editId || 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                title: title,
+                amazonLink: amazonLink,
+                price: price || 'راجع السعر على أمازون',
+                description: description || 'لا يوجد وصف',
+                features: features ? features.split('\n').filter(f => f.trim() !== '') : [],
+                images: images ? images.split('\n').filter(i => i.trim() !== '') : [],
+                createdAt: new Date().toISOString()
+            };
+
+            if (editId) {
+                const index = products.findIndex(p => p.id === editId);
+                if (index !== -1) {
+                    newProduct.createdAt = products[index].createdAt;
+                    products[index] = newProduct;
+                    showToast('✅ تم تعديل المنتج بنجاح');
+                }
+            } else {
+                products.push(newProduct);
+                showToast('✅ تم إضافة المنتج بنجاح');
+            }
+
+            const saved = await saveProductsToCloud(products);
+            if (saved) {
+                resetForm();
+                loadAdminProducts();
+                if (window.parent && window.parent.setAllProducts) {
+                    window.parent.setAllProducts(products);
+                }
+            } else {
+                showToast('❌ فشل الحفظ في السحاب، حاول مرة أخرى');
+            }
+        }
+
+        function editProduct(id) {
+            loadProductsFromCloud().then(products => {
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+
+                document.getElementById('prodTitle').value = product.title;
+                document.getElementById('prodLink').value = product.amazonLink;
+                document.getElementById('prodPrice').value = product.price || '';
+                document.getElementById('prodDesc').value = product.description || '';
+                document.getElementById('prodFeatures').value = product.features.join('\n');
+                document.getElementById('prodImages').value = product.images.join('\n');
+                document.getElementById('editId').value = product.id;
+                document.getElementById('formTitle').textContent = '✏️ تعديل المنتج';
+                document.getElementById('submitBtn').textContent = '💾 تحديث المنتج';
+                document.getElementById('cancelEditBtn').style.display = 'inline-block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        function cancelEdit() {
+            resetForm();
+            showToast('🔄 تم إلغاء التعديل');
+        }
+
+        function resetForm() {
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodLink').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodDesc').value = '';
+            document.getElementById('prodFeatures').value = '';
+            document.getElementById('prodImages').value = '';
+            document.getElementById('editId').value = '';
+            document.getElementById('formTitle').textContent = '➕ إضافة منتج جديد';
+            document.getElementById('submitBtn').textContent = '💾 حفظ المنتج';
+            document.getElementById('cancelEditBtn').style.display = 'none';
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm('⚠️ هل أنت متأكد من حذف هذا المنتج نهائياً؟')) return;
+            let products = await loadProductsFromCloud();
+            products = products.filter(p => p.id !== id);
+            const saved = await saveProductsToCloud(products);
+            if (saved) {
+                showToast('🗑️ تم حذف المنتج بنجاح');
+                loadAdminProducts();
+                if (window.parent && window.parent.setAllProducts) {
+                    window.parent.setAllProducts(products);
+                }
+            } else {
+                showToast('❌ فشل الحذف');
+            }
+        }
+
+        function handleLogout() {
+            sessionStorage.removeItem('admin_authenticated');
+            window.location.href = 'index.html';
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            clearTimeout(toast._timer);
+            toast._timer = setTimeout(() => { toast.style.display = 'none'; }, 4000);
+        }
+
+        // ============================================================
+        //  بدء التشغيل
+        // ============================================================
+        window.onload = loadAdminProducts;
+    </script>
+</body>
+</html>

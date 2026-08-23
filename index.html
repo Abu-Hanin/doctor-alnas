@@ -444,7 +444,7 @@
 
     <div class="container">
 
-        <!-- شريط البحث الذكي (مخفي للأدمن) -->
+        <!-- شريط البحث الذكي -->
         <div class="search-section">
             <div class="search-wrapper">
                 <input type="text" id="searchInput" placeholder="ابحث عن منتج... أو أدخل البريد الإلكتروني للدخول كأدمن" />
@@ -502,10 +502,14 @@
 
     <script>
         // ============================================================
-        //  إعدادات JSONBin.io (استخدم المعرفين اللي بعتهالي)
+        //  إعدادات JSONBin.io (عدل القيم دي بقيمك أنت)
         // ============================================================
-        const JSONBIN_BIN_ID = '6a8b7ea8da38895dfe0845e7';  // الـ Bin ID
-        const JSONBIN_API_KEY = '$2a$10$nGQxhRIYk94oJyfj2jqmveVaH39NWAxIhUyc/5QPAaFGlKAcyQu52'; // Master Key
+        const JSONBIN_BIN_ID = '6a8b7ea8da38895dfe0845e7';  // حط Bin ID بتاعك هنا
+        const JSONBIN_API_KEY = '$2a$10$nGQxhRIYk94oJyfj2jqmveVaH39NWAxIhUyc/5QPAaFGlKAcyQu52'; // حط Master Key بتاعك هنا
+
+        // بيانات دخول الأدمن (ثابتة)
+        const ADMIN_EMAIL = 'swlyd3393@gmail.com';
+        const ADMIN_PASSWORD = 'walidWALID';
 
         // ============================================================
         //  دوال جلب وحفظ البيانات من/إلى JSONBin
@@ -519,10 +523,10 @@
                 });
                 if (!res.ok) throw new Error('فشل جلب البيانات');
                 const data = await res.json();
-                return data.record || []; // المصفوفة المخزنة
+                return data.record || [];
             } catch (e) {
                 console.error('خطأ في جلب المنتجات:', e);
-                return []; // لو فشل، نرجع مصفوفة فاضية
+                return [];
             }
         }
 
@@ -548,8 +552,6 @@
         //  المتغيرات العامة
         // ============================================================
         let allProducts = [];
-        const ADMIN_EMAIL = 'swlyd3393@gmail.com';
-        const ADMIN_PASSWORD = 'walidWALID';
         let isPasswordMode = false;
 
         // ============================================================
@@ -568,7 +570,6 @@
                 );
             }
 
-            // ترتيب من الأحدث للأقدم
             filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
             if (filtered.length === 0) {
@@ -576,7 +577,7 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map((p, index) => {
+            grid.innerHTML = filtered.map(p => {
                 const imgSrc = (p.images && p.images.length > 0) ? p.images[0] :
                     'https://via.placeholder.com/300x300/1E2329/F0B90B?text=صورة';
                 return `
@@ -666,7 +667,9 @@
             const passError = document.getElementById('passError');
 
             if (passInput.value.trim() === ADMIN_PASSWORD) {
+                // حفظ علامة الدخول في SessionStorage
                 sessionStorage.setItem('admin_authenticated', 'true');
+                // التوجيه لصفحة الأدمن
                 window.location.href = 'admin.html';
             } else {
                 passError.style.display = 'block';
@@ -698,9 +701,9 @@
 
             const products = await fetchProductsFromCloud();
             if (products.length === 0) {
-                // لو مفيش منتجات، نضيف بعض العينات
+                // لو مفيش منتجات، نضيف عينات
                 const defaultProducts = [{
-                    id: 'B0bEA1Q9G',
+                    id: 'p_' + Date.now() + '_1',
                     title: 'ميكروفون لافالير لاسلكي M2 من هوليلاند لارك - أسود',
                     price: 'راجع السعر على أمازون',
                     description: 'ميكروفون لافالير لاسلكي احترافي مثالي للتصوير والفيديو والمقابلات والبودكاست.',
@@ -709,7 +712,7 @@
                     amazonLink: 'https://www.amazon.eg/dp/B0bEA1Q9G',
                     createdAt: new Date().toISOString()
                 }, {
-                    id: 'B03znMNDD',
+                    id: 'p_' + Date.now() + '_2',
                     title: 'ميكروفون لافالير لاسلكي M2S التيميت كومبو',
                     price: 'راجع السعر على أمازون',
                     description: 'الإصدار المتطور مع مستقبلين (كاميرا + لايتنينج).',
@@ -728,7 +731,7 @@
         }
 
         // ============================================================
-        //  تصدير الدوال لاستخدامها من admin.html (عن طريق window)
+        //  تصدير الدوال لاستخدامها من admin.html
         // ============================================================
         window.fetchProductsFromCloud = fetchProductsFromCloud;
         window.saveProductsToCloud = saveProductsToCloud;

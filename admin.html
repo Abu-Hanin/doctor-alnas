@@ -208,18 +208,22 @@
         const API_KEY = '$2a$10$nGQxhRIYk94oJyfj2jqmveVaH39NWAxIhUyc/5QPAaFGlKAcyQu52'; // حط Master Key بتاعك هنا
 
         // ============================================================
-        //  دوال جلب وحفظ البيانات من/إلى JSONBin
+        //  دوال جلب وحفظ البيانات من/إلى JSONBin (مع تحسين معالجة الأخطاء)
         // ============================================================
         async function loadProductsFromCloud() {
             try {
                 const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
                     headers: { 'X-Master-Key': API_KEY }
                 });
-                if (!res.ok) throw new Error('فشل جلب البيانات');
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    throw new Error(`HTTP ${res.status}: ${errorText}`);
+                }
                 const data = await res.json();
                 return data.record || [];
             } catch (e) {
-                console.error('خطأ في جلب المنتجات:', e);
+                console.error('❌ خطأ في جلب المنتجات:', e);
+                showToast('❌ فشل تحميل المنتجات: ' + e.message);
                 return [];
             }
         }
@@ -234,10 +238,16 @@
                     },
                     body: JSON.stringify(products)
                 });
-                if (!res.ok) throw new Error('فشل حفظ البيانات');
+                if (!res.ok) {
+                    const errorText = await res.text();
+                    throw new Error(`HTTP ${res.status}: ${errorText}`);
+                }
+                const data = await res.json();
+                console.log('✅ تم الحفظ بنجاح:', data);
                 return true;
             } catch (e) {
-                console.error('خطأ في حفظ المنتجات:', e);
+                console.error('❌ خطأ في حفظ المنتجات:', e);
+                showToast('❌ فشل الحفظ في السحاب: ' + e.message);
                 return false;
             }
         }
@@ -249,6 +259,8 @@
 
         async function loadAdminProducts() {
             const list = document.getElementById('productsList');
+            list.innerHTML = `<div class="no-products">⏳ جاري التحميل...</div>`;
+
             const products = await loadProductsFromCloud();
             if (products.length === 0) {
                 list.innerHTML = `<div class="no-products">🚀 لا توجد منتجات. أضف منتجك الأول!</div>`;
@@ -278,44 +290,71 @@
             const images = document.getElementById('prodImages').value;
             const editId = document.getElementById('editId').value;
 
+            // التحقق من المدخلات
             if (!title || !amazonLink) {
                 showToast('⚠️ من فضلك املأ العنوان ورابط أمازون');
                 return;
             }
 
-            let products = await loadProductsFromCloud();
-            const newProduct = {
-                id: editId || 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
-                title: title,
-                amazonLink: amazonLink,
-                price: price || 'راجع السعر على أمازون',
-                description: description || 'لا يوجد وصف',
-                features: features ? features.split('\n').filter(f => f.trim() !== '') : [],
-                images: images ? images.split('\n').filter(i => i.trim() !== '') : [],
-                createdAt: new Date().toISOString()
-            };
+            // تعطيل الزر لمنع الضغط المتكرر
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ جاري الحفظ...';
 
-            if (editId) {
-                const index = products.findIndex(p => p.id === editId);
-                if (index !== -1) {
-                    newProduct.createdAt = products[index].createdAt;
-                    products[index] = newProduct;
-                    showToast('✅ تم تعديل المنتج بنجاح');
-                }
-            } else {
-                products.push(newProduct);
-                showToast('✅ تم إضافة المنتج بنجاح');
-            }
+            try {
+                // جلب المنتجات الحالية من السحاب
+                let products = await loadProductsFromCloud();
 
-            const saved = await saveProductsToCloud(products);
-            if (saved) {
-                resetForm();
-                loadAdminProducts();
-                if (window.parent && window.parent.setAllProducts) {
-                    window.parent.setAllProducts(products);
+                // إنشاء كائن المنتج الجديد
+                const newProduct = {
+                    id: editId || 'p_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                    title: title,
+                    amazonLink: amazonLink,
+                    price: price || 'راجع السعر على أمازون',
+                    description: description || 'لا يوجد وصف',
+                    features: features ? features.split('\n').filter(f => f.trim() !== '') : [],
+                    images: images ? images.split('\n').filter(i => i.trim() !== '') : [],
+                    createdAt: editId ? (products.find(p => p.id === editId)?.createdAt || new Date().toISOString()) : new Date().toISOString()
+                };
+
+                // إضافة أو تعديل
+                if (editId) {
+                    const index = products.findIndex(p => p.id === editId);
+                    if (index !== -1) {
+                        products[index] = newProduct;
+                    } else {
+                        showToast('⚠️ المنتج غير موجود');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '💾 حفظ المنتج';
+                        return;
+                    }
+                } else {
+                    products.push(newProduct);
                 }
-            } else {
-                showToast('❌ فشل الحفظ في السحاب، حاول مرة أخرى');
+
+                // حفظ في السحاب
+                const saved = await saveProductsToCloud(products);
+                if (saved) {
+                    showToast(editId ? '✅ تم تعديل المنتج بنجاح' : '✅ تم إضافة المنتج بنجاح');
+                    resetForm();
+                    await loadAdminProducts(); // تحديث القائمة فوراً
+                    // محاولة تحديث البيانات في الصفحة الرئيسية (إذا كانت مفتوحة في نفس المتصفح)
+                    try {
+                        if (window.opener && window.opener.setAllProducts) {
+                            window.opener.setAllProducts(products);
+                        }
+                        // أو استخدام localStorage كحل احتياطي
+                        localStorage.setItem('amazon_products_sync', JSON.stringify(products));
+                    } catch (e) {}
+                } else {
+                    showToast('❌ فشل الحفظ في السحاب');
+                }
+            } catch (e) {
+                console.error('خطأ في saveProduct:', e);
+                showToast('❌ حدث خطأ غير متوقع: ' + e.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = editId ? '💾 تحديث المنتج' : '💾 حفظ المنتج';
             }
         }
 
@@ -358,17 +397,30 @@
 
         async function deleteProduct(id) {
             if (!confirm('⚠️ هل أنت متأكد من حذف هذا المنتج نهائياً؟')) return;
-            let products = await loadProductsFromCloud();
-            products = products.filter(p => p.id !== id);
-            const saved = await saveProductsToCloud(products);
-            if (saved) {
-                showToast('🗑️ تم حذف المنتج بنجاح');
-                loadAdminProducts();
-                if (window.parent && window.parent.setAllProducts) {
-                    window.parent.setAllProducts(products);
+
+            try {
+                let products = await loadProductsFromCloud();
+                const filtered = products.filter(p => p.id !== id);
+                if (filtered.length === products.length) {
+                    showToast('⚠️ المنتج غير موجود');
+                    return;
                 }
-            } else {
-                showToast('❌ فشل الحذف');
+                const saved = await saveProductsToCloud(filtered);
+                if (saved) {
+                    showToast('🗑️ تم حذف المنتج بنجاح');
+                    await loadAdminProducts();
+                    try {
+                        if (window.opener && window.opener.setAllProducts) {
+                            window.opener.setAllProducts(filtered);
+                        }
+                        localStorage.setItem('amazon_products_sync', JSON.stringify(filtered));
+                    } catch (e) {}
+                } else {
+                    showToast('❌ فشل الحذف');
+                }
+            } catch (e) {
+                console.error('خطأ في deleteProduct:', e);
+                showToast('❌ حدث خطأ: ' + e.message);
             }
         }
 
@@ -382,13 +434,18 @@
             toast.textContent = message;
             toast.style.display = 'block';
             clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => { toast.style.display = 'none'; }, 4000);
+            toast._timer = setTimeout(() => { toast.style.display = 'none'; }, 5000);
         }
 
         // ============================================================
         //  بدء التشغيل
         // ============================================================
         window.onload = loadAdminProducts;
+
+        // عند إغلاق الصفحة، نحرر الموارد
+        window.addEventListener('beforeunload', function() {
+            // يمكن إضافة أي تنظيف هنا
+        });
     </script>
 </body>
 </html>

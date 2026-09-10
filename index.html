@@ -49,13 +49,13 @@
         .doc-loc { color: #B7BDC6; font-size: 0.78rem; }
         .doc-arrow { color: #F0B90B; opacity: 0.5; }
         .empty-msg { text-align: center; padding: 40px 20px; background: #1E2329; border: 1px dashed #2B3139; border-radius: 14px; color: #707A8A; font-size: 0.9rem; }
-        .form-container { max-width: 480px; margin: 40px auto; background: #1E2329; border-radius: 16px; border: 1px solid #2B3139; padding: 24px; }
+        .form-container { max-width: 520px; margin: 30px auto; background: #1E2329; border-radius: 16px; border: 1px solid #2B3139; padding: 24px; }
         .form-container h2 { color: #F0B90B; text-align: center; margin-bottom: 6px; font-weight: 900; }
         .form-subtitle { text-align: center; color: #707A8A; font-size: 0.85rem; margin-bottom: 20px; }
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.88rem; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px; background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; color: #FFF; font-family: inherit; font-size: 0.9rem; outline: none; }
-        .form-group input:focus, .form-group textarea:focus { border-color: #F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.1); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; color: #FFF; font-family: inherit; font-size: 0.9rem; outline: none; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.1); }
         .form-group textarea { min-height: 80px; resize: vertical; }
         .form-group small { color: #707A8A; font-size: 0.75rem; display: block; margin-top: 4px; }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: 30px; font-weight: 800; cursor: pointer; border: none; font-family: inherit; font-size: 0.9rem; width: 100%; transition: all 0.2s; }
@@ -79,7 +79,7 @@
         .dfp-call { display: inline-block; background: #0ECB81; color: #FFF; padding: 12px 30px; border-radius: 30px; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(14,203,129,0.4); }
         .dfp-body { padding: 18px; }
         .dfp-card { background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .dfp-icon { font-size: 1.4rem; width: 40px; height: 40px; background: #1E2329; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .dfp-icon { font-size: 1.4rem; width: 40px; height: 40px; background: #1E2329; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .dfp-label { color: #707A8A; font-size: 0.75rem; }
         .dfp-value { font-weight: 600; font-size: 0.9rem; }
         .dfp-section { background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; padding: 16px; margin-bottom: 10px; }
@@ -102,6 +102,17 @@
         .pending-card .info { flex: 1; min-width: 150px; }
         .pending-card .info h4 { font-size: 0.95rem; margin-bottom: 4px; }
         .pending-card .info p { color: #707A8A; font-size: 0.78rem; }
+        .tabs { display: flex; gap: 6px; margin: 20px 0; overflow-x: auto; }
+        .tab { padding: 8px 16px; border-radius: 20px; background: #1E2329; border: 1px solid #2B3139; color: #FFF; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.82rem; white-space: nowrap; }
+        .tab.active { background: #F0B90B; color: #0B0E11; border-color: #F0B90B; }
+        .chat-box { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 16px; margin-bottom: 16px; max-height: 400px; overflow-y: auto; }
+        .chat-msg { padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; max-width: 85%; font-size: 0.88rem; line-height: 1.5; word-wrap: break-word; }
+        .chat-doctor { background: #F0B90B; color: #0B0E11; margin-right: auto; }
+        .chat-admin { background: #2B3139; margin-left: auto; }
+        .chat-time { font-size: 0.68rem; opacity: 0.7; margin-top: 4px; }
+        .chat-input-row { display: flex; gap: 8px; margin-top: 12px; }
+        .chat-input-row input { flex: 1; padding: 12px; background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; color: #FFF; font-family: inherit; font-size: 0.9rem; outline: none; }
+        .chat-input-row button { padding: 12px 20px; background: #0ECB81; color: #FFF; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; font-family: inherit; }
         .site-footer { text-align: center; padding: 20px; color: #707A8A; border-top: 1px solid #1E2329; margin-top: 24px; font-size: 0.75rem; }
         .ios-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
         .ios-modal.active { display: flex; }
@@ -110,10 +121,15 @@
         .ios-modal-box p { color: #B7BDC6; font-size: 0.88rem; line-height: 1.8; margin-bottom: 8px; }
         .close-x { position: absolute; top: 10px; left: 14px; background: transparent; border: none; color: #707A8A; font-size: 1.5rem; cursor: pointer; }
         .loading { text-align: center; padding: 40px; color: #F0B90B; }
+        .img-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #F0B90B; margin: 10px auto; display: block; }
+        .file-input-label { display: block; background: #0B0E11; border: 2px dashed #2B3139; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; color: #707A8A; transition: all 0.2s; }
+        .file-input-label:hover { border-color: #F0B90B; color: #F0B90B; }
+        .file-input-label input { display: none; }
         @media (max-width: 500px) {
             .doc-card { grid-template-columns: 90px 1fr 16px; padding: 14px; gap: 12px; }
             .doc-avatar, .doc-avatar-ph { width: 90px; height: 90px; font-size: 2.1rem; }
             .doc-name { font-size: 0.98rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -141,384 +157,3 @@
         <div id="modal-content"></div>
     </div>
 </div>
-
-<script>
-/* ==========================================================
-   ⚙️ إعدادات Supabase — المفاتيح مدمجة
-   ========================================================== */
-const SUPABASE_URL = 'https://wfcizftmcclhnzgvukuy.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
-
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let currentUser = null;
-let currentDoctor = null;
-let isAdmin = false;
-
-const $ = s => document.querySelector(s);
-const esc = str => { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; };
-const go = (page, param) => { window.location.hash = param ? `#${page}/${param}` : `#${page}`; };
-
-/* ============== Router ============== */
-async function route() {
-    const hash = window.location.hash.slice(1) || 'home';
-    const [page, param] = hash.split('/');
-    const app = $('#app');
-    app.innerHTML = '<div class="loading">⏳ جارٍ التحميل...</div>';
-    
-    try {
-        if (page === 'home') await renderHome(app);
-        else if (page === 'doctor') await renderDoctor(app, param);
-        else if (page === 'login') renderLogin(app);
-        else if (page === 'register') renderRegister(app);
-        else if (page === 'doctor-dashboard') await renderDoctorDashboard(app);
-        else if (page === 'admin') await renderAdmin(app);
-        else await renderHome(app);
-    } catch (e) {
-        app.innerHTML = `<div class="container"><div class="alert alert-danger">حدث خطأ: ${esc(e.message)}</div></div>`;
-    }
-    window.scrollTo(0, 0);
-}
-window.addEventListener('hashchange', route);
-
-/* ============== المستخدم ============== */
-async function checkUser() {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    currentUser = user;
-    currentDoctor = null;
-    isAdmin = false;
-    
-    if (user) {
-        const { data: d } = await supabaseClient.from('doctors').select('*').eq('user_id', user.id).maybeSingle();
-        currentDoctor = d;
-        const { data: a } = await supabaseClient.from('admins').select('id').eq('user_id', user.id).maybeSingle();
-        isAdmin = !!a;
-    }
-    renderHeaderActions();
-}
-
-function renderHeaderActions() {
-    const a = $('#header-actions');
-    if (isAdmin) {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
-    } else if (currentUser) {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
-    } else {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
-    }
-}
-
-async function logout() {
-    await supabaseClient.auth.signOut();
-    currentUser = null; currentDoctor = null; isAdmin = false;
-    renderHeaderActions(); go('home');
-}
-
-/* ============== الرئيسية ============== */
-let searchQuery = '';
-async function renderHome(app) {
-    app.innerHTML = `
-        <section class="hero">
-            <div class="container">
-                <h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>
-                <p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>
-                <form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">
-                    <input type="text" name="q" placeholder="🔍 اسم الطبيب أو التخصص..." value="${esc(searchQuery)}">
-                    <button type="submit">بحث</button>
-                </form>
-            </div>
-        </section>
-        <div class="container">
-            <div class="section-header">
-                <h2>👨‍⚕️ الأطباء المتاحون</h2>
-                <span class="count-badge" id="doc-count">...</span>
-            </div>
-            <div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
-        </div>
-    `;
-    await loadDoctors(searchQuery);
-}
-
-function doSearch(f) { searchQuery = f.q.value.trim(); loadDoctors(searchQuery); }
-
-async function loadDoctors(query = '') {
-    const list = $('#doctors-list');
-    let q = supabaseClient.from('doctors').select('*').eq('status', 'approved').eq('deleted', false).order('created_at', { ascending: false });
-    if (query) {
-        const t = `%${query}%`;
-        q = q.or(`full_name.ilike.${t},specialty.ilike.${t},sub_specialty.ilike.${t},governorate.ilike.${t},city.ilike.${t}`);
-    }
-    const { data, error } = await q;
-    if (error) { list.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`; return; }
-    $('#doc-count').textContent = data.length;
-    if (data.length === 0) { list.innerHTML = '<div class="empty-msg">📭 لا يوجد أطباء مطابقون</div>'; return; }
-    list.innerHTML = data.map(d => `
-        <div class="doc-card" onclick="go('doctor','${d.id}')">
-            ${d.image_url ? `<img src="${esc(d.image_url)}" class="doc-avatar">` : `<div class="doc-avatar-ph">🩺</div>`}
-            <div class="doc-info">
-                <div class="doc-name">${esc(d.full_name)}</div>
-                <div class="doc-spec">${esc(d.specialty || '')}${d.sub_specialty ? ' • ' + esc(d.sub_specialty) : ''}</div>
-                <div class="doc-loc">📍 ${esc(d.governorate || '')}${d.city ? ' - ' + esc(d.city) : ''}</div>
-            </div>
-            <span class="doc-arrow">◀</span>
-        </div>
-    `).join('');
-}
-
-/* ============== صفحة الطبيب ============== */
-async function renderDoctor(app, id) {
-    const { data: d, error } = await supabaseClient.from('doctors').select('*').eq('id', id).eq('status', 'approved').eq('deleted', false).maybeSingle();
-    if (error || !d) { app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>'; return; }
-    app.innerHTML = `
-        <div class="doctor-full-page">
-            <div class="dfp-hero">
-                ${d.image_url ? `<img src="${esc(d.image_url)}" class="dfp-avatar">` : `<div class="dfp-avatar-ph">🩺</div>`}
-                <h1>${esc(d.full_name)}</h1>
-                ${d.specialty ? `<p class="dfp-spec">${esc(d.specialty)}</p>` : ''}
-                ${d.sub_specialty ? `<p class="dfp-sub">${esc(d.sub_specialty)}</p>` : ''}
-                ${d.phone1 ? `<a href="tel:${esc(d.phone1)}" class="dfp-call">📞 اتصل بالدكتور الآن</a>` : ''}
-            </div>
-            <div class="dfp-body">
-                ${d.governorate || d.city ? `<div class="dfp-card"><span class="dfp-icon">📍</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">${esc(d.governorate || '')}${d.city ? ' - ' + esc(d.city) : ''}${d.region ? ' - ' + esc(d.region) : ''}</div></div></div>` : ''}
-                ${d.address ? `<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">التفاصيل</div><div class="dfp-value">${esc(d.address)}</div></div></div>` : ''}
-                ${d.phone1 ? `<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone1)}</div></div></div>` : ''}
-                ${d.phone2 ? `<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone2)}</div></div></div>` : ''}
-                ${d.work_days ? `<div class="dfp-card"><span class="dfp-icon">🕒</span><div><div class="dfp-label">أيام العمل</div><div class="dfp-value">${esc(d.work_days)}</div></div></div>` : ''}
-                ${d.work_start || d.work_end ? `<div class="dfp-card"><span class="dfp-icon">⏰</span><div><div class="dfp-label">ساعات العمل</div><div class="dfp-value">من ${esc(d.work_start||'')} إلى ${esc(d.work_end||'')}</div></div></div>` : ''}
-                ${d.qualifications ? `<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>${esc(d.qualifications).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.certificates ? `<div class="dfp-section"><h3>📜 الشهادات</h3><p>${esc(d.certificates).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.experience ? `<div class="dfp-section"><h3>💼 الخبرات</h3><p>${esc(d.experience).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.about ? `<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p>${esc(d.about).replace(/\n/g,'<br>')}</p></div>` : ''}
-                <button onclick="go('home')" class="dfp-back">← رجوع للقائمة</button>
-            </div>
-        </div>
-    `;
-}
-
-/* ============== التسجيل ============== */
-function renderRegister(app) {
-    app.innerHTML = `
-        <div class="container">
-            <div class="form-container">
-                <h2>📝 إنشاء حساب طبيب</h2>
-                <p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>
-                <div id="reg-alert"></div>
-                <form onsubmit="event.preventDefault(); doRegister(this);">
-                    <div class="form-group"><label>👤 الاسم الكامل *</label><input type="text" name="full_name" required placeholder="د. أحمد محمد"></div>
-                    <div class="form-group"><label>📧 البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
-                    <div class="form-group"><label>🔒 كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr" placeholder="6 أحرف على الأقل"></div>
-                    <div class="form-group"><label>📱 رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr" placeholder="01xxxxxxxxx"><small>⚠️ لن يظهر للزوار — للإدارة فقط</small></div>
-                    <button type="submit" class="btn btn-success">✅ إنشاء الحساب</button>
-                </form>
-                <p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go('login')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>
-            </div>
-        </div>
-    `;
-}
-
-async function doRegister(f) {
-    const al = $('#reg-alert'); al.innerHTML = '';
-    const { data: authData, error: e1 } = await supabaseClient.auth.signUp({ email: f.email.value.trim(), password: f.password.value });
-    if (e1) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(e1.message)}</div>`; return; }
-    if (!authData.user) { al.innerHTML = `<div class="alert alert-danger">خطأ في إنشاء الحساب</div>`; return; }
-    const { error: e2 } = await supabaseClient.from('doctors').insert({
-        user_id: authData.user.id,
-        full_name: f.full_name.value.trim(),
-        email: f.email.value.trim(),
-        phone_private: f.phone_private.value.trim(),
-        status: 'pending', deleted: false
-    });
-    if (e2) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(e2.message)}</div>`; return; }
-    al.innerHTML = `<div class="alert alert-success">✅ تم إنشاء حسابك! جارٍ التحويل...</div>`;
-    setTimeout(() => go('login'), 1500);
-}
-
-/* ============== الدخول ============== */
-function renderLogin(app) {
-    app.innerHTML = `
-        <div class="container">
-            <div class="form-container">
-                <h2>🔑 تسجيل الدخول</h2>
-                <p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>
-                <div id="log-alert"></div>
-                <form onsubmit="event.preventDefault(); doLogin(this);">
-                    <div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
-                    <div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr" placeholder="********"></div>
-                    <button type="submit" class="btn btn-primary">دخول</button>
-                </form>
-                <p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go('register')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>
-            </div>
-        </div>
-    `;
-}
-
-async function doLogin(f) {
-    const al = $('#log-alert'); al.innerHTML = '';
-    const { error } = await supabaseClient.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
-    if (error) { al.innerHTML = `<div class="alert alert-danger">البريد أو كلمة المرور غير صحيحة</div>`; return; }
-    await checkUser();
-    if (isAdmin) go('admin');
-    else go('doctor-dashboard');
-}
-
-/* ============== لوحة الطبيب ============== */
-async function renderDoctorDashboard(app) {
-    if (!currentUser) { go('login'); return; }
-    await checkUser();
-    if (!currentDoctor) { app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">لا يوجد ملف لهذا الحساب</div></div>'; return; }
-    const d = currentDoctor;
-    const sm = { pending: ['⏳ قيد المراجعة','status-pending'], approved: ['✅ مقبول','status-approved'], rejected: ['❌ مرفوض','status-rejected'] };
-    const [txt, cls] = sm[d.status] || sm.pending;
-    app.innerHTML = `
-        <div class="dash-container">
-            <div class="dash-header">
-                ${d.image_url ? `<img src="${esc(d.image_url)}" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">` : `<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">🩺</div>`}
-                <div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">${esc(d.full_name)}</h2><p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p></div>
-                <span class="status-badge ${cls}">${txt}</span>
-            </div>
-            ${d.status === 'rejected' && d.rejection_reason ? `<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>` : ''}
-            <div id="dash-alert"></div>
-            <form onsubmit="event.preventDefault(); saveDoctor(this);">
-                <div class="form-section">
-                    <h3>👤 البيانات الأساسية</h3>
-                    <div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="${esc(d.full_name)}" required></div>
-                    <div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="${esc(d.specialty||'')}" placeholder="أسنان، جلدية، باطنة..."></div>
-                    <div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}" placeholder="تقويم الأسنان"></div>
-                    <div class="form-group"><label>📸 رابط الصورة</label><input type="url" name="image_url" value="${esc(d.image_url||'')}" dir="ltr" placeholder="https://..."><small>ارفع على imgbb.com والصق الرابط</small></div>
-                </div>
-                <div class="form-section">
-                    <h3>📞 أرقام التواصل</h3>
-                    <div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr" placeholder="01xxxxxxxxx"></div>
-                    <div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
-                </div>
-                <div class="form-section">
-                    <h3>📍 العنوان</h3>
-                    <div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
-                    <div class="form-group"><label>المدينة / المركز</label><input type="text" name="city" value="${esc(d.city||'')}"></div>
-                    <div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
-                    <div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
-                </div>
-                <div class="form-section">
-                    <h3>🕒 المواعيد</h3>
-                    <div class="form-group"><label>أيام العمل</label><input type="text" name="work_days" value="${esc(d.work_days||'')}" placeholder="السبت - الخميس"></div>
-                    <div class="form-group"><label>من الساعة</label><input type="text" name="work_start" value="${esc(d.work_start||'')}" placeholder="10:00 ص"></div>
-                    <div class="form-group"><label>إلى الساعة</label><input type="text" name="work_end" value="${esc(d.work_end||'')}" placeholder="8:00 م"></div>
-                </div>
-                <div class="form-section">
-                    <h3>🎓 المؤهلات والخبرات</h3>
-                    <div class="form-group"><label>المؤهلات</label><textarea name="qualifications">${esc(d.qualifications||'')}</textarea></div>
-                    <div class="form-group"><label>الشهادات</label><textarea name="certificates">${esc(d.certificates||'')}</textarea></div>
-                    <div class="form-group"><label>الخبرات</label><textarea name="experience">${esc(d.experience||'')}</textarea></div>
-                    <div class="form-group"><label>نبذة عنك</label><textarea name="about">${esc(d.about||'')}</textarea></div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>
-            </form>
-        </div>
-    `;
-}
-
-async function saveDoctor(f) {
-    const al = $('#dash-alert'); al.innerHTML = '';
-    const fields = ['full_name','specialty','sub_specialty','phone1','phone2','governorate','city','region','address','work_days','work_start','work_end','qualifications','certificates','experience','about','image_url'];
-    const u = {};
-    fields.forEach(k => { u[k] = f[k].value.trim(); });
-    u.status = 'pending';
-    const { error } = await supabaseClient.from('doctors').update(u).eq('user_id', currentUser.id);
-    if (error) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`; return; }
-    currentDoctor = { ...currentDoctor, ...u };
-    al.innerHTML = `<div class="alert alert-success">✅ تم الحفظ، بياناتك قيد المراجعة</div>`;
-}
-
-/* ============== لوحة الأدمن ============== */
-async function renderAdmin(app) {
-    if (!isAdmin) { go('home'); return; }
-    app.innerHTML = `
-        <div class="dash-container">
-            <h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
-            <div class="stats-grid">
-                <div class="stat-card"><h3>قيد المراجعة</h3><p id="st-p">...</p></div>
-                <div class="stat-card"><h3>مقبول</h3><p id="st-a">...</p></div>
-                <div class="stat-card"><h3>مرفوض</h3><p id="st-r">...</p></div>
-            </div>
-            <h2 style="color:#F0B90B;font-size:1.05rem;margin:20px 0 12px;">📋 الطلبات المعلقة</h2>
-            <div id="pending-list"><div class="loading">⏳</div></div>
-        </div>
-    `;
-    await loadAdminData();
-}
-
-async function loadAdminData() {
-    const [p, a, r] = await Promise.all([
-        supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false),
-        supabaseClient.from('doctors').select('*', { count: 'exact', head: true }).eq('status','approved').eq('deleted',false),
-        supabaseClient.from('doctors').select('*', { count: 'exact', head: true }).eq('status','rejected').eq('deleted',false)
-    ]);
-    $('#st-p').textContent = (p.data || []).length;
-    $('#st-a').textContent = a.count ?? 0;
-    $('#st-r').textContent = r.count ?? 0;
-    const list = $('#pending-list');
-    const docs = p.data || [];
-    if (docs.length === 0) { list.innerHTML = '<div class="empty-msg">لا توجد طلبات معلقة</div>'; return; }
-    list.innerHTML = docs.map(d => `
-        <div class="pending-card">
-            <div class="info">
-                <h4>${esc(d.full_name)}</h4>
-                <p>📧 ${esc(d.email)}</p>
-                <p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
-            </div>
-            <button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅ قبول</button>
-            <button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌ رفض</button>
-        </div>
-    `).join('');
-}
-
-async function approveDoc(id) {
-    await supabaseClient.from('doctors').update({ status:'approved' }).eq('id', id);
-    await loadAdminData();
-}
-
-async function rejectDoc(id) {
-    const r = prompt('سبب الرفض (اختياري):') || '';
-    await supabaseClient.from('doctors').update({ status:'rejected', rejection_reason: r }).eq('id', id);
-    await loadAdminData();
-}
-
-/* ============== PWA Install ============== */
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (!window.matchMedia('(display-mode: standalone)').matches) $('#installBtn').classList.remove('hidden');
-});
-
-function installApp() {
-    const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-    if (isIOS) {
-        showModal('<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>');
-        return;
-    }
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(({outcome}) => { if (outcome === 'accepted') $('#installBtn').classList.add('hidden'); deferredPrompt = null; });
-        return;
-    }
-    showModal('<h3>📲 تثبيت التطبيق</h3><p>1. اضغط ⋮ في Chrome</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>');
-}
-
-function showModal(html) { $('#modal-content').innerHTML = html; $('#installModal').classList.add('active'); }
-function closeModal() { $('#installModal').classList.remove('active'); }
-
-/* ============== Service Worker ============== */
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(e => console.log('SW:', e));
-}
-
-/* ============== Init ============== */
-(async function() {
-    $('#year').textContent = new Date().getFullYear();
-    await checkUser();
-    await route();
-})();
-</script>
-</body>
-</html>

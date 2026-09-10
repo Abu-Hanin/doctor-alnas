@@ -19,7 +19,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .logo{font-size:1.4rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6)}
 .pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,203,129,0.8)}70%{box-shadow:0 0 0 10px rgba(14,203,129,0)}100%{box-shadow:0 0 0 0 rgba(14,203,129,0)}}
-@keyframes prayerPulse{0%,100%{transform:scale(1);box-shadow:0 8px 30px rgba(240,185,11,0.25)}50%{transform:scale(1.03);box-shadow:0 8px 40px rgba(240,185,11,0.4)}}
+@keyframes prayerPulse{0%,100%{transform:scale(1);box-shadow:0 8px 30px rgba(240,185,11,0.25)}50%{transform:scale(1.05);box-shadow:0 8px 40px rgba(240,185,11,0.4)}}
 .header-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;position:relative}
 .btn-login{background:#F0B90B;color:#0B0E11}
@@ -50,6 +50,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .doc-spec{color:#F0B90B;font-weight:700;font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .doc-loc{color:#B7BDC6;font-size:0.78rem}
 .doc-days{color:#0ECB81;font-size:0.72rem;font-weight:700;background:rgba(14,203,129,0.1);padding:3px 8px;border-radius:8px;border:1px solid rgba(14,203,129,0.25);display:inline-block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.doc-hours{color:#F0B90B;font-size:0.72rem;font-weight:700;background:rgba(240,185,11,0.1);padding:3px 8px;border-radius:8px;border:1px solid rgba(240,185,11,0.25);display:inline-block;margin-top:3px;white-space:nowrap}
 .doc-arrow{color:#F0B90B;opacity:0.5}
 .empty-msg{text-align:center;padding:40px 20px;background:#1E2329;border:1px dashed #2B3139;border-radius:14px;color:#707A8A;font-size:0.9rem}
 .form-container{max-width:520px;margin:30px auto;background:#1E2329;border-radius:16px;border:1px solid #2B3139;padding:24px}
@@ -59,6 +60,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:0.88rem}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
 .form-group input:focus,.form-group textarea:focus{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
+.form-group input[type="time"]{cursor:pointer;color-scheme:dark;font-family:'Tajawal',sans-serif;font-size:1rem;letter-spacing:1px}
+.form-group input[type="time"]::-webkit-calendar-picker-indicator{filter:invert(1);cursor:pointer}
 .form-group textarea{min-height:80px;resize:vertical}
 .form-group small{color:#707A8A;font-size:0.75rem;display:block;margin-top:4px}
 .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:8px}
@@ -67,6 +70,13 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .day-chip.selected{background:linear-gradient(135deg,#F0B90B,#D4A309);color:#0B0E11;border-color:#F0B90B;box-shadow:0 4px 12px rgba(240,185,11,0.3)}
 .day-chip .check{position:absolute;top:4px;left:6px;font-size:0.7rem;opacity:0;transition:opacity 0.2s}
 .day-chip.selected .check{opacity:1}
+.time-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.time-box{background:#0B0E11;border:2px solid #2B3139;border-radius:14px;padding:12px;text-align:center;transition:all 0.2s}
+.time-box:focus-within{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
+.time-box .time-label{color:#707A8A;font-size:0.72rem;font-weight:600;margin-bottom:6px;display:block}
+.time-box .time-icon{font-size:1rem;margin-left:4px}
+.time-box input{padding:6px;border:none;background:transparent;font-size:1.05rem;font-weight:900;color:#F0B90B;text-align:center;width:100%;letter-spacing:1px}
+.time-box input:focus{border:none;box-shadow:none}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%;transition:all 0.2s}
 .btn-primary{background:#F0B90B;color:#0B0E11}
 .btn-success{background:#0ECB81;color:#FFF}
@@ -93,6 +103,10 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .dfp-section p{font-size:0.88rem;line-height:1.8}
 .days-display{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .day-badge{background:rgba(240,185,11,0.15);color:#F0B90B;padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;border:1px solid rgba(240,185,11,0.3)}
+.hours-display{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(14,203,129,0.15),rgba(14,203,129,0.08));color:#0ECB81;padding:8px 16px;border-radius:12px;font-size:0.85rem;font-weight:800;border:1px solid rgba(14,203,129,0.35);margin-top:10px;width:100%}
+.hours-display .clock-icon{font-size:1rem}
+.hours-display .time-range{color:#FFF;font-weight:700;direction:rtl}
+.hours-display .time-range b{color:#0ECB81}
 .dfp-back{display:block;text-align:center;background:transparent;border:1px solid #2B3139;color:#FFF;padding:12px;border-radius:10px;font-weight:700;margin-top:16px;cursor:pointer;width:100%;font-family:inherit;font-size:0.9rem}
 .dash-container{max-width:720px;margin:20px auto;padding:0 16px}
 .dash-header{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
@@ -145,11 +159,11 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 </head>
 <body>
 
-<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity 0.6s ease;">
-<div style="background:linear-gradient(135deg,#1E2329,#232830);border:2px solid #F0B90B;border-radius:20px;padding:24px 32px;text-align:center;box-shadow:0 8px 30px rgba(240,185,11,0.25);animation:prayerPulse 2s infinite;">
-<div style="font-size:2rem;margin-bottom:8px;color:#F0B90B;line-height:1;">ﷺ</div>
-<h2 style="color:#F0B90B;font-size:1.2rem;font-weight:900;margin-bottom:4px;">صلي على النبي</h2>
-<p style="color:#0ECB81;font-size:0.8rem;font-weight:600;">صلى الله عليه وسلم</p>
+<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease;">
+<div style="width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#1E2329,#232830);border:3px solid #F0B90B;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 30px rgba(240,185,11,0.35);animation:prayerPulse 1s infinite;">
+<div style="font-size:2.5rem;color:#F0B90B;line-height:1;margin-bottom:6px;">ﷺ</div>
+<h2 style="color:#F0B90B;font-size:1.15rem;font-weight:900;margin-bottom:2px;">صلي على النبي</h2>
+<p style="color:#0ECB81;font-size:0.75rem;font-weight:600;">صلى الله عليه وسلم</p>
 </div>
 </div>
 
@@ -180,8 +194,8 @@ var splash=document.getElementById('splash-prayer');
 if(splash){
 setTimeout(function(){
 splash.style.opacity='0';
-setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},700);
-},2000);
+setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},500);
+},1000);
 }
 });
 
@@ -196,11 +210,28 @@ const go=(page,param)=>{window.location.hash=param?`#${page}/${param}`:`#${page}
 
 const WEEK_DAYS=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
 
+/* ============ تحويل الوقت ============ */
+function formatTime(time24){
+if(!time24)return'';
+const parts=time24.split(':');
+if(parts.length<2)return time24;
+let h=parseInt(parts[0]);
+const m=parts[1];
+const suffix=h>=12?'م':'ص';
+h=h%12||12;
+return `${h}:${m} ${suffix}`;
+}
+
+function formatTimeRange(start,end){
+if(!start||!end)return'';
+return `من ${formatTime(start)} إلى ${formatTime(end)}`;
+}
+
 /* ============ أدوات أيام العمل ============ */
 function getSelectedDays(){
 const selected=[];
 document.querySelectorAll('.day-chip.selected').forEach(el=>{
-selected.push(el.getAttribute('data-day'));
+if(el.closest('#days-grid')||el.closest('#admin-days-grid'))selected.push(el.getAttribute('data-day'));
 });
 return selected;
 }
@@ -385,7 +416,7 @@ if(data.length===0){list.innerHTML=`<div class="empty-msg">📭 لا يوجد أ
 list.innerHTML=data.map(d=>{
 const days=parseDays(d.work_days);
 const daysText=days.length>0?days.join(' • '):'';
-const timeText=d.work_start&&d.work_end?`من ${esc(d.work_start)} إلى ${esc(d.work_end)}`:'';
+const timeText=formatTimeRange(d.work_start,d.work_end);
 return `
 <div class="doc-card" onclick="go('doctor','${d.id}')">
 ${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="doc-avatar-ph">🩺</div>`}
@@ -393,7 +424,8 @@ ${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="
 <div class="doc-name">${esc(d.full_name)}</div>
 <div class="doc-spec">${esc(d.specialty||'')}${d.sub_specialty?' • '+esc(d.sub_specialty):''}</div>
 <div class="doc-loc">📍 ${esc(d.governorate||'')}${d.city?' - '+esc(d.city):''}</div>
-${daysText?`<div class="doc-days">🕒 ${esc(daysText)}${timeText?' | '+esc(timeText):''}</div>`:''}
+${daysText?`<div class="doc-days">🗓️ ${esc(daysText)}</div>`:''}
+${timeText?`<div class="doc-hours">⏰ ${esc(timeText)}</div>`:''}
 </div>
 <span class="doc-arrow">◀</span>
 </div>`;
@@ -406,6 +438,8 @@ const{data:d,error}=await supabaseClient.from('doctors').select('*').eq('id',id)
 if(error||!d){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>';return;}
 const days=parseDays(d.work_days);
 const daysBadges=days.length>0?`<div class="days-display">${days.map(day=>`<span class="day-badge">${esc(day)}</span>`).join('')}</div>`:'';
+const timeRange=formatTimeRange(d.work_start,d.work_end);
+const hoursHtml=timeRange?`<div class="hours-display"><span class="clock-icon">⏰</span><span class="time-range">${esc(timeRange)}</span></div>`:'';
 app.innerHTML=`
 <div class="doctor-full-page">
 <div class="dfp-hero">
@@ -420,7 +454,7 @@ ${d.governorate||d.city?`<div class="dfp-card"><span class="dfp-icon">📍</span
 ${d.address?`<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">التفاصيل</div><div class="dfp-value">${esc(d.address)}</div></div></div>`:''}
 ${d.phone1?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone1)}</div></div></div>`:''}
 ${d.phone2?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone2)}</div></div></div>`:''}
-${days.length>0||d.work_start||d.work_end?`<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">🕒</span><div style="flex:1;"><div class="dfp-label">أيام وساعات العمل</div>${daysBadges}${d.work_start&&d.work_end?`<div class="dfp-value" style="margin-top:8px;color:#0ECB81;">⏰ من ${esc(d.work_start)} إلى ${esc(d.work_end)}</div>`:''}</div></div></div>`:''}
+${days.length>0?`<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">🗓️</span><div style="flex:1;width:100%;"><div class="dfp-label" style="margin-bottom:4px;">أيام وساعات العمل</div>${daysBadges}${hoursHtml}</div></div></div>`:''}
 ${d.qualifications?`<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>${esc(d.qualifications).replace(/\n/g,'<br>')}</p></div>`:''}
 ${d.certificates?`<div class="dfp-section"><h3>📜 الشهادات</h3><p>${esc(d.certificates).replace(/\n/g,'<br>')}</p></div>`:''}
 ${d.experience?`<div class="dfp-section"><h3>💼 الخبرات</h3><p>${esc(d.experience).replace(/\n/g,'<br>')}</p></div>`:''}
@@ -537,16 +571,27 @@ ${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>
 <div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
 </div>
 <div class="form-section">
-<h3>🕒 أيام وساعات العمل</h3>
+<h3>🗓️ أيام وساعات العمل</h3>
 <div class="form-group">
-<label>اختر الأيام التي تعمل فيها (يمكن اختيار أكثر من يوم)</label>
+<label>اختر الأيام التي تعمل فيها</label>
 <div class="days-grid" id="days-grid">
 ${renderDaysGrid(selectedDays)}
 </div>
 <small>اضغط على اليوم لتحديده أو إلغائه</small>
 </div>
-<div class="form-group"><label>من الساعة</label><input type="text" name="work_start" value="${esc(d.work_start||'')}" placeholder="10:00 ص"></div>
-<div class="form-group"><label>إلى الساعة</label><input type="text" name="work_end" value="${esc(d.work_end||'')}" placeholder="8:00 م"></div>
+<div class="form-group">
+<label>ساعات العمل</label>
+<div class="time-row">
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> من الساعة</span>
+<input type="time" name="work_start" value="${esc(d.work_start||'')}">
+</div>
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> إلى الساعة</span>
+<input type="time" name="work_end" value="${esc(d.work_end||'')}">
+</div>
+</div>
+</div>
 </div>
 <div class="form-section">
 <h3>🎓 المؤهلات والخبرات</h3>
@@ -641,6 +686,7 @@ c.innerHTML=`
 ${list.length===0?'<div class="empty-msg">لا توجد طلبات معلقة حالياً</div>':
 list.map(d=>{
 const days=parseDays(d.work_days);
+const timeRange=formatTimeRange(d.work_start,d.work_end);
 return `
 <div class="pending-card">
 <div style="flex-shrink:0;">
@@ -651,7 +697,8 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;bord
 <p>📧 ${esc(d.email)}</p>
 <p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
 ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
-${days.length>0?`<p style="color:#0ECB81;">🕒 ${esc(days.join(' • '))}</p>`:''}
+${days.length>0?`<p style="color:#0ECB81;">🗓️ ${esc(days.join(' • '))}</p>`:''}
+${timeRange?`<p style="color:#F0B90B;">⏰ ${esc(timeRange)}</p>`:''}
 </div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
 <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
@@ -702,8 +749,19 @@ ${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>
 ${renderDaysGrid(selectedDays)}
 </div>
 </div>
-<div class="form-group"><label>من الساعة</label><input type="text" id="e_work_start" value="${esc(d.work_start||'')}"></div>
-<div class="form-group"><label>إلى الساعة</label><input type="text" id="e_work_end" value="${esc(d.work_end||'')}"></div>
+<div class="form-group">
+<label>ساعات العمل</label>
+<div class="time-row">
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> من الساعة</span>
+<input type="time" id="e_work_start" value="${esc(d.work_start||'')}">
+</div>
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> إلى الساعة</span>
+<input type="time" id="e_work_end" value="${esc(d.work_end||'')}">
+</div>
+</div>
+</div>
 <div class="form-group"><label>المؤهلات</label><textarea id="e_qualifications">${esc(d.qualifications||'')}</textarea></div>
 <div class="form-group"><label>الشهادات</label><textarea id="e_certificates">${esc(d.certificates||'')}</textarea></div>
 <div class="form-group"><label>الخبرات</label><textarea id="e_experience">${esc(d.experience||'')}</textarea></div>
@@ -762,6 +820,7 @@ c.innerHTML=`
 ${list.length===0?'<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>':
 list.map(d=>{
 const days=parseDays(d.work_days);
+const timeRange=formatTimeRange(d.work_start,d.work_end);
 return `
 <div class="pending-card">
 <div style="flex-shrink:0;">
@@ -772,7 +831,8 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;bord
 <p>📧 ${esc(d.email)}</p>
 <p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
 ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
-${days.length>0?`<p style="color:#0ECB81;">🕒 ${esc(days.join(' • '))}</p>`:''}
+${days.length>0?`<p style="color:#0ECB81;">🗓️ ${esc(days.join(' • '))}</p>`:''}
+${timeRange?`<p style="color:#F0B90B;">⏰ ${esc(timeRange)}</p>`:''}
 </div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
 <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>

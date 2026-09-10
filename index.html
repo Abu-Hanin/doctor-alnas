@@ -59,15 +59,12 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .form-group small{color:#707A8A;font-size:0.75rem;display:block;margin-top:4px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%;transition:all 0.2s}
 .btn-primary{background:#F0B90B;color:#0B0E11}
-.btn-primary:hover{background:#D4A309}
 .btn-success{background:#0ECB81;color:#FFF}
-.btn-success:hover{background:#0AB872}
 .btn-danger{background:#F6465D;color:#FFF}
 .btn-sm{padding:6px 12px;font-size:0.75rem;width:auto}
 .alert{padding:12px 16px;border-radius:10px;margin-bottom:16px;font-weight:600;font-size:0.88rem;text-align:center}
 .alert-success{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
 .alert-danger{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
-.alert-info{background:rgba(240,185,11,0.15);color:#F0B90B;border:1px solid #F0B90B}
 .doctor-full-page{max-width:700px;margin:20px auto;background:#1E2329;border:1px solid #2B3139;border-radius:16px;overflow:hidden}
 .dfp-hero{background:linear-gradient(135deg,#1E2329,#232830);padding:30px 20px;text-align:center;border-bottom:1px solid #2B3139}
 .dfp-avatar{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;object-fit:cover;margin:0 auto 15px;display:block;box-shadow:0 0 25px rgba(240,185,11,0.4)}
@@ -94,24 +91,23 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .status-approved{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
 .status-rejected{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
-.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;transition:all 0.2s;cursor:pointer}
-.stat-card:hover{border-color:#F0B90B}
-.stat-card.active{border-color:#F0B90B;background:#232830}
+.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s}
+.stat-card:hover,.stat-card.active{border-color:#F0B90B;background:#232830}
 .stat-card h3{color:#707A8A;font-size:0.8rem;margin-bottom:4px}
 .stat-card p{font-size:1.6rem;font-weight:900;color:#F0B90B}
-.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s;position:relative}
+.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s;cursor:pointer}
 .pending-card:hover{border-color:#F0B90B}
 .pending-card .info{flex:1;min-width:150px}
-.pending-card .info h4{font-size:0.95rem;margin-bottom:4px}
+.pending-card .info h4{font-size:0.95rem;margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .pending-card .info p{color:#707A8A;font-size:0.78rem}
-.unread-dot{display:inline-block;width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;margin-right:6px;vertical-align:middle}
+.unread-dot{display:inline-block;width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
 .tabs{display:flex;gap:6px;margin:20px 0;overflow-x:auto;padding-bottom:4px}
-.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s;position:relative;display:flex;align-items:center;gap:6px}
+.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s;display:flex;align-items:center;gap:6px}
 .tab.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
 .tab .dot-badge{width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
 .tab.active .dot-badge{background:#0B0E11}
 .chat-box{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;margin-bottom:16px;min-height:300px;max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
-.chat-msg{padding:10px 14px;border-radius:12px;max-width:80%;font-size:0.88rem;line-height:1.5;word-wrap:break-word;align-self:flex-end}
+.chat-msg{padding:10px 14px;border-radius:12px;max-width:80%;font-size:0.88rem;line-height:1.5;word-wrap:break-word}
 .chat-msg.mine{background:#F0B90B;color:#0B0E11;align-self:flex-end}
 .chat-msg.them{background:#2B3139;color:#FFF;align-self:flex-start}
 .chat-time{font-size:0.68rem;opacity:0.7;margin-top:4px}
@@ -130,7 +126,9 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:20px;text-align:center;cursor:pointer;color:#707A8A;transition:all 0.2s;font-size:0.9rem}
 .file-input-label:hover{border-color:#F0B90B;color:#F0B90B}
 .file-input-label input{display:none}
-.center-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:12px}
+.center-toggle{width:100%;background:transparent;border:1px solid #2B3139;color:#F0B90B;padding:14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.92rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.center-toggle:hover{border-color:#F0B90B;background:rgba(240,185,11,0.05)}
+.center-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;transition:all 0.3s}
 .center-btn{padding:10px 8px;background:#0B0E11;border:1px solid #2B3139;border-radius:12px;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.78rem;transition:all 0.2s;text-align:center}
 .center-btn:hover{border-color:#F0B90B;color:#F0B90B}
 .center-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
@@ -171,6 +169,7 @@ const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSI
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let currentUser=null,currentDoctor=null,isAdmin=false;
 let unreadForDoctor=0,unreadForAdmin=0;
+let centersOpen=false;
 const $=s=>document.querySelector(s);
 const esc=str=>{if(!str)return'';const d=document.createElement('div');d.textContent=str;return d.innerHTML;};
 const go=(page,param)=>{window.location.hash=param?`#${page}/${param}`:`#${page}`;};
@@ -201,7 +200,6 @@ const{data:d}=await supabaseClient.from('doctors').select('*').eq('user_id',user
 currentDoctor=d;
 const{data:aList}=await supabaseClient.from('admins').select('id').eq('user_id',user.id).limit(1);
 isAdmin=aList&&aList.length>0;
-// حساب الرسائل غير المقروءة
 if(currentDoctor){
 const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
 unreadForDoctor=count||0;
@@ -214,12 +212,28 @@ unreadForAdmin=count||0;
 renderHeaderActions();
 }
 
+async function refreshUnread(){
+if(!currentUser)return;
+let changed=false;
+if(currentDoctor){
+const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
+const n=count||0;
+if(n!==unreadForDoctor){unreadForDoctor=n;changed=true;}
+}
+if(isAdmin){
+const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('sender_type','doctor').eq('read_by_admin',false);
+const n=count||0;
+if(n!==unreadForAdmin){unreadForAdmin=n;changed=true;}
+}
+if(changed)renderHeaderActions();
+}
+
 function renderHeaderActions(){
 const a=$('#header-actions');
 if(isAdmin){
-a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة${unreadForAdmin>0?`<span class="notif-dot"></span>`:''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة${unreadForAdmin>0?'<span class="notif-dot"></span>':''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
 }else if(currentUser){
-a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي${unreadForDoctor>0?`<span class="notif-dot"></span>`:''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي${unreadForDoctor>0?'<span class="notif-dot"></span>':''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
 }else{
 a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
 }
@@ -251,8 +265,10 @@ app.innerHTML=`
 
 <div class="container">
 <div class="form-section" style="padding:14px;margin-bottom:16px;">
-<h3 style="margin-bottom:12px;">📍 اختر المركز - محافظة بني سويف</h3>
-<div class="center-grid">
+<button class="center-toggle" onclick="toggleCenters()">
+📍 ${currentCityFilter?'المركز: '+currentCityFilter:'اختر المركز - محافظة بني سويف'} <span id="center-arrow">${centersOpen?'▲':'▼'}</span>
+</button>
+<div id="centers-grid" class="center-grid" style="display:${centersOpen?'grid':'none'};">
 <button class="center-btn ${currentCityFilter===''?'active':''}" onclick="filterByCity('')">🌟 الكل</button>
 ${CENTERS.map(c=>`<button class="center-btn ${currentCityFilter===c?'active':''}" onclick="filterByCity('${c}')">${c}</button>`).join('')}
 </div>
@@ -270,7 +286,20 @@ await loadDoctors(searchQuery,currentCityFilter);
 }
 
 function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery,currentCityFilter);}
-function filterByCity(c){currentCityFilter=c;renderHome($('#app'));}
+
+function toggleCenters(){
+centersOpen=!centersOpen;
+const g=$('#centers-grid');
+const a=$('#center-arrow');
+if(g){g.style.display=centersOpen?'grid':'none';}
+if(a){a.textContent=centersOpen?'▲':'▼';}
+}
+
+function filterByCity(c){
+currentCityFilter=c;
+centersOpen=false;
+renderHome($('#app'));
+}
 
 async function loadDoctors(query='',city=''){
 const list=$('#doctors-list');
@@ -378,7 +407,7 @@ await checkUser();
 if(isAdmin)go('admin');else go('doctor-dashboard');
 }
 
-/* ============ لوحة الطبيب - صفحتين مستقلتين ============ */
+/* ============ لوحة الطبيب ============ */
 let doctorPage='profile';
 
 async function renderDoctorDashboard(app){
@@ -388,7 +417,6 @@ if(!currentDoctor){app.innerHTML='<div class="container" style="padding:40px;"><
 const d=currentDoctor;
 const sm={pending:['⏳ قيد المراجعة','status-pending'],approved:['✅ مقبول','status-approved'],rejected:['❌ مرفوض','status-rejected']};
 const[txt,cls]=sm[d.status]||sm.pending;
-
 app.innerHTML=`
 <div class="dash-container">
 <div class="dash-header">
@@ -403,7 +431,6 @@ ${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">س�
 </div>
 <div id="doctor-page-content"></div>
 </div>`;
-
 if(doctorPage==='profile')await renderDoctorProfilePage();
 else await renderDoctorMessagesPage();
 }
@@ -438,7 +465,7 @@ ${d.image_url?`<img src="${esc(d.image_url)}" class="img-preview" id="current-im
 <div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
 <div class="form-group"><label>المركز / المدينة</label><select name="city">
 <option value="">اختر المركز</option>
-${['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'].map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
 </select></div>
 <div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
 <div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
@@ -463,9 +490,9 @@ ${['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سم
 async function renderDoctorMessagesPage(){
 const c=$('#doctor-page-content');
 const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:true});
-// علّم الرسائل كمقروءة
 await supabaseClient.from('messages').update({read_by_doctor:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
 unreadForDoctor=0;
+renderHeaderActions();
 c.innerHTML=`
 <div class="chat-box" id="doctor-chat">
 ${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد<br><small>اكتب رسالتك للإدارة وسيتم الرد عليك</small></p>':
@@ -536,7 +563,7 @@ input.value='';
 await renderDoctorMessagesPage();
 }
 
-/* ============ لوحة الأدمن - 3 صفحات ============ */
+/* ============ لوحة الأدمن ============ */
 let adminPage='requests';
 let adminFilter='pending';
 
@@ -579,9 +606,9 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;bord
 ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 </div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
-<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
-<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅ قبول</button>
-<button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌ رفض</button>
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+<button class="btn btn-sm btn-success" onclick="event.stopPropagation();approveDoc('${d.id}')">✅ قبول</button>
+<button class="btn btn-sm btn-danger" onclick="event.stopPropagation();rejectDoc('${d.id}')">❌ رفض</button>
 </div>
 </div>`).join('')}`;
 }
@@ -608,8 +635,8 @@ $('#admin-page-content').innerHTML=`
 <div class="form-section">
 <h3>👤 تعديل بيانات الطبيب</h3>
 <div class="form-group"><label>الاسم</label><input type="text" id="e_full_name" value="${esc(d.full_name||'')}"></div>
-<div class="form-group"><label>البريد (للقراءة فقط)</label><input type="email" value="${esc(d.email||'')}" disabled></div>
-<div class="form-group"><label>الهاتف الخاص (للإدارة)</label><input type="tel" id="e_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
+<div class="form-group"><label>البريد</label><input type="email" value="${esc(d.email||'')}" disabled></div>
+<div class="form-group"><label>الهاتف الخاص</label><input type="tel" id="e_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
 <div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="e_specialty" value="${esc(d.specialty||'')}"></div>
 <div class="form-group"><label>التخصص الدقيق</label><input type="text" id="e_sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
 <div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="e_phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
@@ -617,7 +644,7 @@ $('#admin-page-content').innerHTML=`
 <div class="form-group"><label>المحافظة</label><input type="text" id="e_governorate" value="${esc(d.governorate||'')}"></div>
 <div class="form-group"><label>المركز</label><select id="e_city">
 <option value="">اختر</option>
-${['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'].map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
 </select></div>
 <div class="form-group"><label>المنطقة</label><input type="text" id="e_region" value="${esc(d.region||'')}"></div>
 <div class="form-group"><label>العنوان</label><textarea id="e_address">${esc(d.address||'')}</textarea></div>
@@ -670,17 +697,16 @@ const grouped={};
 (messages||[]).forEach(m=>{if(!grouped[m.doctor_id])grouped[m.doctor_id]=[];grouped[m.doctor_id].push(m);});
 const chatList=Object.keys(grouped).map(id=>{
 const msgs=grouped[id];
-const unreadCount=msgs.filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length;
-return{doctorId:id,doctor:doctorMap[id]||{full_name:'غير معروف'},last:msgs[0],unread:unreadCount};
+const unread=msgs.filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length;
+return{doctorId:id,doctor:doctorMap[id]||{full_name:'غير معروف'},last:msgs[0],unread};
 }).sort((a,b)=>b.unread-a.unread);
-
 c.innerHTML=`
 <h3 style="color:#F0B90B;margin:16px 0;">💬 المحادثات (${chatList.length})</h3>
 ${chatList.length===0?'<div class="empty-msg">لا توجد رسائل بعد</div>':
 chatList.map(x=>`
-<div class="pending-card" onclick="openAdminChat('${x.doctorId}')" style="cursor:pointer;">
+<div class="pending-card" onclick="openAdminChat('${x.doctorId}')">
 <div class="info">
-<h4>${x.unread>0?'<span class="unread-dot"></span>':''}${esc(x.doctor.full_name)}</h4>
+<h4>${x.unread>0?'<span class="unread-dot"></span>':''} ${esc(x.doctor.full_name)}</h4>
 <p>${esc(x.last.content.substring(0,60))}${x.last.content.length>60?'...':''}</p>
 <p style="color:#707A8A;font-size:0.7rem;">${new Date(x.last.created_at).toLocaleString('ar-EG')}</p>
 </div>
@@ -691,9 +717,8 @@ chatList.map(x=>`
 async function openAdminChat(doctorId){
 const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',doctorId).single();
 const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',doctorId).order('created_at',{ascending:true});
-// علّم كمقروء
 await supabaseClient.from('messages').update({read_by_admin:true}).eq('doctor_id',doctorId).eq('sender_type','doctor').eq('read_by_admin',false);
-unreadForAdmin=Math.max(0,unreadForAdmin-(msgs||[]).filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length);
+await refreshUnread();
 $('#admin-page-content').innerHTML=`
 <button onclick="renderAdminMessagesPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع للمحادثات</button>
 <div class="dash-header">
@@ -755,9 +780,9 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;bord
 ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 </div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
-<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
-<button class="btn btn-sm btn-success" onclick="openAdminChat('${d.id}')">💬 رسالة</button>
-${d.status==='pending'?`<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅</button><button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌</button>`:''}
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+<button class="btn btn-sm btn-success" onclick="event.stopPropagation();openAdminChat('${d.id}')">💬 رسالة</button>
+${d.status==='pending'?`<button class="btn btn-sm btn-success" onclick="event.stopPropagation();approveDoc('${d.id}')">✅</button><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();rejectDoc('${d.id}')">❌</button>`:''}
 </div>
 </div>`).join('')}`;
 }
@@ -788,6 +813,8 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').cat
 $('#year').textContent=new Date().getFullYear();
 await checkUser();
 await route();
+// تحديث تلقائي للنقطة الخضراء كل 15 ثانية
+setInterval(refreshUnread,15000);
 })();
 </script>
 </body>

@@ -156,13 +156,33 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 </head>
 <body>
 
-<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity 0.5s ease;">
-<div style="width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,#1E2329,#232830);border:3px solid #F0B90B;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 30px rgba(240,185,11,0.35);animation:prayerPulse 1s infinite;">
-<div style="font-size:2.5rem;color:#F0B90B;line-height:1;margin-bottom:6px;">ﷺ</div>
-<h2 style="color:#F0B90B;font-size:1.15rem;font-weight:900;margin-bottom:2px;">صلي على النبي</h2>
-<p style="color:#0ECB81;font-size:0.75rem;font-weight:600;">صلى الله عليه وسلم</p>
+<!-- شاشة "صلي على النبي" -->
+<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;">
+<div style="width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,#1E2329,#232830);border:3px solid #F0B90B;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 30px rgba(240,185,11,0.35);animation:prayerPulse 1s infinite;">
+<div style="font-size:2.2rem;color:#F0B90B;line-height:1;margin-bottom:6px;">ﷺ</div>
+<h2 style="color:#F0B90B;font-size:1.05rem;font-weight:900;margin-bottom:2px;">صلي على النبي</h2>
+<p style="color:#0ECB81;font-size:0.72rem;font-weight:600;">صلى الله عليه وسلم</p>
 </div>
 </div>
+
+<!-- السكربت الخاص بإخفاء شاشة صلي على النبي - يشتغل فوراً -->
+<script>
+(function(){
+function removeSplash(){
+var s=document.getElementById('splash-prayer');
+if(s){
+s.style.opacity='0';
+setTimeout(function(){
+if(s && s.parentNode)s.parentNode.removeChild(s);
+},500);
+}
+}
+// المحاولة 1: بعد 1 ثانية مباشرة (يعمل حتى لو الصفحة مش محملة بالكامل)
+setTimeout(removeSplash,1000);
+// المحاولة 2: كضمان إضافي بعد 2.5 ثانية
+setTimeout(removeSplash,2500);
+})();
+</script>
 
 <header class="site-header">
 <div class="container">
@@ -186,16 +206,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 </div>
 
 <script>
-window.addEventListener('load',function(){
-var splash=document.getElementById('splash-prayer');
-if(splash){
-setTimeout(function(){
-splash.style.opacity='0';
-setTimeout(function(){if(splash.parentNode)splash.parentNode.removeChild(splash);},500);
-},1000);
-}
-});
-
 const SUPABASE_URL='https://wfcizftmcclhnzgvukuy.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
@@ -207,7 +217,6 @@ const go=(page,param)=>{window.location.hash=param?`#${page}/${param}`:`#${page}
 
 const WEEK_DAYS=['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
 
-/* ============ تحويل الوقت ============ */
 function formatTime(time24){
 if(!time24)return'';
 const parts=time24.split(':');
@@ -224,7 +233,6 @@ if(!start||!end)return'';
 return `من ${formatTime(start)} إلى ${formatTime(end)}`;
 }
 
-/* ============ تحويل تلقائي للوقت ============ */
 function autoFormatTime(input){
 let val=input.value.trim();
 if(!val)return;
@@ -254,7 +262,6 @@ return String(h).padStart(2,'0')+':'+m;
 return v;
 }
 
-/* ============ أدوات أيام العمل ============ */
 function getSelectedDays(){
 const selected=[];
 document.querySelectorAll('.day-chip.selected').forEach(el=>{
@@ -263,9 +270,7 @@ if(el.closest('#days-grid')||el.closest('#admin-days-grid'))selected.push(el.get
 return selected;
 }
 
-function toggleDay(el){
-el.classList.toggle('selected');
-}
+function toggleDay(el){el.classList.toggle('selected');}
 
 function parseDays(str){
 if(!str)return[];
@@ -279,7 +284,6 @@ return `<div class="day-chip ${isSelected?'selected':''}" data-day="${day}" oncl
 }).join('');
 }
 
-/* ============ Router ============ */
 async function route(){
 const hash=window.location.hash.slice(1)||'home';
 const[page,param]=hash.split('/');
@@ -293,4 +297,599 @@ else if(page==='register')renderRegister(app);
 else if(page==='doctor-dashboard')await renderDoctorDashboard(app);
 else if(page==='admin')await renderAdmin(app);
 else await renderHome(app);
-}catch(e){app.innerHTML=`<div class="container"><div clas
+}catch(e){app.innerHTML=`<div class="container"><div class="alert alert-danger">خطأ: ${esc(e.message)}</div></div>`;}
+window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);
+
+async function checkUser(){
+const{data:{user}}=await supabaseClient.auth.getUser();
+currentUser=user;currentDoctor=null;isAdmin=false;
+if(user){
+const{data:d}=await supabaseClient.from('doctors').select('*').eq('user_id',user.id).maybeSingle();
+currentDoctor=d;
+const{data:aList}=await supabaseClient.from('admins').select('id').eq('user_id',user.id).limit(1);
+isAdmin=aList&&aList.length>0;
+}
+renderHeaderActions();
+}
+
+function renderHeaderActions(){
+const a=$('#header-actions');
+if(isAdmin){
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+}else if(currentUser){
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+}else{
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
+}
+}
+
+function contactSupport(){
+const phone='201154846407';
+const msg=encodeURIComponent('مرحباً، أحتاج مساعدة بخصوص حسابي في دكتور الناس');
+window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
+}
+
+async function logout(){
+await supabaseClient.auth.signOut();
+currentUser=null;currentDoctor=null;isAdmin=false;
+renderHeaderActions();go('home');
+}
+
+async function loadVisitCounter(){
+try{
+const counted=sessionStorage.getItem('visit_counted');
+let newCount=null;
+if(!counted){
+try{
+const{data,error}=await supabaseClient.rpc('increment_visits');
+if(!error&&data!==null&&data!==undefined){newCount=data;sessionStorage.setItem('visit_counted','1');}
+}catch(e){}
+}
+if(newCount===null){
+const{data,error}=await supabaseClient.from('site_stats').select('total_visits').eq('id',1).maybeSingle();
+if(!error&&data){newCount=data.total_visits;}
+}
+if(newCount!==null){
+const el=document.getElementById('visits-number');
+if(el){animateNumber(el,newCount);}
+}else{
+const el=document.getElementById('visits-number');
+if(el){el.parentElement.style.display='none';}
+}
+}catch(e){}
+}
+
+function animateNumber(el,target){
+const start=Math.max(0,target-20);
+const duration=1200;
+const t0=performance.now();
+function tick(now){
+const elapsed=now-t0;
+const p=Math.min(elapsed/duration,1);
+const eased=1-Math.pow(1-p,3);
+const current=Math.floor(start+(target-start)*eased);
+el.textContent=current.toLocaleString('en-US');
+if(p<1)requestAnimationFrame(tick);
+else el.textContent=target.toLocaleString('en-US');
+}
+requestAnimationFrame(tick);
+}
+
+let searchQuery='';
+let currentCityFilter='';
+const CENTERS=['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'];
+
+async function renderHome(app){
+app.innerHTML=`
+<section class="hero">
+<div class="container">
+<h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>
+<p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>
+<div class="visit-counter"><span class="visit-dot"></span><span id="visits-number">...</span> زيارة</div>
+<form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">
+<input type="text" name="q" placeholder="🔍 اسم الطبيب أو التخصص..." value="${esc(searchQuery)}">
+<button type="submit">بحث</button>
+</form>
+</div>
+</section>
+
+<div class="container">
+<div class="form-section" style="padding:14px;margin-bottom:16px;">
+<button class="center-toggle" onclick="toggleCenters()">
+📍 ${currentCityFilter?'المركز: '+currentCityFilter:'اختر المركز - محافظة بني سويف'} <span id="center-arrow">${centersOpen?'▲':'▼'}</span>
+</button>
+<div id="centers-grid" class="center-grid" style="display:${centersOpen?'grid':'none'};">
+<button class="center-btn ${currentCityFilter===''?'active':''}" onclick="filterByCity('')">🌟 الكل</button>
+${CENTERS.map(c=>`<button class="center-btn ${currentCityFilter===c?'active':''}" onclick="filterByCity('${c}')">${c}</button>`).join('')}
+</div>
+</div>
+</div>
+
+<div class="container">
+<div class="section-header">
+<h2>👨‍⚕️ الأطباء${currentCityFilter?' - '+esc(currentCityFilter):''}</h2>
+<span class="count-badge" id="doc-count">...</span>
+</div>
+<div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
+</div>`;
+await loadDoctors(searchQuery,currentCityFilter);
+await loadVisitCounter();
+}
+
+function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery,currentCityFilter);}
+
+function toggleCenters(){
+centersOpen=!centersOpen;
+const g=$('#centers-grid');
+const a=$('#center-arrow');
+if(g){g.style.display=centersOpen?'grid':'none';}
+if(a){a.textContent=centersOpen?'▲':'▼';}
+}
+
+function filterByCity(c){
+currentCityFilter=c;
+centersOpen=false;
+renderHome($('#app'));
+}
+
+async function loadDoctors(query='',city=''){
+const list=$('#doctors-list');
+let q=supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false).order('created_at',{ascending:false});
+if(query){const t=`%${query}%`;q=q.or(`full_name.ilike.${t},specialty.ilike.${t},sub_specialty.ilike.${t},governorate.ilike.${t},city.ilike.${t}`);}
+if(city){q=q.ilike('city',`%${city}%`);}
+const{data,error}=await q;
+if(error){list.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+$('#doc-count').textContent=data.length;
+if(data.length===0){list.innerHTML=`<div class="empty-msg">📭 لا يوجد أطباء مطابقون${city?' في '+esc(city):''}</div>`;return;}
+list.innerHTML=data.map(d=>`
+<div class="doc-card" onclick="go('doctor','${d.id}')">
+${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="doc-avatar-ph">🩺</div>`}
+<div class="doc-info">
+<div class="doc-name">${esc(d.full_name)}</div>
+<div class="doc-spec">${esc(d.specialty||'')}${d.sub_specialty?' • '+esc(d.sub_specialty):''}</div>
+<div class="doc-loc">📍 ${esc(d.governorate||'')}${d.city?' - '+esc(d.city):''}</div>
+</div>
+<span class="doc-arrow">◀</span>
+</div>`).join('');
+}
+
+async function renderDoctor(app,id){
+const{data:d,error}=await supabaseClient.from('doctors').select('*').eq('id',id).eq('status','approved').eq('deleted',false).maybeSingle();
+if(error||!d){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>';return;}
+const days=parseDays(d.work_days);
+const daysBadges=days.length>0?`<div class="days-display">${days.map(day=>`<span class="day-badge">${esc(day)}</span>`).join('')}</div>`:'';
+const timeRange=formatTimeRange(d.work_start,d.work_end);
+const hoursHtml=timeRange?`<div class="hours-display"><span class="clock-icon">⏰</span><span class="time-range">${esc(timeRange)}</span></div>`:'';
+app.innerHTML=`
+<div class="doctor-full-page">
+<div class="dfp-hero">
+${d.image_url?`<img src="${esc(d.image_url)}" class="dfp-avatar">`:`<div class="dfp-avatar-ph">🩺</div>`}
+<h1>${esc(d.full_name)}</h1>
+${d.specialty?`<p class="dfp-spec">${esc(d.specialty)}</p>`:''}
+${d.sub_specialty?`<p class="dfp-sub">${esc(d.sub_specialty)}</p>`:''}
+${d.phone1?`<a href="tel:${esc(d.phone1)}" class="dfp-call">📞 اتصل بالدكتور الآن</a>`:''}
+</div>
+<div class="dfp-body">
+${d.governorate||d.city?`<div class="dfp-card"><span class="dfp-icon">📍</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">${esc(d.governorate||'')}${d.city?' - '+esc(d.city):''}${d.region?' - '+esc(d.region):''}</div></div></div>`:''}
+${d.address?`<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">التفاصيل</div><div class="dfp-value">${esc(d.address)}</div></div></div>`:''}
+${d.phone1?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone1)}</div></div></div>`:''}
+${d.phone2?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone2)}</div></div></div>`:''}
+${days.length>0?`<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">🗓️</span><div style="flex:1;width:100%;"><div class="dfp-label" style="margin-bottom:4px;">أيام وساعات العمل</div>${daysBadges}${hoursHtml}</div></div></div>`:''}
+${d.qualifications?`<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>${esc(d.qualifications).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.certificates?`<div class="dfp-section"><h3>📜 الشهادات</h3><p>${esc(d.certificates).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.experience?`<div class="dfp-section"><h3>💼 الخبرات</h3><p>${esc(d.experience).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.about?`<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p>${esc(d.about).replace(/\n/g,'<br>')}</p></div>`:''}
+<button onclick="go('home')" class="dfp-back">← رجوع للقائمة</button>
+</div>
+</div>`;
+}
+
+function renderRegister(app){
+app.innerHTML=`
+<div class="container">
+<div class="form-container">
+<h2>📝 إنشاء حساب طبيب</h2>
+<p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>
+<div id="reg-alert"></div>
+<form onsubmit="event.preventDefault(); doRegister(this);">
+<div class="form-group"><label>👤 الاسم الكامل *</label><input type="text" name="full_name" required placeholder="د. أحمد محمد"></div>
+<div class="form-group"><label>📧 البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
+<div class="form-group"><label>🔒 كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr" placeholder="6 أحرف على الأقل"></div>
+<div class="form-group"><label>📱 رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr" placeholder="01xxxxxxxxx"><small>⚠️ لن يظهر للزوار — للإدارة فقط</small></div>
+<button type="submit" class="btn btn-success">✅ إنشاء الحساب</button>
+</form>
+<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go('login')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>
+</div>
+</div>`;
+}
+
+async function doRegister(f){
+const al=$('#reg-alert');al.innerHTML='';
+const{data:authData,error:e1}=await supabaseClient.auth.signUp({email:f.email.value.trim(),password:f.password.value});
+if(e1){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e1.message)}</div>`;return;}
+if(!authData.user){al.innerHTML=`<div class="alert alert-danger">خطأ</div>`;return;}
+const{error:e2}=await supabaseClient.from('doctors').insert({user_id:authData.user.id,full_name:f.full_name.value.trim(),email:f.email.value.trim(),phone_private:f.phone_private.value.trim(),status:'pending',deleted:false});
+if(e2){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e2.message)}</div>`;return;}
+al.innerHTML=`<div class="alert alert-success">✅ تم إنشاء حسابك! جارٍ التحويل...</div>`;
+setTimeout(()=>go('login'),1500);
+}
+
+function renderLogin(app){
+app.innerHTML=`
+<div class="container">
+<div class="form-container">
+<h2>🔑 تسجيل الدخول</h2>
+<p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>
+<div id="log-alert"></div>
+<form onsubmit="event.preventDefault(); doLogin(this);">
+<div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr"></div>
+<div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr"></div>
+<button type="submit" class="btn btn-primary">دخول</button>
+</form>
+<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go('register')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>
+</div>
+</div>`;
+}
+
+async function doLogin(f){
+const al=$('#log-alert');al.innerHTML='';
+const{error}=await supabaseClient.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
+if(error){al.innerHTML=`<div class="alert alert-danger">البريد أو كلمة المرور غير صحيحة</div>`;return;}
+await checkUser();
+if(isAdmin)go('admin');else go('doctor-dashboard');
+}
+
+async function renderDoctorDashboard(app){
+if(!currentUser){go('login');return;}
+await checkUser();
+if(!currentDoctor){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">لا يوجد ملف لهذا الحساب</div></div>';return;}
+const d=currentDoctor;
+const sm={pending:['⏳ قيد المراجعة','status-pending'],approved:['✅ مقبول','status-approved'],rejected:['❌ مرفوض','status-rejected']};
+const[txt,cls]=sm[d.status]||sm.pending;
+const selectedDays=parseDays(d.work_days);
+app.innerHTML=`
+<div class="dash-container">
+<div class="dash-header">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">`:`<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">🩺</div>`}
+<div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">${esc(d.full_name)}</h2><p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p></div>
+<span class="status-badge ${cls}">${txt}</span>
+</div>
+${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>`:''}
+<div class="tabs">
+<button class="tab active">📄 الملف الشخصي</button>
+<button class="tab support-btn" onclick="contactSupport()">💚 تواصل مع الدعم</button>
+</div>
+<div id="dash-alert"></div>
+<form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">
+<div class="form-section">
+<h3>👤 البيانات الأساسية</h3>
+<div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="${esc(d.full_name)}" required></div>
+<div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="${esc(d.specialty||'')}" placeholder="أسنان، جلدية، باطنة..."></div>
+<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
+<div class="form-group">
+<label>📸 الصورة الشخصية</label>
+${d.image_url?`<img src="${esc(d.image_url)}" class="img-preview" id="current-img">`:''}
+<label class="file-input-label">📁 اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);"></label>
+<small>JPG، PNG، WebP — الحد الأقصى 5 MB</small>
+</div>
+</div>
+<div class="form-section">
+<h3>📞 أرقام التواصل</h3>
+<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
+<div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
+</div>
+<div class="form-section">
+<h3>📍 العنوان</h3>
+<div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
+<div class="form-group"><label>المركز / المدينة</label><select name="city">
+<option value="">اختر المركز</option>
+${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+</select></div>
+<div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
+<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
+</div>
+<div class="form-section">
+<h3>🗓️ أيام وساعات العمل</h3>
+<div class="form-group">
+<label>اختر الأيام التي تعمل فيها</label>
+<div class="days-grid" id="days-grid">
+${renderDaysGrid(selectedDays)}
+</div>
+<small>اضغط على اليوم لتحديده أو إلغائه</small>
+</div>
+<div class="form-group">
+<label>ساعات العمل</label>
+<div class="time-row">
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> من الساعة</span>
+<input type="text" name="work_start" value="${esc(d.work_start||'')}" placeholder="مثال: 10:00" inputmode="numeric" onblur="autoFormatTime(this)">
+</div>
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> إلى الساعة</span>
+<input type="text" name="work_end" value="${esc(d.work_end||'')}" placeholder="مثال: 20:00" inputmode="numeric" onblur="autoFormatTime(this)">
+</div>
+</div>
+<small>اكتب الساعة (مثال: 10:00) — سيتم التنسيق تلقائياً</small>
+</div>
+</div>
+<div class="form-section">
+<h3>🎓 المؤهلات والخبرات</h3>
+<div class="form-group"><label>المؤهلات</label><textarea name="qualifications">${esc(d.qualifications||'')}</textarea></div>
+<div class="form-group"><label>الشهادات</label><textarea name="certificates">${esc(d.certificates||'')}</textarea></div>
+<div class="form-group"><label>الخبرات</label><textarea name="experience">${esc(d.experience||'')}</textarea></div>
+<div class="form-group"><label>نبذة عنك</label><textarea name="about">${esc(d.about||'')}</textarea></div>
+</div>
+<button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>
+</form>
+</div>`;
+}
+
+function previewImage(input){
+if(input.files&&input.files[0]){
+const reader=new FileReader();
+reader.onload=e=>{
+let preview=$('#current-img');
+if(preview){preview.src=e.target.result;}
+else{
+preview=document.createElement('img');
+preview.id='current-img';
+preview.className='img-preview';
+preview.src=e.target.result;
+input.parentNode.parentNode.insertBefore(preview,input.parentNode);
+}
+};
+reader.readAsDataURL(input.files[0]);
+}
+}
+
+async function saveDoctor(f){
+const al=$('#dash-alert');al.innerHTML='<div class="loading">⏳ جارٍ الحفظ...</div>';
+const selectedDays=getSelectedDays();
+if(selectedDays.length===0){
+al.innerHTML=`<div class="alert alert-danger">⚠️ يرجى اختيار يوم عمل واحد على الأقل</div>`;
+window.scrollTo({top:0,behavior:'smooth'});
+return;
+}
+let imageUrl=currentDoctor.image_url||'';
+const fileInput=f.image_file;
+if(fileInput&&fileInput.files&&fileInput.files[0]){
+const file=fileInput.files[0];
+const ext=file.name.split('.').pop().toLowerCase();
+const fileName=`doctor_${currentUser.id}_${Date.now()}.${ext}`;
+const{error:upErr}=await supabaseClient.storage.from('doctor-images').upload(fileName,file,{contentType:file.type,upsert:true});
+if(upErr){al.innerHTML=`<div class="alert alert-danger">خطأ رفع الصورة: ${esc(upErr.message)}</div>`;return;}
+const{data:urlData}=supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
+imageUrl=urlData.publicUrl;
+}
+const fields=['full_name','specialty','sub_specialty','phone1','phone2','governorate','city','region','address','qualifications','certificates','experience','about'];
+const u={};
+fields.forEach(k=>{u[k]=f[k].value.trim();});
+u.work_days=selectedDays.join(',');
+u.work_start=normalizeTimeForSave(f.work_start.value);
+u.work_end=normalizeTimeForSave(f.work_end.value);
+u.image_url=imageUrl;
+u.status='pending';
+const{error}=await supabaseClient.from('doctors').update(u).eq('user_id',currentUser.id);
+if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+currentDoctor={...currentDoctor,...u};
+al.innerHTML=`<div class="alert alert-success">✅ تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة من الإدارة.</div>`;
+window.scrollTo({top:0,behavior:'smooth'});
+}
+
+let adminPage='requests';
+let adminFilter='pending';
+
+async function renderAdmin(app){
+if(!isAdmin){go('home');return;}
+await checkUser();
+app.innerHTML=`
+<div class="dash-container">
+<h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
+<div class="tabs">
+<button class="tab ${adminPage==='requests'?'active':''}" onclick="setAdminPage('requests')">📋 الطلبات</button>
+<button class="tab ${adminPage==='doctors'?'active':''}" onclick="setAdminPage('doctors')">👥 الأطباء</button>
+</div>
+<div id="admin-page-content"></div>
+</div>`;
+if(adminPage==='requests')await renderAdminRequestsPage();
+else await renderAdminDoctorsPage();
+}
+
+function setAdminPage(p){adminPage=p;renderAdmin($('#app'));}
+
+async function renderAdminRequestsPage(){
+const c=$('#admin-page-content');
+const{data:pending}=await supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false).order('created_at',{ascending:false});
+const list=pending||[];
+c.innerHTML=`
+<h3 style="color:#F0B90B;margin:16px 0;">📋 الطلبات المعلقة (${list.length})</h3>
+${list.length===0?'<div class="empty-msg">لا توجد طلبات معلقة حالياً</div>':
+list.map(d=>{
+const days=parseDays(d.work_days);
+const timeRange=formatTimeRange(d.work_start,d.work_end);
+return `
+<div class="pending-card">
+<div style="flex-shrink:0;">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
+</div>
+<div class="info">
+<h4>${esc(d.full_name)}</h4>
+<p>📧 ${esc(d.email)}</p>
+<p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
+${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
+${days.length>0?`<p style="color:#0ECB81;">🗓️ ${esc(days.join(' • '))}</p>`:''}
+${timeRange?`<p style="color:#F0B90B;">⏰ ${esc(timeRange)}</p>`:''}
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+<button class="btn btn-sm btn-success" onclick="event.stopPropagation();approveDoc('${d.id}')">✅ قبول</button>
+<button class="btn btn-sm btn-danger" onclick="event.stopPropagation();rejectDoc('${d.id}')">❌ رفض</button>
+</div>
+</div>`;
+}).join('')}`;
+}
+
+async function approveDoc(id){
+await supabaseClient.from('doctors').update({status:'approved'}).eq('id',id);
+await renderAdminRequestsPage();
+}
+
+async function rejectDoc(id){
+const r=prompt('سبب الرفض:')||'';
+await supabaseClient.from('doctors').update({status:'rejected',rejection_reason:r}).eq('id',id);
+await renderAdminRequestsPage();
+}
+
+async function viewDoctorProfile(id){
+const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',id).single();
+if(!d)return;
+const selectedDays=parseDays(d.work_days);
+$('#admin-page-content').innerHTML=`
+<button onclick="renderAdminRequestsPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع</button>
+<div id="edit-alert"></div>
+<div class="form-section">
+<h3>👤 تعديل بيانات الطبيب</h3>
+<div class="form-group"><label>الاسم</label><input type="text" id="e_full_name" value="${esc(d.full_name||'')}"></div>
+<div class="form-group"><label>البريد</label><input type="email" value="${esc(d.email||'')}" disabled></div>
+<div class="form-group"><label>الهاتف الخاص</label><input type="tel" id="e_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
+<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="e_specialty" value="${esc(d.specialty||'')}"></div>
+<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="e_sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
+<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="e_phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
+<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="e_phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
+<div class="form-group"><label>المحافظة</label><input type="text" id="e_governorate" value="${esc(d.governorate||'')}"></div>
+<div class="form-group"><label>المركز</label><select id="e_city">
+<option value="">اختر</option>
+${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+</select></div>
+<div class="form-group"><label>المنطقة</label><input type="text" id="e_region" value="${esc(d.region||'')}"></div>
+<div class="form-group"><label>العنوان</label><textarea id="e_address">${esc(d.address||'')}</textarea></div>
+<div class="form-group">
+<label>أيام العمل</label>
+<div class="days-grid" id="admin-days-grid">
+${renderDaysGrid(selectedDays)}
+</div>
+</div>
+<div class="form-group">
+<label>ساعات العمل</label>
+<div class="time-row">
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> من الساعة</span>
+<input type="text" id="e_work_start" value="${esc(d.work_start||'')}" placeholder="10:00" inputmode="numeric" onblur="autoFormatTime(this)">
+</div>
+<div class="time-box">
+<span class="time-label"><span class="time-icon">🕐</span> إلى الساعة</span>
+<input type="text" id="e_work_end" value="${esc(d.work_end||'')}" placeholder="20:00" inputmode="numeric" onblur="autoFormatTime(this)">
+</div>
+</div>
+</div>
+<div class="form-group"><label>المؤهلات</label><textarea id="e_qualifications">${esc(d.qualifications||'')}</textarea></div>
+<div class="form-group"><label>الشهادات</label><textarea id="e_certificates">${esc(d.certificates||'')}</textarea></div>
+<div class="form-group"><label>الخبرات</label><textarea id="e_experience">${esc(d.experience||'')}</textarea></div>
+<div class="form-group"><label>نبذة</label><textarea id="e_about">${esc(d.about||'')}</textarea></div>
+</div>
+<button onclick="adminSaveDoctor('${d.id}')" class="btn btn-primary" style="margin-bottom:10px;">💾 حفظ التعديلات</button>
+<button onclick="approveDoc('${d.id}')" class="btn btn-success" style="margin-bottom:10px;">✅ قبول</button>
+<button onclick="rejectDoc('${d.id}')" class="btn btn-danger" style="margin-bottom:20px;">❌ رفض</button>`;
+}
+
+async function adminSaveDoctor(id){
+const selectedDays=[];
+document.querySelectorAll('#admin-days-grid .day-chip.selected').forEach(el=>{
+selectedDays.push(el.getAttribute('data-day'));
+});
+const u={
+full_name:$('#e_full_name').value.trim(),
+phone_private:$('#e_phone_private').value.trim(),
+specialty:$('#e_specialty').value.trim(),
+sub_specialty:$('#e_sub_specialty').value.trim(),
+phone1:$('#e_phone1').value.trim(),
+phone2:$('#e_phone2').value.trim(),
+governorate:$('#e_governorate').value.trim(),
+city:$('#e_city').value.trim(),
+region:$('#e_region').value.trim(),
+address:$('#e_address').value.trim(),
+work_days:selectedDays.join(','),
+work_start:normalizeTimeForSave($('#e_work_start').value),
+work_end:normalizeTimeForSave($('#e_work_end').value),
+qualifications:$('#e_qualifications').value.trim(),
+certificates:$('#e_certificates').value.trim(),
+experience:$('#e_experience').value.trim(),
+about:$('#e_about').value.trim()
+};
+const{error}=await supabaseClient.from('doctors').update(u).eq('id',id);
+const al=$('#edit-alert');
+if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+al.innerHTML='<div class="alert alert-success">✅ تم حفظ التعديلات</div>';
+}
+
+async function renderAdminDoctorsPage(){
+const c=$('#admin-page-content');
+const[p,a,r]=await Promise.all([
+supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false),
+supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false),
+supabaseClient.from('doctors').select('*').eq('status','rejected').eq('deleted',false)
+]);
+const all={pending:p.data||[],approved:a.data||[],rejected:r.data||[]};
+const list=all[adminFilter]||[];
+c.innerHTML=`
+<div class="stats-grid">
+<div class="stat-card ${adminFilter==='pending'?'active':''}" onclick="setAdminFilter('pending')"><h3>قيد المراجعة</h3><p>${all.pending.length}</p></div>
+<div class="stat-card ${adminFilter==='approved'?'active':''}" onclick="setAdminFilter('approved')"><h3>مقبول</h3><p>${all.approved.length}</p></div>
+<div class="stat-card ${adminFilter==='rejected'?'active':''}" onclick="setAdminFilter('rejected')"><h3>مرفوض</h3><p>${all.rejected.length}</p></div>
+</div>
+${list.length===0?'<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>':
+list.map(d=>{
+const days=parseDays(d.work_days);
+const timeRange=formatTimeRange(d.work_start,d.work_end);
+return `
+<div class="pending-card">
+<div style="flex-shrink:0;">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
+</div>
+<div class="info">
+<h4>${esc(d.full_name)}</h4>
+<p>📧 ${esc(d.email)}</p>
+<p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
+${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
+${days.length>0?`<p style="color:#0ECB81;">🗓️ ${esc(days.join(' • '))}</p>`:''}
+${timeRange?`<p style="color:#F0B90B;">⏰ ${esc(timeRange)}</p>`:''}
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+${d.status==='pending'?`<button class="btn btn-sm btn-success" onclick="event.stopPropagation();approveDoc('${d.id}')">✅</button><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();rejectDoc('${d.id}')">❌</button>`:''}
+</div>
+</div>`;
+}).join('')}`;
+}
+
+function setAdminFilter(f){adminFilter=f;renderAdminDoctorsPage();}
+
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+e.preventDefault();
+deferredPrompt=e;
+if(!window.matchMedia('(display-mode: standalone)').matches)$('#installBtn').classList.remove('hidden');
+});
+
+function installApp(){
+const isIOS=/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+if(isIOS){showModal('<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>');return;}
+if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(({outcome})=>{if(outcome==='accepted')$('#installBtn').classList.add('hidden');deferredPrompt=null;});return;}
+showModal('<h3>📲 تثبيت التطبيق</h3><p>1. اضغط ⋮ في Chrome</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>');
+}
+
+function showModal(html){$('#modal-content').innerHTML=html;$('#installModal').classList.add('active');}
+function closeModal(){$('#installModal').classList.remove('active');}
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(e=>console.log('SW:',e));}
+
+(async function(){
+$('#year').textContent=new Date().getFullYear();
+await checkUser();
+await route();
+})();
+</script>
+</body>
+</html>

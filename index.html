@@ -30,6 +30,9 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .hero-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
 .hero-title span{color:#F0B90B}
 .hero-sub{color:#707A8A;font-size:0.8rem;margin-bottom:14px}
+.visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid rgba(14,203,129,0.35);font-weight:800;font-size:0.85rem;margin-bottom:14px;box-shadow:0 0 15px rgba(14,203,129,0.15)}
+.visit-counter .visit-dot{width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+.visit-counter #visits-number{font-family:'Tajawal',sans-serif;font-weight:900;font-size:1rem;letter-spacing:0.5px}
 .search-box{background:#1E2329;border:1px solid #2B3139;border-radius:40px;padding:4px;display:flex;max-width:480px;margin:0 auto}
 .search-box input{flex:1;border:none;outline:none;padding:10px 18px;background:transparent;color:#FFF;font-family:inherit;font-size:0.88rem}
 .search-box button{background:#F0B90B;color:#0B0E11;border:none;padding:9px 20px;border-radius:30px;cursor:pointer;font-weight:800;font-family:inherit;font-size:0.82rem}
@@ -215,6 +218,47 @@ currentUser=null;currentDoctor=null;isAdmin=false;
 renderHeaderActions();go('home');
 }
 
+/* ============ عداد الزيارات ============ */
+async function loadVisitCounter(){
+try{
+const counted=sessionStorage.getItem('visit_counted');
+let newCount=null;
+if(!counted){
+const{data,error}=await supabaseClient.rpc('increment_visits');
+if(!error&&data!==null){
+sessionStorage.setItem('visit_counted','1');
+newCount=data;
+}
+}
+if(newCount===null){
+const{data,error}=await supabaseClient.from('site_stats').select('total_visits').eq('id',1).single();
+if(!error&&data){newCount=data.total_visits;}
+}
+if(newCount!==null){
+const el=document.getElementById('visits-number');
+if(el){
+animateNumber(el,newCount);
+}
+}
+}catch(e){console.error('Visit counter error:',e);}
+}
+
+function animateNumber(el,target){
+const start=Math.max(0,target-20);
+const duration=1200;
+const t0=performance.now();
+function tick(now){
+const elapsed=now-t0;
+const p=Math.min(elapsed/duration,1);
+const eased=1-Math.pow(1-p,3);
+const current=Math.floor(start+(target-start)*eased);
+el.textContent=current.toLocaleString('en-US');
+if(p<1)requestAnimationFrame(tick);
+else el.textContent=target.toLocaleString('en-US');
+}
+requestAnimationFrame(tick);
+}
+
 /* ============ الرئيسية ============ */
 let searchQuery='';
 let currentCityFilter='';
@@ -226,6 +270,7 @@ app.innerHTML=`
 <div class="container">
 <h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>
 <p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>
+<div class="visit-counter"><span class="visit-dot"></span><span id="visits-number">...</span> زيارة</div>
 <form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">
 <input type="text" name="q" placeholder="🔍 اسم الطبيب أو التخصص..." value="${esc(searchQuery)}">
 <button type="submit">بحث</button>
@@ -253,6 +298,7 @@ ${CENTERS.map(c=>`<button class="center-btn ${currentCityFilter===c?'active':''}
 <div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
 </div>`;
 await loadDoctors(searchQuery,currentCityFilter);
+await loadVisitCounter();
 }
 
 function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery,currentCityFilter);}

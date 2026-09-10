@@ -6,7 +6,6 @@
 <title>دكتور الناس - دليل الأطباء</title>
 <meta name="theme-color" content="#F0B90B">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="دكتور الناس">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-512.png">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
@@ -20,13 +19,13 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .logo{font-size:1.4rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6)}
 .pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,203,129,0.8)}70%{box-shadow:0 0 0 10px rgba(14,203,129,0)}100%{box-shadow:0 0 0 0 rgba(14,203,129,0)}}
-.header-actions{display:flex;gap:6px;flex-wrap:wrap}
-.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit}
+.header-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;position:relative}
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;animation:install-glow 2s infinite}
-@keyframes install-glow{0%,100%{box-shadow:0 4px 15px rgba(14,203,129,0.35)}50%{box-shadow:0 4px 25px rgba(14,203,129,0.7)}}
+.notif-dot{position:absolute;top:-3px;left:-3px;width:14px;height:14px;background:#0ECB81;border-radius:50%;border:2px solid #0B0E11;animation:pulse 1.5s infinite}
+.install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .hidden{display:none!important}
 .hero{padding:24px 0 16px;text-align:center}
 .hero-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
@@ -55,7 +54,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .form-group{margin-bottom:14px}
 .form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:0.88rem}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
+.form-group input:focus,.form-group textarea:focus{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
 .form-group textarea{min-height:80px;resize:vertical}
 .form-group small{color:#707A8A;font-size:0.75rem;display:block;margin-top:4px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%;transition:all 0.2s}
@@ -76,7 +75,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .dfp-hero h1{color:#F0B90B;font-size:1.5rem;font-weight:900;margin-bottom:6px}
 .dfp-spec{font-weight:700;margin-bottom:4px}
 .dfp-sub{color:#707A8A;font-size:0.85rem;margin-bottom:16px}
-.dfp-call{display:inline-block;background:#0ECB81;color:#FFF;padding:12px 30px;border-radius:30px;font-weight:800;text-decoration:none;box-shadow:0 4px 15px rgba(14,203,129,0.4)}
+.dfp-call{display:inline-block;background:#0ECB81;color:#FFF;padding:12px 30px;border-radius:30px;font-weight:800;text-decoration:none}
 .dfp-body{padding:18px}
 .dfp-card{background:#0B0E11;border:1px solid #2B3139;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
 .dfp-icon{font-size:1.4rem;width:40px;height:40px;background:#1E2329;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
@@ -95,24 +94,28 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .status-approved{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
 .status-rejected{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
-.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;transition:all 0.2s}
+.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;transition:all 0.2s;cursor:pointer}
 .stat-card:hover{border-color:#F0B90B}
+.stat-card.active{border-color:#F0B90B;background:#232830}
 .stat-card h3{color:#707A8A;font-size:0.8rem;margin-bottom:4px}
 .stat-card p{font-size:1.6rem;font-weight:900;color:#F0B90B}
-.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s}
+.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s;position:relative}
 .pending-card:hover{border-color:#F0B90B}
 .pending-card .info{flex:1;min-width:150px}
 .pending-card .info h4{font-size:0.95rem;margin-bottom:4px}
 .pending-card .info p{color:#707A8A;font-size:0.78rem}
+.unread-dot{display:inline-block;width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;margin-right:6px;vertical-align:middle}
 .tabs{display:flex;gap:6px;margin:20px 0;overflow-x:auto;padding-bottom:4px}
-.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s}
+.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s;position:relative;display:flex;align-items:center;gap:6px}
 .tab.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
-.chat-box{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;margin-bottom:16px;max-height:450px;overflow-y:auto}
-.chat-msg{padding:10px 14px;border-radius:12px;margin-bottom:8px;max-width:85%;font-size:0.88rem;line-height:1.5;word-wrap:break-word;clear:both}
-.chat-doctor{background:#F0B90B;color:#0B0E11;float:right;text-align:right}
-.chat-admin{background:#2B3139;color:#FFF;float:left;text-align:right}
-.chat-time{font-size:0.68rem;opacity:0.7;margin-top:4px;clear:both}
-.chat-input-row{display:flex;gap:8px;margin-top:12px;clear:both}
+.tab .dot-badge{width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+.tab.active .dot-badge{background:#0B0E11}
+.chat-box{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;margin-bottom:16px;min-height:300px;max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.chat-msg{padding:10px 14px;border-radius:12px;max-width:80%;font-size:0.88rem;line-height:1.5;word-wrap:break-word;align-self:flex-end}
+.chat-msg.mine{background:#F0B90B;color:#0B0E11;align-self:flex-end}
+.chat-msg.them{background:#2B3139;color:#FFF;align-self:flex-start}
+.chat-time{font-size:0.68rem;opacity:0.7;margin-top:4px}
+.chat-input-row{display:flex;gap:8px}
 .chat-input-row input{flex:1;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
 .chat-input-row button{padding:12px 20px;background:#0ECB81;color:#FFF;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit}
 .site-footer{text-align:center;padding:20px;color:#707A8A;border-top:1px solid #1E2329;margin-top:24px;font-size:0.75rem}
@@ -127,6 +130,10 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:20px;text-align:center;cursor:pointer;color:#707A8A;transition:all 0.2s;font-size:0.9rem}
 .file-input-label:hover{border-color:#F0B90B;color:#F0B90B}
 .file-input-label input{display:none}
+.center-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:12px}
+.center-btn{padding:10px 8px;background:#0B0E11;border:1px solid #2B3139;border-radius:12px;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.78rem;transition:all 0.2s;text-align:center}
+.center-btn:hover{border-color:#F0B90B;color:#F0B90B}
+.center-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
 @media (max-width:500px){
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
 .doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
@@ -163,6 +170,7 @@ const SUPABASE_URL='https://wfcizftmcclhnzgvukuy.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let currentUser=null,currentDoctor=null,isAdmin=false;
+let unreadForDoctor=0,unreadForAdmin=0;
 const $=s=>document.querySelector(s);
 const esc=str=>{if(!str)return'';const d=document.createElement('div');d.textContent=str;return d.innerHTML;};
 const go=(page,param)=>{window.location.hash=param?`#${page}/${param}`:`#${page}`;};
@@ -180,37 +188,54 @@ else if(page==='register')renderRegister(app);
 else if(page==='doctor-dashboard')await renderDoctorDashboard(app);
 else if(page==='admin')await renderAdmin(app);
 else await renderHome(app);
-}catch(e){app.innerHTML=`<div class="container"><div class="alert alert-danger">حدث خطأ: ${esc(e.message)}</div></div>`;}
+}catch(e){app.innerHTML=`<div class="container"><div class="alert alert-danger">خطأ: ${esc(e.message)}</div></div>`;}
 window.scrollTo(0,0);
 }
 window.addEventListener('hashchange',route);
 
 async function checkUser(){
 const{data:{user}}=await supabaseClient.auth.getUser();
-currentUser=user;currentDoctor=null;isAdmin=false;
+currentUser=user;currentDoctor=null;isAdmin=false;unreadForDoctor=0;unreadForAdmin=0;
 if(user){
 const{data:d}=await supabaseClient.from('doctors').select('*').eq('user_id',user.id).maybeSingle();
 currentDoctor=d;
 const{data:aList}=await supabaseClient.from('admins').select('id').eq('user_id',user.id).limit(1);
 isAdmin=aList&&aList.length>0;
+// حساب الرسائل غير المقروءة
+if(currentDoctor){
+const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
+unreadForDoctor=count||0;
+}
+if(isAdmin){
+const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('sender_type','doctor').eq('read_by_admin',false);
+unreadForAdmin=count||0;
+}
 }
 renderHeaderActions();
 }
 
 function renderHeaderActions(){
 const a=$('#header-actions');
-if(isAdmin){a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;}
-else if(currentUser){a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;}
-else{a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;}
+if(isAdmin){
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة${unreadForAdmin>0?`<span class="notif-dot"></span>`:''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+}else if(currentUser){
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي${unreadForDoctor>0?`<span class="notif-dot"></span>`:''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+}else{
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
+}
 }
 
 async function logout(){
 await supabaseClient.auth.signOut();
-currentUser=null;currentDoctor=null;isAdmin=false;
+currentUser=null;currentDoctor=null;isAdmin=false;unreadForDoctor=0;unreadForAdmin=0;
 renderHeaderActions();go('home');
 }
 
+/* ============ الرئيسية ============ */
 let searchQuery='';
+let currentCityFilter='';
+const CENTERS=['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'];
+
 async function renderHome(app){
 app.innerHTML=`
 <section class="hero">
@@ -223,26 +248,39 @@ app.innerHTML=`
 </form>
 </div>
 </section>
+
+<div class="container">
+<div class="form-section" style="padding:14px;margin-bottom:16px;">
+<h3 style="margin-bottom:12px;">📍 اختر المركز - محافظة بني سويف</h3>
+<div class="center-grid">
+<button class="center-btn ${currentCityFilter===''?'active':''}" onclick="filterByCity('')">🌟 الكل</button>
+${CENTERS.map(c=>`<button class="center-btn ${currentCityFilter===c?'active':''}" onclick="filterByCity('${c}')">${c}</button>`).join('')}
+</div>
+</div>
+</div>
+
 <div class="container">
 <div class="section-header">
-<h2>👨‍⚕️ الأطباء المتاحون</h2>
+<h2>👨‍⚕️ الأطباء${currentCityFilter?' - '+esc(currentCityFilter):''}</h2>
 <span class="count-badge" id="doc-count">...</span>
 </div>
 <div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
 </div>`;
-await loadDoctors(searchQuery);
+await loadDoctors(searchQuery,currentCityFilter);
 }
 
-function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery);}
+function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery,currentCityFilter);}
+function filterByCity(c){currentCityFilter=c;renderHome($('#app'));}
 
-async function loadDoctors(query=''){
+async function loadDoctors(query='',city=''){
 const list=$('#doctors-list');
 let q=supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false).order('created_at',{ascending:false});
 if(query){const t=`%${query}%`;q=q.or(`full_name.ilike.${t},specialty.ilike.${t},sub_specialty.ilike.${t},governorate.ilike.${t},city.ilike.${t}`);}
+if(city){q=q.ilike('city',`%${city}%`);}
 const{data,error}=await q;
 if(error){list.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
 $('#doc-count').textContent=data.length;
-if(data.length===0){list.innerHTML='<div class="empty-msg">📭 لا يوجد أطباء مطابقون</div>';return;}
+if(data.length===0){list.innerHTML=`<div class="empty-msg">📭 لا يوجد أطباء مطابقون${city?' في '+esc(city):''}</div>`;return;}
 list.innerHTML=data.map(d=>`
 <div class="doc-card" onclick="go('doctor','${d.id}')">
 ${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="doc-avatar-ph">🩺</div>`}
@@ -255,6 +293,7 @@ ${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="
 </div>`).join('');
 }
 
+/* ============ صفحة الطبيب ============ */
 async function renderDoctor(app,id){
 const{data:d,error}=await supabaseClient.from('doctors').select('*').eq('id',id).eq('status','approved').eq('deleted',false).maybeSingle();
 if(error||!d){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>';return;}
@@ -283,6 +322,7 @@ ${d.about?`<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p
 </div>`;
 }
 
+/* ============ التسجيل والدخول ============ */
 function renderRegister(app){
 app.innerHTML=`
 <div class="container">
@@ -306,7 +346,7 @@ async function doRegister(f){
 const al=$('#reg-alert');al.innerHTML='';
 const{data:authData,error:e1}=await supabaseClient.auth.signUp({email:f.email.value.trim(),password:f.password.value});
 if(e1){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e1.message)}</div>`;return;}
-if(!authData.user){al.innerHTML=`<div class="alert alert-danger">خطأ في إنشاء الحساب</div>`;return;}
+if(!authData.user){al.innerHTML=`<div class="alert alert-danger">خطأ</div>`;return;}
 const{error:e2}=await supabaseClient.from('doctors').insert({user_id:authData.user.id,full_name:f.full_name.value.trim(),email:f.email.value.trim(),phone_private:f.phone_private.value.trim(),status:'pending',deleted:false});
 if(e2){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e2.message)}</div>`;return;}
 al.innerHTML=`<div class="alert alert-success">✅ تم إنشاء حسابك! جارٍ التحويل...</div>`;
@@ -321,8 +361,8 @@ app.innerHTML=`
 <p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>
 <div id="log-alert"></div>
 <form onsubmit="event.preventDefault(); doLogin(this);">
-<div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
-<div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr" placeholder="********"></div>
+<div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr"></div>
+<div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr"></div>
 <button type="submit" class="btn btn-primary">دخول</button>
 </form>
 <p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go('register')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>
@@ -335,12 +375,11 @@ const al=$('#log-alert');al.innerHTML='';
 const{error}=await supabaseClient.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
 if(error){al.innerHTML=`<div class="alert alert-danger">البريد أو كلمة المرور غير صحيحة</div>`;return;}
 await checkUser();
-if(isAdmin)go('admin');
-else go('doctor-dashboard');
+if(isAdmin)go('admin');else go('doctor-dashboard');
 }
 
-/* ============ لوحة الطبيب - تبويبين ============ */
-let doctorTab='profile';
+/* ============ لوحة الطبيب - صفحتين مستقلتين ============ */
+let doctorPage='profile';
 
 async function renderDoctorDashboard(app){
 if(!currentUser){go('login');return;}
@@ -359,48 +398,48 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:70px;height:70px;bord
 </div>
 ${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>`:''}
 <div class="tabs">
-<button class="tab ${doctorTab==='profile'?'active':''}" onclick="setDoctorTab('profile')">📄 الملف الشخصي</button>
-<button class="tab ${doctorTab==='messages'?'active':''}" onclick="setDoctorTab('messages')">💬 الرسائل</button>
+<button class="tab ${doctorPage==='profile'?'active':''}" onclick="setDoctorPage('profile')">📄 الملف الشخصي</button>
+<button class="tab ${doctorPage==='messages'?'active':''}" onclick="setDoctorPage('messages')">💬 الرسائل ${unreadForDoctor>0?'<span class="dot-badge"></span>':''}</button>
 </div>
-<div id="doctor-tab-content"></div>
+<div id="doctor-page-content"></div>
 </div>`;
 
-if(doctorTab==='profile')await renderDoctorProfileTab();
-else await renderDoctorMessagesTab();
+if(doctorPage==='profile')await renderDoctorProfilePage();
+else await renderDoctorMessagesPage();
 }
 
-function setDoctorTab(t){doctorTab=t;renderDoctorDashboard($('#app'));}
+function setDoctorPage(p){doctorPage=p;renderDoctorDashboard($('#app'));}
 
-async function renderDoctorProfileTab(){
+async function renderDoctorProfilePage(){
 const d=currentDoctor;
-const content=$('#doctor-tab-content');
-content.innerHTML=`
+const c=$('#doctor-page-content');
+c.innerHTML=`
 <div id="dash-alert"></div>
 <form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">
 <div class="form-section">
 <h3>👤 البيانات الأساسية</h3>
 <div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="${esc(d.full_name)}" required></div>
 <div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="${esc(d.specialty||'')}" placeholder="أسنان، جلدية، باطنة..."></div>
-<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}" placeholder="تقويم الأسنان"></div>
+<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
 <div class="form-group">
 <label>📸 الصورة الشخصية</label>
 ${d.image_url?`<img src="${esc(d.image_url)}" class="img-preview" id="current-img">`:''}
-<label class="file-input-label">
-📁 اختر صورة من هاتفك
-<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);">
-</label>
-<small>JPG، PNG، WebP، GIF — الحد الأقصى 5 MB</small>
+<label class="file-input-label">📁 اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);"></label>
+<small>JPG، PNG، WebP — الحد الأقصى 5 MB</small>
 </div>
 </div>
 <div class="form-section">
 <h3>📞 أرقام التواصل</h3>
-<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr" placeholder="01xxxxxxxxx"></div>
+<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
 <div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
 </div>
 <div class="form-section">
 <h3>📍 العنوان</h3>
 <div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
-<div class="form-group"><label>المدينة / المركز</label><input type="text" name="city" value="${esc(d.city||'')}"></div>
+<div class="form-group"><label>المركز / المدينة</label><select name="city">
+<option value="">اختر المركز</option>
+${['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'].map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+</select></div>
 <div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
 <div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
 </div>
@@ -421,14 +460,17 @@ ${d.image_url?`<img src="${esc(d.image_url)}" class="img-preview" id="current-im
 </form>`;
 }
 
-async function renderDoctorMessagesTab(){
-const content=$('#doctor-tab-content');
+async function renderDoctorMessagesPage(){
+const c=$('#doctor-page-content');
 const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:true});
-content.innerHTML=`
-<div class="chat-box" style="min-height:300px;">
-${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد<br><small>اكتب رسالتك للإدارة وسيتم الرد عليك قريباً</small></p>':
+// علّم الرسائل كمقروءة
+await supabaseClient.from('messages').update({read_by_doctor:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
+unreadForDoctor=0;
+c.innerHTML=`
+<div class="chat-box" id="doctor-chat">
+${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد<br><small>اكتب رسالتك للإدارة وسيتم الرد عليك</small></p>':
 (msgs||[]).map(m=>`
-<div class="chat-msg ${m.sender_type==='doctor'?'chat-doctor':'chat-admin'}">
+<div class="chat-msg ${m.sender_type==='doctor'?'mine':'them'}">
 <div>${esc(m.content)}</div>
 <div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
 </div>`).join('')}
@@ -437,6 +479,8 @@ ${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.8
 <input type="text" id="chat-input" placeholder="اكتب رسالة للإدارة...">
 <button onclick="sendMessage()">📤 إرسال</button>
 </div>`;
+const box=$('#doctor-chat');
+if(box)box.scrollTop=box.scrollHeight;
 }
 
 function previewImage(input){
@@ -486,43 +530,44 @@ async function sendMessage(){
 const input=$('#chat-input');
 const content=input.value.trim();
 if(!content||!currentDoctor)return;
-const{error}=await supabaseClient.from('messages').insert({doctor_id:currentDoctor.id,sender_type:'doctor',content:content});
-if(error){alert('خطأ في الإرسال: '+error.message);return;}
+const{error}=await supabaseClient.from('messages').insert({doctor_id:currentDoctor.id,sender_type:'doctor',content:content,read_by_doctor:true,read_by_admin:false});
+if(error){alert('خطأ: '+error.message);return;}
 input.value='';
-await renderDoctorMessagesTab();
+await renderDoctorMessagesPage();
 }
 
-/* ============ لوحة الأدمن - 3 تبويبات ============ */
-let adminTab='requests';
+/* ============ لوحة الأدمن - 3 صفحات ============ */
+let adminPage='requests';
 let adminFilter='pending';
 
 async function renderAdmin(app){
 if(!isAdmin){go('home');return;}
+await checkUser();
 app.innerHTML=`
 <div class="dash-container">
 <h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
 <div class="tabs">
-<button class="tab ${adminTab==='requests'?'active':''}" onclick="setAdminTab('requests')">📋 الطلبات</button>
-<button class="tab ${adminTab==='messages'?'active':''}" onclick="setAdminTab('messages')">💬 الرسائل</button>
-<button class="tab ${adminTab==='doctors'?'active':''}" onclick="setAdminTab('doctors')">👥 الأطباء</button>
+<button class="tab ${adminPage==='requests'?'active':''}" onclick="setAdminPage('requests')">📋 الطلبات</button>
+<button class="tab ${adminPage==='messages'?'active':''}" onclick="setAdminPage('messages')">💬 الرسائل ${unreadForAdmin>0?'<span class="dot-badge"></span>':''}</button>
+<button class="tab ${adminPage==='doctors'?'active':''}" onclick="setAdminPage('doctors')">👥 الأطباء</button>
 </div>
-<div id="admin-tab-content"></div>
+<div id="admin-page-content"></div>
 </div>`;
-if(adminTab==='requests')await renderAdminRequestsTab();
-else if(adminTab==='messages')await renderAdminMessagesTab();
-else await renderAdminDoctorsTab();
+if(adminPage==='requests')await renderAdminRequestsPage();
+else if(adminPage==='messages')await renderAdminMessagesPage();
+else await renderAdminDoctorsPage();
 }
 
-function setAdminTab(t){adminTab=t;renderAdmin($('#app'));}
+function setAdminPage(p){adminPage=p;renderAdmin($('#app'));}
 
-async function renderAdminRequestsTab(){
-const content=$('#admin-tab-content');
+async function renderAdminRequestsPage(){
+const c=$('#admin-page-content');
 const{data:pending}=await supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false).order('created_at',{ascending:false});
-const pendingList=pending||[];
-content.innerHTML=`
-<h3 style="color:#F0B90B;margin:16px 0;">📋 الطلبات المعلقة (${pendingList.length})</h3>
-${pendingList.length===0?'<div class="empty-msg">لا توجد طلبات معلقة حالياً</div>':
-pendingList.map(d=>`
+const list=pending||[];
+c.innerHTML=`
+<h3 style="color:#F0B90B;margin:16px 0;">📋 الطلبات المعلقة (${list.length})</h3>
+${list.length===0?'<div class="empty-msg">لا توجد طلبات معلقة حالياً</div>':
+list.map(d=>`
 <div class="pending-card">
 <div style="flex-shrink:0;">
 ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
@@ -543,98 +588,101 @@ ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 
 async function approveDoc(id){
 await supabaseClient.from('doctors').update({status:'approved'}).eq('id',id);
-await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'🎉 مبروك! تم قبول حسابك، وملفك الشخصي ظاهر الآن للزوار.'});
-await renderAdminRequestsTab();
+await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'🎉 مبروك! تم قبول حسابك، وملفك الشخصي ظاهر الآن للزوار.',read_by_admin:true,read_by_doctor:false});
+await renderAdminRequestsPage();
 }
 
 async function rejectDoc(id){
 const r=prompt('سبب الرفض:')||'';
 await supabaseClient.from('doctors').update({status:'rejected',rejection_reason:r}).eq('id',id);
-await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'❌ تم رفض حسابك. السبب: '+r});
-await renderAdminRequestsTab();
+await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'❌ تم رفض حسابك. السبب: '+r,read_by_admin:true,read_by_doctor:false});
+await renderAdminRequestsPage();
 }
 
 async function viewDoctorProfile(id){
 const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',id).single();
 if(!d)return;
-$('#admin-tab-content').innerHTML=`
-<button onclick="renderAdminRequestsTab()" class="btn btn-primary" style="margin:16px 0;">← رجوع</button>
+$('#admin-page-content').innerHTML=`
+<button onclick="renderAdminRequestsPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع</button>
 <div id="edit-alert"></div>
 <div class="form-section">
-<h3>👤 بيانات الطبيب - يمكنك التعديل</h3>
-<div class="form-group"><label>الاسم</label><input type="text" id="edit_full_name" value="${esc(d.full_name||'')}"></div>
-<div class="form-group"><label>البريد</label><input type="email" id="edit_email" value="${esc(d.email||'')}" disabled></div>
-<div class="form-group"><label>الهاتف الخاص (للإدارة)</label><input type="tel" id="edit_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
-<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="edit_specialty" value="${esc(d.specialty||'')}"></div>
-<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="edit_sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
-<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="edit_phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
-<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="edit_phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
-<div class="form-group"><label>المحافظة</label><input type="text" id="edit_governorate" value="${esc(d.governorate||'')}"></div>
-<div class="form-group"><label>المدينة</label><input type="text" id="edit_city" value="${esc(d.city||'')}"></div>
-<div class="form-group"><label>المنطقة</label><input type="text" id="edit_region" value="${esc(d.region||'')}"></div>
-<div class="form-group"><label>العنوان</label><textarea id="edit_address">${esc(d.address||'')}</textarea></div>
-<div class="form-group"><label>أيام العمل</label><input type="text" id="edit_work_days" value="${esc(d.work_days||'')}"></div>
-<div class="form-group"><label>من الساعة</label><input type="text" id="edit_work_start" value="${esc(d.work_start||'')}"></div>
-<div class="form-group"><label>إلى الساعة</label><input type="text" id="edit_work_end" value="${esc(d.work_end||'')}"></div>
-<div class="form-group"><label>المؤهلات</label><textarea id="edit_qualifications">${esc(d.qualifications||'')}</textarea></div>
-<div class="form-group"><label>الشهادات</label><textarea id="edit_certificates">${esc(d.certificates||'')}</textarea></div>
-<div class="form-group"><label>الخبرات</label><textarea id="edit_experience">${esc(d.experience||'')}</textarea></div>
-<div class="form-group"><label>نبذة</label><textarea id="edit_about">${esc(d.about||'')}</textarea></div>
+<h3>👤 تعديل بيانات الطبيب</h3>
+<div class="form-group"><label>الاسم</label><input type="text" id="e_full_name" value="${esc(d.full_name||'')}"></div>
+<div class="form-group"><label>البريد (للقراءة فقط)</label><input type="email" value="${esc(d.email||'')}" disabled></div>
+<div class="form-group"><label>الهاتف الخاص (للإدارة)</label><input type="tel" id="e_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
+<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="e_specialty" value="${esc(d.specialty||'')}"></div>
+<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="e_sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
+<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="e_phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
+<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="e_phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
+<div class="form-group"><label>المحافظة</label><input type="text" id="e_governorate" value="${esc(d.governorate||'')}"></div>
+<div class="form-group"><label>المركز</label><select id="e_city">
+<option value="">اختر</option>
+${['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'].map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>`).join('')}
+</select></div>
+<div class="form-group"><label>المنطقة</label><input type="text" id="e_region" value="${esc(d.region||'')}"></div>
+<div class="form-group"><label>العنوان</label><textarea id="e_address">${esc(d.address||'')}</textarea></div>
+<div class="form-group"><label>أيام العمل</label><input type="text" id="e_work_days" value="${esc(d.work_days||'')}"></div>
+<div class="form-group"><label>من الساعة</label><input type="text" id="e_work_start" value="${esc(d.work_start||'')}"></div>
+<div class="form-group"><label>إلى الساعة</label><input type="text" id="e_work_end" value="${esc(d.work_end||'')}"></div>
+<div class="form-group"><label>المؤهلات</label><textarea id="e_qualifications">${esc(d.qualifications||'')}</textarea></div>
+<div class="form-group"><label>الشهادات</label><textarea id="e_certificates">${esc(d.certificates||'')}</textarea></div>
+<div class="form-group"><label>الخبرات</label><textarea id="e_experience">${esc(d.experience||'')}</textarea></div>
+<div class="form-group"><label>نبذة</label><textarea id="e_about">${esc(d.about||'')}</textarea></div>
 </div>
-<button onclick="adminSaveDoctor('${d.id}')" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ التعديلات</button>
-<button onclick="approveDoc('${d.id}')" class="btn btn-success" style="margin-bottom:20px;">✅ قبول الطبيب</button>
-<button onclick="rejectDoc('${d.id}')" class="btn btn-danger" style="margin-bottom:20px;">❌ رفض الطبيب</button>`;
+<button onclick="adminSaveDoctor('${d.id}')" class="btn btn-primary" style="margin-bottom:10px;">💾 حفظ التعديلات</button>
+<button onclick="approveDoc('${d.id}')" class="btn btn-success" style="margin-bottom:10px;">✅ قبول</button>
+<button onclick="rejectDoc('${d.id}')" class="btn btn-danger" style="margin-bottom:20px;">❌ رفض</button>`;
 }
 
 async function adminSaveDoctor(id){
 const u={
-full_name:$('#edit_full_name').value.trim(),
-phone_private:$('#edit_phone_private').value.trim(),
-specialty:$('#edit_specialty').value.trim(),
-sub_specialty:$('#edit_sub_specialty').value.trim(),
-phone1:$('#edit_phone1').value.trim(),
-phone2:$('#edit_phone2').value.trim(),
-governorate:$('#edit_governorate').value.trim(),
-city:$('#edit_city').value.trim(),
-region:$('#edit_region').value.trim(),
-address:$('#edit_address').value.trim(),
-work_days:$('#edit_work_days').value.trim(),
-work_start:$('#edit_work_start').value.trim(),
-work_end:$('#edit_work_end').value.trim(),
-qualifications:$('#edit_qualifications').value.trim(),
-certificates:$('#edit_certificates').value.trim(),
-experience:$('#edit_experience').value.trim(),
-about:$('#edit_about').value.trim()
+full_name:$('#e_full_name').value.trim(),
+phone_private:$('#e_phone_private').value.trim(),
+specialty:$('#e_specialty').value.trim(),
+sub_specialty:$('#e_sub_specialty').value.trim(),
+phone1:$('#e_phone1').value.trim(),
+phone2:$('#e_phone2').value.trim(),
+governorate:$('#e_governorate').value.trim(),
+city:$('#e_city').value.trim(),
+region:$('#e_region').value.trim(),
+address:$('#e_address').value.trim(),
+work_days:$('#e_work_days').value.trim(),
+work_start:$('#e_work_start').value.trim(),
+work_end:$('#e_work_end').value.trim(),
+qualifications:$('#e_qualifications').value.trim(),
+certificates:$('#e_certificates').value.trim(),
+experience:$('#e_experience').value.trim(),
+about:$('#e_about').value.trim()
 };
 const{error}=await supabaseClient.from('doctors').update(u).eq('id',id);
 const al=$('#edit-alert');
 if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
-al.innerHTML='<div class="alert alert-success">✅ تم حفظ التعديلات بنجاح</div>';
+al.innerHTML='<div class="alert alert-success">✅ تم حفظ التعديلات</div>';
 }
 
-async function renderAdminMessagesTab(){
-const content=$('#admin-tab-content');
-const{data:doctors}=await supabaseClient.from('doctors').select('id, full_name, email').eq('deleted',false);
-const{data:messages}=await supabaseClient.from('messages').select('*').order('created_at',{ascending:false}).limit(200);
-const grouped={};
-(messages||[]).forEach(m=>{if(!grouped[m.doctor_id])grouped[m.doctor_id]=[];grouped[m.doctor_id].push(m);});
+async function renderAdminMessagesPage(){
+const c=$('#admin-page-content');
+const{data:messages}=await supabaseClient.from('messages').select('*').order('created_at',{ascending:false}).limit(500);
+const{data:doctors}=await supabaseClient.from('doctors').select('id,full_name,email').eq('deleted',false);
 const doctorMap={};
 (doctors||[]).forEach(d=>{doctorMap[d.id]=d;});
+const grouped={};
+(messages||[]).forEach(m=>{if(!grouped[m.doctor_id])grouped[m.doctor_id]=[];grouped[m.doctor_id].push(m);});
 const chatList=Object.keys(grouped).map(id=>{
 const msgs=grouped[id];
-const last=msgs[0];
-const doc=doctorMap[id]||{full_name:'غير معروف',email:''};
-return{doctorId:id,doctor:doc,last,count:msgs.length};
-});
-content.innerHTML=`
+const unreadCount=msgs.filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length;
+return{doctorId:id,doctor:doctorMap[id]||{full_name:'غير معروف'},last:msgs[0],unread:unreadCount};
+}).sort((a,b)=>b.unread-a.unread);
+
+c.innerHTML=`
 <h3 style="color:#F0B90B;margin:16px 0;">💬 المحادثات (${chatList.length})</h3>
 ${chatList.length===0?'<div class="empty-msg">لا توجد رسائل بعد</div>':
-chatList.map(c=>`
-<div class="pending-card" onclick="openAdminChat('${c.doctorId}')" style="cursor:pointer;">
+chatList.map(x=>`
+<div class="pending-card" onclick="openAdminChat('${x.doctorId}')" style="cursor:pointer;">
 <div class="info">
-<h4>${esc(c.doctor.full_name)}</h4>
-<p>${esc(c.last.content.substring(0,60))}${c.last.content.length>60?'...':''}</p>
-<p style="color:#707A8A;font-size:0.7rem;">${new Date(c.last.created_at).toLocaleString('ar-EG')} · ${c.count} رسالة</p>
+<h4>${x.unread>0?'<span class="unread-dot"></span>':''}${esc(x.doctor.full_name)}</h4>
+<p>${esc(x.last.content.substring(0,60))}${x.last.content.length>60?'...':''}</p>
+<p style="color:#707A8A;font-size:0.7rem;">${new Date(x.last.created_at).toLocaleString('ar-EG')}</p>
 </div>
 <span style="color:#F0B90B;font-size:1.3rem;">◀</span>
 </div>`).join('')}`;
@@ -643,18 +691,21 @@ chatList.map(c=>`
 async function openAdminChat(doctorId){
 const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',doctorId).single();
 const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',doctorId).order('created_at',{ascending:true});
-$('#admin-tab-content').innerHTML=`
-<button onclick="renderAdminMessagesTab()" class="btn btn-primary" style="margin:16px 0;">← رجوع للمحادثات</button>
+// علّم كمقروء
+await supabaseClient.from('messages').update({read_by_admin:true}).eq('doctor_id',doctorId).eq('sender_type','doctor').eq('read_by_admin',false);
+unreadForAdmin=Math.max(0,unreadForAdmin-(msgs||[]).filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length);
+$('#admin-page-content').innerHTML=`
+<button onclick="renderAdminMessagesPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع للمحادثات</button>
 <div class="dash-header">
 <div style="flex:1;">
 <h2 style="color:#F0B90B;">💬 ${esc(d.full_name)}</h2>
 <p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p>
 </div>
 </div>
-<div class="chat-box" style="min-height:300px;">
+<div class="chat-box" id="admin-chat">
 ${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;">لا توجد رسائل</p>':
 (msgs||[]).map(m=>`
-<div class="chat-msg ${m.sender_type==='admin'?'chat-doctor':'chat-admin'}">
+<div class="chat-msg ${m.sender_type==='admin'?'mine':'them'}">
 <div>${esc(m.content)}</div>
 <div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
 </div>`).join('')}
@@ -663,40 +714,36 @@ ${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;">لا توج
 <input type="text" id="admin-chat-input" placeholder="اكتب رسالة للطبيب...">
 <button onclick="adminSendMessage('${doctorId}')">📤 إرسال</button>
 </div>`;
+const box=$('#admin-chat');
+if(box)box.scrollTop=box.scrollHeight;
 }
 
 async function adminSendMessage(doctorId){
 const input=$('#admin-chat-input');
 const content=input.value.trim();
 if(!content)return;
-await supabaseClient.from('messages').insert({doctor_id:doctorId,sender_type:'admin',content:content});
+await supabaseClient.from('messages').insert({doctor_id:doctorId,sender_type:'admin',content:content,read_by_admin:true,read_by_doctor:false});
 input.value='';
 await openAdminChat(doctorId);
 }
 
-async function renderAdminDoctorsTab(){
-const content=$('#admin-tab-content');
+async function renderAdminDoctorsPage(){
+const c=$('#admin-page-content');
 const[p,a,r]=await Promise.all([
 supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false),
 supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false),
 supabaseClient.from('doctors').select('*').eq('status','rejected').eq('deleted',false)
 ]);
-const allData={pending:p.data||[],approved:a.data||[],rejected:r.data||[]};
-const listData=allData[adminFilter]||[];
-content.innerHTML=`
+const all={pending:p.data||[],approved:a.data||[],rejected:r.data||[]};
+const list=all[adminFilter]||[];
+c.innerHTML=`
 <div class="stats-grid">
-<div class="stat-card" onclick="setAdminFilter('pending')" style="cursor:pointer; ${adminFilter==='pending'?'border-color:#F0B90B;':''}"><h3>قيد المراجعة</h3><p>${allData.pending.length}</p></div>
-<div class="stat-card" onclick="setAdminFilter('approved')" style="cursor:pointer; ${adminFilter==='approved'?'border-color:#F0B90B;':''}"><h3>مقبول</h3><p>${allData.approved.length}</p></div>
-<div class="stat-card" onclick="setAdminFilter('rejected')" style="cursor:pointer; ${adminFilter==='rejected'?'border-color:#F0B90B;':''}"><h3>مرفوض</h3><p>${allData.rejected.length}</p></div>
+<div class="stat-card ${adminFilter==='pending'?'active':''}" onclick="setAdminFilter('pending')"><h3>قيد المراجعة</h3><p>${all.pending.length}</p></div>
+<div class="stat-card ${adminFilter==='approved'?'active':''}" onclick="setAdminFilter('approved')"><h3>مقبول</h3><p>${all.approved.length}</p></div>
+<div class="stat-card ${adminFilter==='rejected'?'active':''}" onclick="setAdminFilter('rejected')"><h3>مرفوض</h3><p>${all.rejected.length}</p></div>
 </div>
-<div class="tabs">
-<button class="tab ${adminFilter==='pending'?'active':''}" onclick="setAdminFilter('pending')">⏳ قيد المراجعة</button>
-<button class="tab ${adminFilter==='approved'?'active':''}" onclick="setAdminFilter('approved')">✅ المقبولون</button>
-<button class="tab ${adminFilter==='rejected'?'active':''}" onclick="setAdminFilter('rejected')">❌ المرفوضون</button>
-</div>
-<div>
-${listData.length===0?'<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>':
-listData.map(d=>`
+${list.length===0?'<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>':
+list.map(d=>`
 <div class="pending-card">
 <div style="flex-shrink:0;">
 ${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
@@ -710,15 +757,12 @@ ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
 <button class="btn btn-sm btn-primary" onclick="viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
 <button class="btn btn-sm btn-success" onclick="openAdminChat('${d.id}')">💬 رسالة</button>
-${d.status==='pending'?`
-<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅</button>
-<button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌</button>`:''}
+${d.status==='pending'?`<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅</button><button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌</button>`:''}
 </div>
-</div>`).join('')}
-</div>`;
+</div>`).join('')}`;
 }
 
-function setAdminFilter(f){adminFilter=f;renderAdminDoctorsTab();}
+function setAdminFilter(f){adminFilter=f;renderAdminDoctorsPage();}
 
 /* ============ PWA ============ */
 let deferredPrompt=null;

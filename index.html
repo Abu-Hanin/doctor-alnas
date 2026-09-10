@@ -132,6 +132,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .center-btn{padding:10px 8px;background:#0B0E11;border:1px solid #2B3139;border-radius:12px;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.78rem;transition:all 0.2s;text-align:center}
 .center-btn:hover{border-color:#F0B90B;color:#F0B90B}
 .center-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
+.support-btn{background:linear-gradient(135deg,#25D366,#128C7E);color:#FFF;border-color:#25D366}
 @media (max-width:500px){
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
 .doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
@@ -237,6 +238,12 @@ a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard'
 }else{
 a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
 }
+}
+
+function contactSupport(){
+const phone='201154846407';
+const msg=encodeURIComponent('مرحباً، أحتاج مساعدة بخصوص حسابي في دكتور الناس');
+window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
 }
 
 async function logout(){
@@ -428,6 +435,7 @@ ${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">س�
 <div class="tabs">
 <button class="tab ${doctorPage==='profile'?'active':''}" onclick="setDoctorPage('profile')">📄 الملف الشخصي</button>
 <button class="tab ${doctorPage==='messages'?'active':''}" onclick="setDoctorPage('messages')">💬 الرسائل ${unreadForDoctor>0?'<span class="dot-badge"></span>':''}</button>
+<button class="tab support-btn" onclick="contactSupport()">💚 تواصل مع الدعم</button>
 </div>
 <div id="doctor-page-content"></div>
 </div>`;
@@ -813,7 +821,6 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').cat
 $('#year').textContent=new Date().getFullYear();
 await checkUser();
 await route();
-// تحديث تلقائي للنقطة الخضراء كل 15 ثانية
 setInterval(refreshUnread,15000);
 })();
 </script>

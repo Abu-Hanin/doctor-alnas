@@ -1,641 +1,749 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دكتور الناس - دليل الأطباء</title>
-    <meta name="theme-color" content="#F0B90B">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="دكتور الناس">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="apple-touch-icon" href="./icon-512.png">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Tajawal', sans-serif; background: #0B0E11; color: #FFF; direction: rtl; min-height: 100vh; line-height: 1.6; }
-        .container { max-width: 700px; margin: 0 auto; padding: 0 14px; }
-        .site-header { background: rgba(11,14,17,0.98); backdrop-filter: blur(10px); padding: 12px 0 10px; border-bottom: 1px solid #1E2329; position: sticky; top: 0; z-index: 100; }
-        .header-top-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-        .logo { font-size: 1.4rem; font-weight: 900; color: #F0B90B; cursor: pointer; text-shadow: 0 0 20px rgba(240,185,11,0.6); }
-        .pulse-dot { display: inline-block; width: 8px; height: 8px; background: #0ECB81; border-radius: 50%; margin-right: 4px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(14,203,129,0.8); } 70% { box-shadow: 0 0 0 10px rgba(14,203,129,0); } 100% { box-shadow: 0 0 0 0 rgba(14,203,129,0); } }
-        .header-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-        .btn-header { padding: 7px 14px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; border: none; cursor: pointer; font-family: inherit; }
-        .btn-login { background: #F0B90B; color: #0B0E11; }
-        .btn-register { background: transparent; color: #0ECB81; border: 1px solid #0ECB81; }
-        .btn-logout { background: transparent; color: #F6465D; border: 1px solid #F6465D; }
-        .install-btn-row { width: 100%; margin-top: 10px; background: linear-gradient(135deg, #0ECB81, #0AB872); color: #FFF; border: none; padding: 11px; border-radius: 12px; font-family: inherit; font-size: 0.88rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; animation: install-glow 2s infinite; }
-        @keyframes install-glow { 0%, 100% { box-shadow: 0 4px 15px rgba(14,203,129,0.35); } 50% { box-shadow: 0 4px 25px rgba(14,203,129,0.7); } }
-        .hidden { display: none !important; }
-        .hero { padding: 24px 0 16px; text-align: center; }
-        .hero-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 4px; }
-        .hero-title span { color: #F0B90B; }
-        .hero-sub { color: #707A8A; font-size: 0.8rem; margin-bottom: 14px; }
-        .search-box { background: #1E2329; border: 1px solid #2B3139; border-radius: 40px; padding: 4px; display: flex; max-width: 480px; margin: 0 auto; }
-        .search-box input { flex: 1; border: none; outline: none; padding: 10px 18px; background: transparent; color: #FFF; font-family: inherit; font-size: 0.88rem; }
-        .search-box button { background: #F0B90B; color: #0B0E11; border: none; padding: 9px 20px; border-radius: 30px; cursor: pointer; font-weight: 800; font-family: inherit; font-size: 0.82rem; }
-        .section-header { display: flex; align-items: center; justify-content: space-between; margin: 18px 0 12px; padding-bottom: 8px; border-bottom: 1px solid #1E2329; }
-        .section-header h2 { color: #F0B90B; font-size: 0.95rem; font-weight: 900; }
-        .count-badge { background: #F0B90B; color: #0B0E11; font-size: 0.7rem; font-weight: 900; padding: 2px 9px; border-radius: 20px; }
-        .doctors-list { display: flex; flex-direction: column; gap: 12px; }
-        .doc-card { background: #1E2329; border: 1px solid #2B3139; border-radius: 16px; padding: 16px; display: grid; grid-template-columns: 100px 1fr 20px; gap: 14px; cursor: pointer; align-items: center; transition: all 0.2s; }
-        .doc-card:hover { border-color: #F0B90B; background: #232830; transform: translateY(-2px); }
-        .doc-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #F0B90B; }
-        .doc-avatar-ph { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #F0B90B; background: #0B0E11; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
-        .doc-info { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-        .doc-name { font-size: 1.05rem; font-weight: 900; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .doc-spec { color: #F0B90B; font-weight: 700; font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .doc-loc { color: #B7BDC6; font-size: 0.78rem; }
-        .doc-arrow { color: #F0B90B; opacity: 0.5; }
-        .empty-msg { text-align: center; padding: 40px 20px; background: #1E2329; border: 1px dashed #2B3139; border-radius: 14px; color: #707A8A; font-size: 0.9rem; }
-        .form-container { max-width: 520px; margin: 30px auto; background: #1E2329; border-radius: 16px; border: 1px solid #2B3139; padding: 24px; }
-        .form-container h2 { color: #F0B90B; text-align: center; margin-bottom: 6px; font-weight: 900; }
-        .form-subtitle { text-align: center; color: #707A8A; font-size: 0.85rem; margin-bottom: 20px; }
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.88rem; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; color: #FFF; font-family: inherit; font-size: 0.9rem; outline: none; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #F0B90B; box-shadow: 0 0 0 3px rgba(240,185,11,0.1); }
-        .form-group textarea { min-height: 80px; resize: vertical; }
-        .form-group small { color: #707A8A; font-size: 0.75rem; display: block; margin-top: 4px; }
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: 30px; font-weight: 800; cursor: pointer; border: none; font-family: inherit; font-size: 0.9rem; width: 100%; transition: all 0.2s; }
-        .btn-primary { background: #F0B90B; color: #0B0E11; }
-        .btn-primary:hover { background: #D4A309; }
-        .btn-success { background: #0ECB81; color: #FFF; }
-        .btn-success:hover { background: #0AB872; }
-        .btn-danger { background: #F6465D; color: #FFF; }
-        .btn-sm { padding: 6px 12px; font-size: 0.75rem; width: auto; }
-        .alert { padding: 12px 16px; border-radius: 10px; margin-bottom: 16px; font-weight: 600; font-size: 0.88rem; text-align: center; }
-        .alert-success { background: rgba(14,203,129,0.15); color: #0ECB81; border: 1px solid #0ECB81; }
-        .alert-danger { background: rgba(246,70,93,0.15); color: #F6465D; border: 1px solid #F6465D; }
-        .alert-info { background: rgba(240,185,11,0.15); color: #F0B90B; border: 1px solid #F0B90B; }
-        .doctor-full-page { max-width: 700px; margin: 20px auto; background: #1E2329; border: 1px solid #2B3139; border-radius: 16px; overflow: hidden; }
-        .dfp-hero { background: linear-gradient(135deg, #1E2329, #232830); padding: 30px 20px; text-align: center; border-bottom: 1px solid #2B3139; }
-        .dfp-avatar { width: 130px; height: 130px; border-radius: 50%; border: 4px solid #F0B90B; object-fit: cover; margin: 0 auto 15px; display: block; box-shadow: 0 0 25px rgba(240,185,11,0.4); }
-        .dfp-avatar-ph { width: 130px; height: 130px; border-radius: 50%; border: 4px solid #F0B90B; background: #0B0E11; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; margin: 0 auto 15px; }
-        .dfp-hero h1 { color: #F0B90B; font-size: 1.5rem; font-weight: 900; margin-bottom: 6px; }
-        .dfp-spec { font-weight: 700; margin-bottom: 4px; }
-        .dfp-sub { color: #707A8A; font-size: 0.85rem; margin-bottom: 16px; }
-        .dfp-call { display: inline-block; background: #0ECB81; color: #FFF; padding: 12px 30px; border-radius: 30px; font-weight: 800; text-decoration: none; box-shadow: 0 4px 15px rgba(14,203,129,0.4); }
-        .dfp-body { padding: 18px; }
-        .dfp-card { background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; padding: 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-        .dfp-icon { font-size: 1.4rem; width: 40px; height: 40px; background: #1E2329; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .dfp-label { color: #707A8A; font-size: 0.75rem; }
-        .dfp-value { font-weight: 600; font-size: 0.9rem; }
-        .dfp-section { background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; padding: 16px; margin-bottom: 10px; }
-        .dfp-section h3 { color: #F0B90B; font-size: 0.95rem; margin-bottom: 10px; }
-        .dfp-section p { font-size: 0.88rem; line-height: 1.8; }
-        .dfp-back { display: block; text-align: center; background: transparent; border: 1px solid #2B3139; color: #FFF; padding: 12px; border-radius: 10px; font-weight: 700; margin-top: 16px; cursor: pointer; width: 100%; font-family: inherit; font-size: 0.9rem; }
-        .dash-container { max-width: 720px; margin: 20px auto; padding: 0 16px; }
-        .dash-header { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 20px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
-        .form-section { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 18px; margin-bottom: 16px; }
-        .form-section h3 { color: #F0B90B; font-size: 1rem; margin-bottom: 14px; border-bottom: 1px solid #2B3139; padding-bottom: 10px; }
-        .status-badge { padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 0.82rem; }
-        .status-pending { background: rgba(240,185,11,0.15); color: #F0B90B; border: 1px solid #F0B90B; }
-        .status-approved { background: rgba(14,203,129,0.15); color: #0ECB81; border: 1px solid #0ECB81; }
-        .status-rejected { background: rgba(246,70,93,0.15); color: #F6465D; border: 1px solid #F6465D; }
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
-        .stat-card { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 16px; text-align: center; }
-        .stat-card h3 { color: #707A8A; font-size: 0.8rem; margin-bottom: 4px; }
-        .stat-card p { font-size: 1.6rem; font-weight: 900; color: #F0B90B; }
-        .pending-card { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-        .pending-card .info { flex: 1; min-width: 150px; }
-        .pending-card .info h4 { font-size: 0.95rem; margin-bottom: 4px; }
-        .pending-card .info p { color: #707A8A; font-size: 0.78rem; }
-        .tabs { display: flex; gap: 6px; margin: 20px 0; overflow-x: auto; }
-        .tab { padding: 8px 16px; border-radius: 20px; background: #1E2329; border: 1px solid #2B3139; color: #FFF; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 0.82rem; white-space: nowrap; }
-        .tab.active { background: #F0B90B; color: #0B0E11; border-color: #F0B90B; }
-        .chat-box { background: #1E2329; border: 1px solid #2B3139; border-radius: 12px; padding: 16px; margin-bottom: 16px; max-height: 400px; overflow-y: auto; }
-        .chat-msg { padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; max-width: 85%; font-size: 0.88rem; line-height: 1.5; word-wrap: break-word; }
-        .chat-doctor { background: #F0B90B; color: #0B0E11; margin-right: auto; }
-        .chat-admin { background: #2B3139; margin-left: auto; }
-        .chat-time { font-size: 0.68rem; opacity: 0.7; margin-top: 4px; }
-        .chat-input-row { display: flex; gap: 8px; margin-top: 12px; }
-        .chat-input-row input { flex: 1; padding: 12px; background: #0B0E11; border: 1px solid #2B3139; border-radius: 10px; color: #FFF; font-family: inherit; font-size: 0.9rem; outline: none; }
-        .chat-input-row button { padding: 12px 20px; background: #0ECB81; color: #FFF; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; font-family: inherit; }
-        .site-footer { text-align: center; padding: 20px; color: #707A8A; border-top: 1px solid #1E2329; margin-top: 24px; font-size: 0.75rem; }
-        .ios-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
-        .ios-modal.active { display: flex; }
-        .ios-modal-box { background: #1E2329; border: 1px solid #2B3139; border-radius: 16px; padding: 24px; max-width: 360px; text-align: center; position: relative; }
-        .ios-modal-box h3 { color: #F0B90B; font-size: 1.1rem; margin-bottom: 14px; }
-        .ios-modal-box p { color: #B7BDC6; font-size: 0.88rem; line-height: 1.8; margin-bottom: 8px; }
-        .close-x { position: absolute; top: 10px; left: 14px; background: transparent; border: none; color: #707A8A; font-size: 1.5rem; cursor: pointer; }
-        .loading { text-align: center; padding: 40px; color: #F0B90B; }
-        .img-preview { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid #F0B90B; margin: 10px auto; display: block; }
-        .file-input-label { display: block; background: #0B0E11; border: 2px dashed #2B3139; border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; color: #707A8A; transition: all 0.2s; }
-        .file-input-label:hover { border-color: #F0B90B; color: #F0B90B; }
-        .file-input-label input { display: none; }
-        @media (max-width: 500px) {
-            .doc-card { grid-template-columns: 90px 1fr 16px; padding: 14px; gap: 12px; }
-            .doc-avatar, .doc-avatar-ph { width: 90px; height: 90px; font-size: 2.1rem; }
-            .doc-name { font-size: 0.98rem; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دكتور الناس - دليل الأطباء</title>
+<meta name="theme-color" content="#F0B90B">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="دكتور الناس">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-512.png">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rtl;min-height:100vh;line-height:1.6}
+.container{max-width:700px;margin:0 auto;padding:0 14px}
+.site-header{background:rgba(11,14,17,0.98);backdrop-filter:blur(10px);padding:12px 0 10px;border-bottom:1px solid #1E2329;position:sticky;top:0;z-index:100}
+.header-top-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.logo{font-size:1.4rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6)}
+.pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,203,129,0.8)}70%{box-shadow:0 0 0 10px rgba(14,203,129,0)}100%{box-shadow:0 0 0 0 rgba(14,203,129,0)}}
+.header-actions{display:flex;gap:6px;flex-wrap:wrap}
+.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit}
+.btn-login{background:#F0B90B;color:#0B0E11}
+.btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
+.btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
+.install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;animation:install-glow 2s infinite}
+@keyframes install-glow{0%,100%{box-shadow:0 4px 15px rgba(14,203,129,0.35)}50%{box-shadow:0 4px 25px rgba(14,203,129,0.7)}}
+.hidden{display:none!important}
+.hero{padding:24px 0 16px;text-align:center}
+.hero-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
+.hero-title span{color:#F0B90B}
+.hero-sub{color:#707A8A;font-size:0.8rem;margin-bottom:14px}
+.search-box{background:#1E2329;border:1px solid #2B3139;border-radius:40px;padding:4px;display:flex;max-width:480px;margin:0 auto}
+.search-box input{flex:1;border:none;outline:none;padding:10px 18px;background:transparent;color:#FFF;font-family:inherit;font-size:0.88rem}
+.search-box button{background:#F0B90B;color:#0B0E11;border:none;padding:9px 20px;border-radius:30px;cursor:pointer;font-weight:800;font-family:inherit;font-size:0.82rem}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin:18px 0 12px;padding-bottom:8px;border-bottom:1px solid #1E2329}
+.section-header h2{color:#F0B90B;font-size:0.95rem;font-weight:900}
+.count-badge{background:#F0B90B;color:#0B0E11;font-size:0.7rem;font-weight:900;padding:2px 9px;border-radius:20px}
+.doctors-list{display:flex;flex-direction:column;gap:12px}
+.doc-card{background:#1E2329;border:1px solid #2B3139;border-radius:16px;padding:16px;display:grid;grid-template-columns:100px 1fr 20px;gap:14px;cursor:pointer;align-items:center;transition:all 0.2s}
+.doc-card:hover{border-color:#F0B90B;background:#232830;transform:translateY(-2px)}
+.doc-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B}
+.doc-avatar-ph{width:100px;height:100px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2.4rem}
+.doc-info{display:flex;flex-direction:column;gap:5px;min-width:0}
+.doc-name{font-size:1.05rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-spec{color:#F0B90B;font-weight:700;font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-loc{color:#B7BDC6;font-size:0.78rem}
+.doc-arrow{color:#F0B90B;opacity:0.5}
+.empty-msg{text-align:center;padding:40px 20px;background:#1E2329;border:1px dashed #2B3139;border-radius:14px;color:#707A8A;font-size:0.9rem}
+.form-container{max-width:520px;margin:30px auto;background:#1E2329;border-radius:16px;border:1px solid #2B3139;padding:24px}
+.form-container h2{color:#F0B90B;text-align:center;margin-bottom:6px;font-weight:900}
+.form-subtitle{text-align:center;color:#707A8A;font-size:0.85rem;margin-bottom:20px}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:0.88rem}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
+.form-group textarea{min-height:80px;resize:vertical}
+.form-group small{color:#707A8A;font-size:0.75rem;display:block;margin-top:4px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%;transition:all 0.2s}
+.btn-primary{background:#F0B90B;color:#0B0E11}
+.btn-primary:hover{background:#D4A309}
+.btn-success{background:#0ECB81;color:#FFF}
+.btn-success:hover{background:#0AB872}
+.btn-danger{background:#F6465D;color:#FFF}
+.btn-sm{padding:6px 12px;font-size:0.75rem;width:auto}
+.alert{padding:12px 16px;border-radius:10px;margin-bottom:16px;font-weight:600;font-size:0.88rem;text-align:center}
+.alert-success{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
+.alert-danger{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
+.alert-info{background:rgba(240,185,11,0.15);color:#F0B90B;border:1px solid #F0B90B}
+.doctor-full-page{max-width:700px;margin:20px auto;background:#1E2329;border:1px solid #2B3139;border-radius:16px;overflow:hidden}
+.dfp-hero{background:linear-gradient(135deg,#1E2329,#232830);padding:30px 20px;text-align:center;border-bottom:1px solid #2B3139}
+.dfp-avatar{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;object-fit:cover;margin:0 auto 15px;display:block;box-shadow:0 0 25px rgba(240,185,11,0.4)}
+.dfp-avatar-ph{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:3.5rem;margin:0 auto 15px}
+.dfp-hero h1{color:#F0B90B;font-size:1.5rem;font-weight:900;margin-bottom:6px}
+.dfp-spec{font-weight:700;margin-bottom:4px}
+.dfp-sub{color:#707A8A;font-size:0.85rem;margin-bottom:16px}
+.dfp-call{display:inline-block;background:#0ECB81;color:#FFF;padding:12px 30px;border-radius:30px;font-weight:800;text-decoration:none;box-shadow:0 4px 15px rgba(14,203,129,0.4)}
+.dfp-body{padding:18px}
+.dfp-card{background:#0B0E11;border:1px solid #2B3139;border-radius:10px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.dfp-icon{font-size:1.4rem;width:40px;height:40px;background:#1E2329;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dfp-label{color:#707A8A;font-size:0.75rem}
+.dfp-value{font-weight:600;font-size:0.9rem}
+.dfp-section{background:#0B0E11;border:1px solid #2B3139;border-radius:10px;padding:16px;margin-bottom:10px}
+.dfp-section h3{color:#F0B90B;font-size:0.95rem;margin-bottom:10px}
+.dfp-section p{font-size:0.88rem;line-height:1.8}
+.dfp-back{display:block;text-align:center;background:transparent;border:1px solid #2B3139;color:#FFF;padding:12px;border-radius:10px;font-weight:700;margin-top:16px;cursor:pointer;width:100%;font-family:inherit;font-size:0.9rem}
+.dash-container{max-width:720px;margin:20px auto;padding:0 16px}
+.dash-header{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.form-section{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:18px;margin-bottom:16px}
+.form-section h3{color:#F0B90B;font-size:1rem;margin-bottom:14px;border-bottom:1px solid #2B3139;padding-bottom:10px}
+.status-badge{padding:6px 14px;border-radius:20px;font-weight:700;font-size:0.82rem}
+.status-pending{background:rgba(240,185,11,0.15);color:#F0B90B;border:1px solid #F0B90B}
+.status-approved{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
+.status-rejected{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;transition:all 0.2s}
+.stat-card:hover{border-color:#F0B90B}
+.stat-card h3{color:#707A8A;font-size:0.8rem;margin-bottom:4px}
+.stat-card p{font-size:1.6rem;font-weight:900;color:#F0B90B}
+.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s}
+.pending-card:hover{border-color:#F0B90B}
+.pending-card .info{flex:1;min-width:150px}
+.pending-card .info h4{font-size:0.95rem;margin-bottom:4px}
+.pending-card .info p{color:#707A8A;font-size:0.78rem}
+.tabs{display:flex;gap:6px;margin:20px 0;overflow-x:auto;padding-bottom:4px}
+.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s}
+.tab.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
+.chat-box{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;margin-bottom:16px;max-height:450px;overflow-y:auto}
+.chat-msg{padding:10px 14px;border-radius:12px;margin-bottom:8px;max-width:85%;font-size:0.88rem;line-height:1.5;word-wrap:break-word;clear:both}
+.chat-doctor{background:#F0B90B;color:#0B0E11;float:right;text-align:right}
+.chat-admin{background:#2B3139;color:#FFF;float:left;text-align:right}
+.chat-time{font-size:0.68rem;opacity:0.7;margin-top:4px;clear:both}
+.chat-input-row{display:flex;gap:8px;margin-top:12px;clear:both}
+.chat-input-row input{flex:1;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
+.chat-input-row button{padding:12px 20px;background:#0ECB81;color:#FFF;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit}
+.site-footer{text-align:center;padding:20px;color:#707A8A;border-top:1px solid #1E2329;margin-top:24px;font-size:0.75rem}
+.ios-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.ios-modal.active{display:flex}
+.ios-modal-box{background:#1E2329;border:1px solid #2B3139;border-radius:16px;padding:24px;max-width:360px;text-align:center;position:relative}
+.ios-modal-box h3{color:#F0B90B;font-size:1.1rem;margin-bottom:14px}
+.ios-modal-box p{color:#B7BDC6;font-size:0.88rem;line-height:1.8;margin-bottom:8px}
+.close-x{position:absolute;top:10px;left:14px;background:transparent;border:none;color:#707A8A;font-size:1.5rem;cursor:pointer}
+.loading{text-align:center;padding:40px;color:#F0B90B}
+.img-preview{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B;margin:10px auto;display:block}
+.file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:20px;text-align:center;cursor:pointer;color:#707A8A;transition:all 0.2s;font-size:0.9rem}
+.file-input-label:hover{border-color:#F0B90B;color:#F0B90B}
+.file-input-label input{display:none}
+@media (max-width:500px){
+.doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
+.doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
+.doc-name{font-size:0.98rem}
+.stats-grid{grid-template-columns:1fr 1fr}
+}
+</style>
 </head>
 <body>
 
 <header class="site-header">
-    <div class="container">
-        <div class="header-top-row">
-            <a class="logo" onclick="go('home')">دكتور الناس<span class="pulse-dot"></span></a>
-            <div class="header-actions" id="header-actions"></div>
-        </div>
-        <button id="installBtn" class="install-btn-row hidden" onclick="installApp()">📲 ثبّت التطبيق على هاتفك</button>
-    </div>
+<div class="container">
+<div class="header-top-row">
+<a class="logo" onclick="go('home')">دكتور الناس<span class="pulse-dot"></span></a>
+<div class="header-actions" id="header-actions"></div>
+</div>
+<button id="installBtn" class="install-btn-row hidden" onclick="installApp()">📲 ثبّت التطبيق على هاتفك</button>
+</div>
 </header>
 
-<main id="app">
-    <div class="loading">⏳ جارٍ التحميل...</div>
-</main>
+<main id="app"><div class="loading">⏳ جارٍ التحميل...</div></main>
 
 <footer class="site-footer">© <span id="year"></span> دكتور الناس — جميع الحقوق محفوظة</footer>
 
 <div class="ios-modal" id="installModal" onclick="if(event.target===this)closeModal()">
-    <div class="ios-modal-box">
-        <button class="close-x" onclick="closeModal()">×</button>
-        <div id="modal-content"></div>
-    </div>
+<div class="ios-modal-box">
+<button class="close-x" onclick="closeModal()">×</button>
+<div id="modal-content"></div>
+</div>
 </div>
 
 <script>
-const SUPABASE_URL = 'https://wfcizftmcclhnzgvukuy.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL='https://wfcizftmcclhnzgvukuy.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let currentUser=null,currentDoctor=null,isAdmin=false;
+const $=s=>document.querySelector(s);
+const esc=str=>{if(!str)return'';const d=document.createElement('div');d.textContent=str;return d.innerHTML;};
+const go=(page,param)=>{window.location.hash=param?`#${page}/${param}`:`#${page}`;};
 
-let currentUser = null;
-let currentDoctor = null;
-let isAdmin = false;
-
-const $ = s => document.querySelector(s);
-const esc = str => { if (!str) return ''; const d = document.createElement('div'); d.textContent = str; return d.innerHTML; };
-const go = (page, param) => { window.location.hash = param ? `#${page}/${param}` : `#${page}`; };
-
-async function route() {
-    const hash = window.location.hash.slice(1) || 'home';
-    const [page, param] = hash.split('/');
-    const app = $('#app');
-    app.innerHTML = '<div class="loading">⏳ جارٍ التحميل...</div>';
-    try {
-        if (page === 'home') await renderHome(app);
-        else if (page === 'doctor') await renderDoctor(app, param);
-        else if (page === 'login') renderLogin(app);
-        else if (page === 'register') renderRegister(app);
-        else if (page === 'doctor-dashboard') await renderDoctorDashboard(app);
-        else if (page === 'admin') await renderAdmin(app);
-        else await renderHome(app);
-    } catch (e) {
-        app.innerHTML = `<div class="container"><div class="alert alert-danger">حدث خطأ: ${esc(e.message)}</div></div>`;
-    }
-    window.scrollTo(0, 0);
+async function route(){
+const hash=window.location.hash.slice(1)||'home';
+const[page,param]=hash.split('/');
+const app=$('#app');
+app.innerHTML='<div class="loading">⏳ جارٍ التحميل...</div>';
+try{
+if(page==='home')await renderHome(app);
+else if(page==='doctor')await renderDoctor(app,param);
+else if(page==='login')renderLogin(app);
+else if(page==='register')renderRegister(app);
+else if(page==='doctor-dashboard')await renderDoctorDashboard(app);
+else if(page==='admin')await renderAdmin(app);
+else await renderHome(app);
+}catch(e){app.innerHTML=`<div class="container"><div class="alert alert-danger">حدث خطأ: ${esc(e.message)}</div></div>`;}
+window.scrollTo(0,0);
 }
-window.addEventListener('hashchange', route);
+window.addEventListener('hashchange',route);
 
-async function checkUser() {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-    currentUser = user;
-    currentDoctor = null;
-    isAdmin = false;
-    if (user) {
-        const { data: d } = await supabaseClient.from('doctors').select('*').eq('user_id', user.id).maybeSingle();
-        currentDoctor = d;
-        const { data: aList } = await supabaseClient.from('admins').select('id').eq('user_id', user.id).limit(1);
-        isAdmin = aList && aList.length > 0;
-    }
-    renderHeaderActions();
+async function checkUser(){
+const{data:{user}}=await supabaseClient.auth.getUser();
+currentUser=user;currentDoctor=null;isAdmin=false;
+if(user){
+const{data:d}=await supabaseClient.from('doctors').select('*').eq('user_id',user.id).maybeSingle();
+currentDoctor=d;
+const{data:aList}=await supabaseClient.from('admins').select('id').eq('user_id',user.id).limit(1);
+isAdmin=aList&&aList.length>0;
+}
+renderHeaderActions();
 }
 
-function renderHeaderActions() {
-    const a = $('#header-actions');
-    if (isAdmin) {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
-    } else if (currentUser) {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
-    } else {
-        a.innerHTML = `<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
-    }
+function renderHeaderActions(){
+const a=$('#header-actions');
+if(isAdmin){a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;}
+else if(currentUser){a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;}
+else{a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;}
 }
 
-async function logout() {
-    await supabaseClient.auth.signOut();
-    currentUser = null; currentDoctor = null; isAdmin = false;
-    renderHeaderActions(); go('home');
+async function logout(){
+await supabaseClient.auth.signOut();
+currentUser=null;currentDoctor=null;isAdmin=false;
+renderHeaderActions();go('home');
 }
 
-let searchQuery = '';
-async function renderHome(app) {
-    app.innerHTML = `
-        <section class="hero">
-            <div class="container">
-                <h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>
-                <p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>
-                <form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">
-                    <input type="text" name="q" placeholder="🔍 اسم الطبيب أو التخصص..." value="${esc(searchQuery)}">
-                    <button type="submit">بحث</button>
-                </form>
-            </div>
-        </section>
-        <div class="container">
-            <div class="section-header">
-                <h2>👨‍⚕️ الأطباء المتاحون</h2>
-                <span class="count-badge" id="doc-count">...</span>
-            </div>
-            <div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
-        </div>
-    `;
-    await loadDoctors(searchQuery);
+let searchQuery='';
+async function renderHome(app){
+app.innerHTML=`
+<section class="hero">
+<div class="container">
+<h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>
+<p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>
+<form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">
+<input type="text" name="q" placeholder="🔍 اسم الطبيب أو التخصص..." value="${esc(searchQuery)}">
+<button type="submit">بحث</button>
+</form>
+</div>
+</section>
+<div class="container">
+<div class="section-header">
+<h2>👨‍⚕️ الأطباء المتاحون</h2>
+<span class="count-badge" id="doc-count">...</span>
+</div>
+<div id="doctors-list" class="doctors-list"><div class="loading">⏳</div></div>
+</div>`;
+await loadDoctors(searchQuery);
 }
 
-function doSearch(f) { searchQuery = f.q.value.trim(); loadDoctors(searchQuery); }
+function doSearch(f){searchQuery=f.q.value.trim();loadDoctors(searchQuery);}
 
-async function loadDoctors(query = '') {
-    const list = $('#doctors-list');
-    let q = supabaseClient.from('doctors').select('*').eq('status', 'approved').eq('deleted', false).order('created_at', { ascending: false });
-    if (query) {
-        const t = `%${query}%`;
-        q = q.or(`full_name.ilike.${t},specialty.ilike.${t},sub_specialty.ilike.${t},governorate.ilike.${t},city.ilike.${t}`);
-    }
-    const { data, error } = await q;
-    if (error) { list.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`; return; }
-    $('#doc-count').textContent = data.length;
-    if (data.length === 0) { list.innerHTML = '<div class="empty-msg">📭 لا يوجد أطباء مطابقون</div>'; return; }
-    list.innerHTML = data.map(d => `
-        <div class="doc-card" onclick="go('doctor','${d.id}')">
-            ${d.image_url ? `<img src="${esc(d.image_url)}" class="doc-avatar">` : `<div class="doc-avatar-ph">🩺</div>`}
-            <div class="doc-info">
-                <div class="doc-name">${esc(d.full_name)}</div>
-                <div class="doc-spec">${esc(d.specialty || '')}${d.sub_specialty ? ' • ' + esc(d.sub_specialty) : ''}</div>
-                <div class="doc-loc">📍 ${esc(d.governorate || '')}${d.city ? ' - ' + esc(d.city) : ''}</div>
-            </div>
-            <span class="doc-arrow">◀</span>
-        </div>
-    `).join('');
+async function loadDoctors(query=''){
+const list=$('#doctors-list');
+let q=supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false).order('created_at',{ascending:false});
+if(query){const t=`%${query}%`;q=q.or(`full_name.ilike.${t},specialty.ilike.${t},sub_specialty.ilike.${t},governorate.ilike.${t},city.ilike.${t}`);}
+const{data,error}=await q;
+if(error){list.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+$('#doc-count').textContent=data.length;
+if(data.length===0){list.innerHTML='<div class="empty-msg">📭 لا يوجد أطباء مطابقون</div>';return;}
+list.innerHTML=data.map(d=>`
+<div class="doc-card" onclick="go('doctor','${d.id}')">
+${d.image_url?`<img src="${esc(d.image_url)}" class="doc-avatar">`:`<div class="doc-avatar-ph">🩺</div>`}
+<div class="doc-info">
+<div class="doc-name">${esc(d.full_name)}</div>
+<div class="doc-spec">${esc(d.specialty||'')}${d.sub_specialty?' • '+esc(d.sub_specialty):''}</div>
+<div class="doc-loc">📍 ${esc(d.governorate||'')}${d.city?' - '+esc(d.city):''}</div>
+</div>
+<span class="doc-arrow">◀</span>
+</div>`).join('');
 }
 
-async function renderDoctor(app, id) {
-    const { data: d, error } = await supabaseClient.from('doctors').select('*').eq('id', id).eq('status', 'approved').eq('deleted', false).maybeSingle();
-    if (error || !d) { app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>'; return; }
-    app.innerHTML = `
-        <div class="doctor-full-page">
-            <div class="dfp-hero">
-                ${d.image_url ? `<img src="${esc(d.image_url)}" class="dfp-avatar">` : `<div class="dfp-avatar-ph">🩺</div>`}
-                <h1>${esc(d.full_name)}</h1>
-                ${d.specialty ? `<p class="dfp-spec">${esc(d.specialty)}</p>` : ''}
-                ${d.sub_specialty ? `<p class="dfp-sub">${esc(d.sub_specialty)}</p>` : ''}
-                ${d.phone1 ? `<a href="tel:${esc(d.phone1)}" class="dfp-call">📞 اتصل بالدكتور الآن</a>` : ''}
-            </div>
-            <div class="dfp-body">
-                ${d.governorate || d.city ? `<div class="dfp-card"><span class="dfp-icon">📍</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">${esc(d.governorate || '')}${d.city ? ' - ' + esc(d.city) : ''}${d.region ? ' - ' + esc(d.region) : ''}</div></div></div>` : ''}
-                ${d.address ? `<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">التفاصيل</div><div class="dfp-value">${esc(d.address)}</div></div></div>` : ''}
-                ${d.phone1 ? `<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone1)}</div></div></div>` : ''}
-                ${d.phone2 ? `<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone2)}</div></div></div>` : ''}
-                ${d.work_days ? `<div class="dfp-card"><span class="dfp-icon">🕒</span><div><div class="dfp-label">أيام العمل</div><div class="dfp-value">${esc(d.work_days)}</div></div></div>` : ''}
-                ${d.work_start || d.work_end ? `<div class="dfp-card"><span class="dfp-icon">⏰</span><div><div class="dfp-label">ساعات العمل</div><div class="dfp-value">من ${esc(d.work_start||'')} إلى ${esc(d.work_end||'')}</div></div></div>` : ''}
-                ${d.qualifications ? `<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>${esc(d.qualifications).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.certificates ? `<div class="dfp-section"><h3>📜 الشهادات</h3><p>${esc(d.certificates).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.experience ? `<div class="dfp-section"><h3>💼 الخبرات</h3><p>${esc(d.experience).replace(/\n/g,'<br>')}</p></div>` : ''}
-                ${d.about ? `<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p>${esc(d.about).replace(/\n/g,'<br>')}</p></div>` : ''}
-                <button onclick="go('home')" class="dfp-back">← رجوع للقائمة</button>
-            </div>
-        </div>
-    `;
+async function renderDoctor(app,id){
+const{data:d,error}=await supabaseClient.from('doctors').select('*').eq('id',id).eq('status','approved').eq('deleted',false).maybeSingle();
+if(error||!d){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>';return;}
+app.innerHTML=`
+<div class="doctor-full-page">
+<div class="dfp-hero">
+${d.image_url?`<img src="${esc(d.image_url)}" class="dfp-avatar">`:`<div class="dfp-avatar-ph">🩺</div>`}
+<h1>${esc(d.full_name)}</h1>
+${d.specialty?`<p class="dfp-spec">${esc(d.specialty)}</p>`:''}
+${d.sub_specialty?`<p class="dfp-sub">${esc(d.sub_specialty)}</p>`:''}
+${d.phone1?`<a href="tel:${esc(d.phone1)}" class="dfp-call">📞 اتصل بالدكتور الآن</a>`:''}
+</div>
+<div class="dfp-body">
+${d.governorate||d.city?`<div class="dfp-card"><span class="dfp-icon">📍</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">${esc(d.governorate||'')}${d.city?' - '+esc(d.city):''}${d.region?' - '+esc(d.region):''}</div></div></div>`:''}
+${d.address?`<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">التفاصيل</div><div class="dfp-value">${esc(d.address)}</div></div></div>`:''}
+${d.phone1?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone1)}</div></div></div>`:''}
+${d.phone2?`<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">${esc(d.phone2)}</div></div></div>`:''}
+${d.work_days?`<div class="dfp-card"><span class="dfp-icon">🕒</span><div><div class="dfp-label">أيام العمل</div><div class="dfp-value">${esc(d.work_days)}</div></div></div>`:''}
+${d.work_start||d.work_end?`<div class="dfp-card"><span class="dfp-icon">⏰</span><div><div class="dfp-label">ساعات العمل</div><div class="dfp-value">من ${esc(d.work_start||'')} إلى ${esc(d.work_end||'')}</div></div></div>`:''}
+${d.qualifications?`<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>${esc(d.qualifications).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.certificates?`<div class="dfp-section"><h3>📜 الشهادات</h3><p>${esc(d.certificates).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.experience?`<div class="dfp-section"><h3>💼 الخبرات</h3><p>${esc(d.experience).replace(/\n/g,'<br>')}</p></div>`:''}
+${d.about?`<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p>${esc(d.about).replace(/\n/g,'<br>')}</p></div>`:''}
+<button onclick="go('home')" class="dfp-back">← رجوع للقائمة</button>
+</div>
+</div>`;
 }
 
-function renderRegister(app) {
-    app.innerHTML = `
-        <div class="container">
-            <div class="form-container">
-                <h2>📝 إنشاء حساب طبيب</h2>
-                <p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>
-                <div id="reg-alert"></div>
-                <form onsubmit="event.preventDefault(); doRegister(this);">
-                    <div class="form-group"><label>👤 الاسم الكامل *</label><input type="text" name="full_name" required placeholder="د. أحمد محمد"></div>
-                    <div class="form-group"><label>📧 البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
-                    <div class="form-group"><label>🔒 كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr" placeholder="6 أحرف على الأقل"></div>
-                    <div class="form-group"><label>📱 رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr" placeholder="01xxxxxxxxx"><small>⚠️ لن يظهر للزوار — للإدارة فقط</small></div>
-                    <button type="submit" class="btn btn-success">✅ إنشاء الحساب</button>
-                </form>
-                <p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go('login')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>
-            </div>
-        </div>
-    `;
+function renderRegister(app){
+app.innerHTML=`
+<div class="container">
+<div class="form-container">
+<h2>📝 إنشاء حساب طبيب</h2>
+<p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>
+<div id="reg-alert"></div>
+<form onsubmit="event.preventDefault(); doRegister(this);">
+<div class="form-group"><label>👤 الاسم الكامل *</label><input type="text" name="full_name" required placeholder="د. أحمد محمد"></div>
+<div class="form-group"><label>📧 البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
+<div class="form-group"><label>🔒 كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr" placeholder="6 أحرف على الأقل"></div>
+<div class="form-group"><label>📱 رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr" placeholder="01xxxxxxxxx"><small>⚠️ لن يظهر للزوار — للإدارة فقط</small></div>
+<button type="submit" class="btn btn-success">✅ إنشاء الحساب</button>
+</form>
+<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go('login')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>
+</div>
+</div>`;
 }
 
-async function doRegister(f) {
-    const al = $('#reg-alert'); al.innerHTML = '';
-    const { data: authData, error: e1 } = await supabaseClient.auth.signUp({ email: f.email.value.trim(), password: f.password.value });
-    if (e1) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(e1.message)}</div>`; return; }
-    if (!authData.user) { al.innerHTML = `<div class="alert alert-danger">خطأ في إنشاء الحساب</div>`; return; }
-    const { error: e2 } = await supabaseClient.from('doctors').insert({
-        user_id: authData.user.id,
-        full_name: f.full_name.value.trim(),
-        email: f.email.value.trim(),
-        phone_private: f.phone_private.value.trim(),
-        status: 'pending', deleted: false
-    });
-    if (e2) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(e2.message)}</div>`; return; }
-    al.innerHTML = `<div class="alert alert-success">✅ تم إنشاء حسابك! جارٍ التحويل...</div>`;
-    setTimeout(() => go('login'), 1500);
+async function doRegister(f){
+const al=$('#reg-alert');al.innerHTML='';
+const{data:authData,error:e1}=await supabaseClient.auth.signUp({email:f.email.value.trim(),password:f.password.value});
+if(e1){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e1.message)}</div>`;return;}
+if(!authData.user){al.innerHTML=`<div class="alert alert-danger">خطأ في إنشاء الحساب</div>`;return;}
+const{error:e2}=await supabaseClient.from('doctors').insert({user_id:authData.user.id,full_name:f.full_name.value.trim(),email:f.email.value.trim(),phone_private:f.phone_private.value.trim(),status:'pending',deleted:false});
+if(e2){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(e2.message)}</div>`;return;}
+al.innerHTML=`<div class="alert alert-success">✅ تم إنشاء حسابك! جارٍ التحويل...</div>`;
+setTimeout(()=>go('login'),1500);
 }
 
-function renderLogin(app) {
-    app.innerHTML = `
-        <div class="container">
-            <div class="form-container">
-                <h2>🔑 تسجيل الدخول</h2>
-                <p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>
-                <div id="log-alert"></div>
-                <form onsubmit="event.preventDefault(); doLogin(this);">
-                    <div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
-                    <div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr" placeholder="********"></div>
-                    <button type="submit" class="btn btn-primary">دخول</button>
-                </form>
-                <p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go('register')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>
-            </div>
-        </div>
-    `;
+function renderLogin(app){
+app.innerHTML=`
+<div class="container">
+<div class="form-container">
+<h2>🔑 تسجيل الدخول</h2>
+<p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>
+<div id="log-alert"></div>
+<form onsubmit="event.preventDefault(); doLogin(this);">
+<div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr" placeholder="example@email.com"></div>
+<div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr" placeholder="********"></div>
+<button type="submit" class="btn btn-primary">دخول</button>
+</form>
+<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go('register')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>
+</div>
+</div>`;
 }
 
-async function doLogin(f) {
-    const al = $('#log-alert'); al.innerHTML = '';
-    const { error } = await supabaseClient.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
-    if (error) { al.innerHTML = `<div class="alert alert-danger">البريد أو كلمة المرور غير صحيحة</div>`; return; }
-    await checkUser();
-    if (isAdmin) go('admin');
-    else go('doctor-dashboard');
+async function doLogin(f){
+const al=$('#log-alert');al.innerHTML='';
+const{error}=await supabaseClient.auth.signInWithPassword({email:f.email.value.trim(),password:f.password.value});
+if(error){al.innerHTML=`<div class="alert alert-danger">البريد أو كلمة المرور غير صحيحة</div>`;return;}
+await checkUser();
+if(isAdmin)go('admin');
+else go('doctor-dashboard');
 }
 
-async function renderDoctorDashboard(app) {
-    if (!currentUser) { go('login'); return; }
-    await checkUser();
-    if (!currentDoctor) { app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">لا يوجد ملف لهذا الحساب</div></div>'; return; }
-    const d = currentDoctor;
-    const sm = { pending: ['⏳ قيد المراجعة','status-pending'], approved: ['✅ مقبول','status-approved'], rejected: ['❌ مرفوض','status-rejected'] };
-    const [txt, cls] = sm[d.status] || sm.pending;
-    const { data: msgs } = await supabaseClient.from('messages').select('*').eq('doctor_id', d.id).order('created_at', { ascending: true });
+/* ============ لوحة الطبيب - تبويبين ============ */
+let doctorTab='profile';
 
-    app.innerHTML = `
-        <div class="dash-container">
-            <div class="dash-header">
-                ${d.image_url ? `<img src="${esc(d.image_url)}" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">` : `<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">🩺</div>`}
-                <div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">${esc(d.full_name)}</h2><p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p></div>
-                <span class="status-badge ${cls}">${txt}</span>
-            </div>
-            ${d.status === 'rejected' && d.rejection_reason ? `<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>` : ''}
-            <div id="dash-alert"></div>
+async function renderDoctorDashboard(app){
+if(!currentUser){go('login');return;}
+await checkUser();
+if(!currentDoctor){app.innerHTML='<div class="container" style="padding:40px;"><div class="empty-msg">لا يوجد ملف لهذا الحساب</div></div>';return;}
+const d=currentDoctor;
+const sm={pending:['⏳ قيد المراجعة','status-pending'],approved:['✅ مقبول','status-approved'],rejected:['❌ مرفوض','status-rejected']};
+const[txt,cls]=sm[d.status]||sm.pending;
 
-            <h3 style="color:#F0B90B;margin:20px 0 10px;">💬 المحادثة مع الإدارة</h3>
-            <div class="chat-box" id="chat-box">
-                ${(msgs || []).length === 0 ? '<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد</p>' :
-                  (msgs || []).map(m => `
-                    <div class="chat-msg ${m.sender_type === 'doctor' ? 'chat-doctor' : 'chat-admin'}">
-                        <div>${esc(m.content)}</div>
-                        <div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
-                    </div>
-                  `).join('')}
-            </div>
-            <div class="chat-input-row">
-                <input type="text" id="chat-input" placeholder="اكتب رسالة للإدارة...">
-                <button onclick="sendMessage()">إرسال</button>
-            </div>
+app.innerHTML=`
+<div class="dash-container">
+<div class="dash-header">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">`:`<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">🩺</div>`}
+<div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">${esc(d.full_name)}</h2><p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p></div>
+<span class="status-badge ${cls}">${txt}</span>
+</div>
+${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>`:''}
+<div class="tabs">
+<button class="tab ${doctorTab==='profile'?'active':''}" onclick="setDoctorTab('profile')">📄 الملف الشخصي</button>
+<button class="tab ${doctorTab==='messages'?'active':''}" onclick="setDoctorTab('messages')">💬 الرسائل</button>
+</div>
+<div id="doctor-tab-content"></div>
+</div>`;
 
-            <form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data" style="margin-top:30px;">
-                <div class="form-section">
-                    <h3>👤 البيانات الأساسية</h3>
-                    <div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="${esc(d.full_name)}" required></div>
-                    <div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="${esc(d.specialty||'')}" placeholder="أسنان، جلدية، باطنة..."></div>
-                    <div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}" placeholder="تقويم الأسنان"></div>
-                    <div class="form-group">
-                        <label>📸 الصورة الشخصية</label>
-                        ${d.image_url ? `<img src="${esc(d.image_url)}" class="img-preview" id="current-img">` : ''}
-                        <label class="file-input-label">
-                            📁 اختر صورة من هاتفك
-                            <input type="file" name="image_file" accept="image/*" onchange="previewImage(this);">
-                        </label>
-                        <small>JPG، PNG، WebP، GIF — الحد الأقصى 5 MB</small>
-                    </div>
-                </div>
-                <div class="form-section">
-                    <h3>📞 أرقام التواصل</h3>
-                    <div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr" placeholder="01xxxxxxxxx"></div>
-                    <div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
-                </div>
-                <div class="form-section">
-                    <h3>📍 العنوان</h3>
-                    <div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
-                    <div class="form-group"><label>المدينة / المركز</label><input type="text" name="city" value="${esc(d.city||'')}"></div>
-                    <div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
-                    <div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
-                </div>
-                <div class="form-section">
-                    <h3>🕒 المواعيد</h3>
-                    <div class="form-group"><label>أيام العمل</label><input type="text" name="work_days" value="${esc(d.work_days||'')}" placeholder="السبت - الخميس"></div>
-                    <div class="form-group"><label>من الساعة</label><input type="text" name="work_start" value="${esc(d.work_start||'')}" placeholder="10:00 ص"></div>
-                    <div class="form-group"><label>إلى الساعة</label><input type="text" name="work_end" value="${esc(d.work_end||'')}" placeholder="8:00 م"></div>
-                </div>
-                <div class="form-section">
-                    <h3>🎓 المؤهلات والخبرات</h3>
-                    <div class="form-group"><label>المؤهلات</label><textarea name="qualifications">${esc(d.qualifications||'')}</textarea></div>
-                    <div class="form-group"><label>الشهادات</label><textarea name="certificates">${esc(d.certificates||'')}</textarea></div>
-                    <div class="form-group"><label>الخبرات</label><textarea name="experience">${esc(d.experience||'')}</textarea></div>
-                    <div class="form-group"><label>نبذة عنك</label><textarea name="about">${esc(d.about||'')}</textarea></div>
-                </div>
-                <button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>
-            </form>
-        </div>
-    `;
+if(doctorTab==='profile')await renderDoctorProfileTab();
+else await renderDoctorMessagesTab();
 }
 
-function previewImage(input) {
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = e => {
-            let preview = $('#current-img');
-            if (preview) { preview.src = e.target.result; }
-            else {
-                preview = document.createElement('img');
-                preview.id = 'current-img';
-                preview.className = 'img-preview';
-                preview.src = e.target.result;
-                input.parentNode.parentNode.insertBefore(preview, input.parentNode);
-            }
-        };
-        reader.readAsDataURL(input.files[0]);
-    }
+function setDoctorTab(t){doctorTab=t;renderDoctorDashboard($('#app'));}
+
+async function renderDoctorProfileTab(){
+const d=currentDoctor;
+const content=$('#doctor-tab-content');
+content.innerHTML=`
+<div id="dash-alert"></div>
+<form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">
+<div class="form-section">
+<h3>👤 البيانات الأساسية</h3>
+<div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="${esc(d.full_name)}" required></div>
+<div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="${esc(d.specialty||'')}" placeholder="أسنان، جلدية، باطنة..."></div>
+<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="${esc(d.sub_specialty||'')}" placeholder="تقويم الأسنان"></div>
+<div class="form-group">
+<label>📸 الصورة الشخصية</label>
+${d.image_url?`<img src="${esc(d.image_url)}" class="img-preview" id="current-img">`:''}
+<label class="file-input-label">
+📁 اختر صورة من هاتفك
+<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);">
+</label>
+<small>JPG، PNG، WebP، GIF — الحد الأقصى 5 MB</small>
+</div>
+</div>
+<div class="form-section">
+<h3>📞 أرقام التواصل</h3>
+<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="${esc(d.phone1||'')}" dir="ltr" placeholder="01xxxxxxxxx"></div>
+<div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
+</div>
+<div class="form-section">
+<h3>📍 العنوان</h3>
+<div class="form-group"><label>المحافظة</label><input type="text" name="governorate" value="${esc(d.governorate||'')}"></div>
+<div class="form-group"><label>المدينة / المركز</label><input type="text" name="city" value="${esc(d.city||'')}"></div>
+<div class="form-group"><label>المنطقة</label><input type="text" name="region" value="${esc(d.region||'')}"></div>
+<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">${esc(d.address||'')}</textarea></div>
+</div>
+<div class="form-section">
+<h3>🕒 المواعيد</h3>
+<div class="form-group"><label>أيام العمل</label><input type="text" name="work_days" value="${esc(d.work_days||'')}" placeholder="السبت - الخميس"></div>
+<div class="form-group"><label>من الساعة</label><input type="text" name="work_start" value="${esc(d.work_start||'')}" placeholder="10:00 ص"></div>
+<div class="form-group"><label>إلى الساعة</label><input type="text" name="work_end" value="${esc(d.work_end||'')}" placeholder="8:00 م"></div>
+</div>
+<div class="form-section">
+<h3>🎓 المؤهلات والخبرات</h3>
+<div class="form-group"><label>المؤهلات</label><textarea name="qualifications">${esc(d.qualifications||'')}</textarea></div>
+<div class="form-group"><label>الشهادات</label><textarea name="certificates">${esc(d.certificates||'')}</textarea></div>
+<div class="form-group"><label>الخبرات</label><textarea name="experience">${esc(d.experience||'')}</textarea></div>
+<div class="form-group"><label>نبذة عنك</label><textarea name="about">${esc(d.about||'')}</textarea></div>
+</div>
+<button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>
+</form>`;
 }
 
-async function saveDoctor(f) {
-    const al = $('#dash-alert'); al.innerHTML = '<div class="loading">⏳ جارٍ الحفظ...</div>';
-    let imageUrl = currentDoctor.image_url || '';
-    const fileInput = f.image_file;
-    if (fileInput && fileInput.files && fileInput.files[0]) {
-        const file = fileInput.files[0];
-        const ext = file.name.split('.').pop().toLowerCase();
-        const fileName = `doctor_${currentUser.id}_${Date.now()}.${ext}`;
-        const { data: upData, error: upErr } = await supabaseClient.storage.from('doctor-images').upload(fileName, file, { contentType: file.type, upsert: true });
-        if (upErr) { al.innerHTML = `<div class="alert alert-danger">خطأ رفع الصورة: ${esc(upErr.message)}</div>`; return; }
-        const { data: urlData } = supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
-        imageUrl = urlData.publicUrl;
-    }
-    const fields = ['full_name','specialty','sub_specialty','phone1','phone2','governorate','city','region','address','work_days','work_start','work_end','qualifications','certificates','experience','about'];
-    const u = {};
-    fields.forEach(k => { u[k] = f[k].value.trim(); });
-    u.image_url = imageUrl;
-    u.status = 'pending';
-    const { error } = await supabaseClient.from('doctors').update(u).eq('user_id', currentUser.id);
-    if (error) { al.innerHTML = `<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`; return; }
-    currentDoctor = { ...currentDoctor, ...u };
-    al.innerHTML = `<div class="alert alert-success">✅ تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة من الإدارة.</div>`;
-    setTimeout(() => route(), 2500);
+async function renderDoctorMessagesTab(){
+const content=$('#doctor-tab-content');
+const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:true});
+content.innerHTML=`
+<div class="chat-box" style="min-height:300px;">
+${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد<br><small>اكتب رسالتك للإدارة وسيتم الرد عليك قريباً</small></p>':
+(msgs||[]).map(m=>`
+<div class="chat-msg ${m.sender_type==='doctor'?'chat-doctor':'chat-admin'}">
+<div>${esc(m.content)}</div>
+<div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
+</div>`).join('')}
+</div>
+<div class="chat-input-row">
+<input type="text" id="chat-input" placeholder="اكتب رسالة للإدارة...">
+<button onclick="sendMessage()">📤 إرسال</button>
+</div>`;
 }
 
-async function sendMessage() {
-    const input = $('#chat-input');
-    const content = input.value.trim();
-    if (!content || !currentDoctor) return;
-    const { error } = await supabaseClient.from('messages').insert({
-        doctor_id: currentDoctor.id,
-        sender_type: 'doctor',
-        content: content
-    });
-    if (error) { alert('خطأ في الإرسال: ' + error.message); return; }
-    input.value = '';
-    await renderDoctorDashboard($('#app'));
+function previewImage(input){
+if(input.files&&input.files[0]){
+const reader=new FileReader();
+reader.onload=e=>{
+let preview=$('#current-img');
+if(preview){preview.src=e.target.result;}
+else{
+preview=document.createElement('img');
+preview.id='current-img';
+preview.className='img-preview';
+preview.src=e.target.result;
+input.parentNode.parentNode.insertBefore(preview,input.parentNode);
+}
+};
+reader.readAsDataURL(input.files[0]);
+}
 }
 
-let adminTab = 'pending';
-
-async function renderAdmin(app) {
-    if (!isAdmin) { go('home'); return; }
-    const [p, a, r] = await Promise.all([
-        supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false),
-        supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false),
-        supabaseClient.from('doctors').select('*').eq('status','rejected').eq('deleted',false)
-    ]);
-    const pending = p.data || [];
-    const approved = a.data || [];
-    const rejected = r.data || [];
-    let listData = adminTab === 'pending' ? pending : adminTab === 'approved' ? approved : rejected;
-    
-    app.innerHTML = `
-        <div class="dash-container">
-            <h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
-            <div class="stats-grid">
-                <div class="stat-card" onclick="setTab('pending')" style="cursor:pointer;"><h3>قيد المراجعة</h3><p>${pending.length}</p></div>
-                <div class="stat-card" onclick="setTab('approved')" style="cursor:pointer;"><h3>مقبول</h3><p>${approved.length}</p></div>
-                <div class="stat-card" onclick="setTab('rejected')" style="cursor:pointer;"><h3>مرفوض</h3><p>${rejected.length}</p></div>
-            </div>
-            <div class="tabs">
-                <button class="tab ${adminTab==='pending'?'active':''}" onclick="setTab('pending')">⏳ قيد المراجعة</button>
-                <button class="tab ${adminTab==='approved'?'active':''}" onclick="setTab('approved')">✅ المقبولون</button>
-                <button class="tab ${adminTab==='rejected'?'active':''}" onclick="setTab('rejected')">❌ المرفوضون</button>
-            </div>
-            <div id="admin-list">
-                ${listData.length === 0 ? '<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>' :
-                  listData.map(d => `
-                    <div class="pending-card">
-                        <div class="info">
-                            <h4>${esc(d.full_name)}</h4>
-                            <p>📧 ${esc(d.email)}</p>
-                            <p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
-                            ${d.specialty ? `<p>🎯 ${esc(d.specialty)}</p>` : ''}
-                        </div>
-                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-                            <button class="btn btn-sm btn-primary" onclick="viewChat('${d.id}')">💬 محادثة</button>
-                            ${d.status === 'pending' ? `
-                                <button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅ قبول</button>
-                                <button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌ رفض</button>
-                            ` : ''}
-                        </div>
-                    </div>
-                  `).join('')}
-            </div>
-        </div>
-    `;
+async function saveDoctor(f){
+const al=$('#dash-alert');al.innerHTML='<div class="loading">⏳ جارٍ الحفظ...</div>';
+let imageUrl=currentDoctor.image_url||'';
+const fileInput=f.image_file;
+if(fileInput&&fileInput.files&&fileInput.files[0]){
+const file=fileInput.files[0];
+const ext=file.name.split('.').pop().toLowerCase();
+const fileName=`doctor_${currentUser.id}_${Date.now()}.${ext}`;
+const{error:upErr}=await supabaseClient.storage.from('doctor-images').upload(fileName,file,{contentType:file.type,upsert:true});
+if(upErr){al.innerHTML=`<div class="alert alert-danger">خطأ رفع الصورة: ${esc(upErr.message)}</div>`;return;}
+const{data:urlData}=supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
+imageUrl=urlData.publicUrl;
+}
+const fields=['full_name','specialty','sub_specialty','phone1','phone2','governorate','city','region','address','work_days','work_start','work_end','qualifications','certificates','experience','about'];
+const u={};
+fields.forEach(k=>{u[k]=f[k].value.trim();});
+u.image_url=imageUrl;
+u.status='pending';
+const{error}=await supabaseClient.from('doctors').update(u).eq('user_id',currentUser.id);
+if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+currentDoctor={...currentDoctor,...u};
+al.innerHTML=`<div class="alert alert-success">✅ تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة من الإدارة.</div>`;
+window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function setTab(t) { adminTab = t; renderAdmin($('#app')); }
-
-async function approveDoc(id) {
-    await supabaseClient.from('doctors').update({ status:'approved' }).eq('id', id);
-    await supabaseClient.from('messages').insert({ doctor_id: id, sender_type: 'admin', content: '🎉 مبروك! تم قبول حسابك، وملفك الشخصي ظاهر الآن للزوار.' });
-    await renderAdmin($('#app'));
+async function sendMessage(){
+const input=$('#chat-input');
+const content=input.value.trim();
+if(!content||!currentDoctor)return;
+const{error}=await supabaseClient.from('messages').insert({doctor_id:currentDoctor.id,sender_type:'doctor',content:content});
+if(error){alert('خطأ في الإرسال: '+error.message);return;}
+input.value='';
+await renderDoctorMessagesTab();
 }
 
-async function rejectDoc(id) {
-    const r = prompt('سبب الرفض:') || '';
-    await supabaseClient.from('doctors').update({ status:'rejected', rejection_reason: r }).eq('id', id);
-    await supabaseClient.from('messages').insert({ doctor_id: id, sender_type: 'admin', content: '❌ تم رفض حسابك. السبب: ' + r });
-    await renderAdmin($('#app'));
+/* ============ لوحة الأدمن - 3 تبويبات ============ */
+let adminTab='requests';
+let adminFilter='pending';
+
+async function renderAdmin(app){
+if(!isAdmin){go('home');return;}
+app.innerHTML=`
+<div class="dash-container">
+<h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
+<div class="tabs">
+<button class="tab ${adminTab==='requests'?'active':''}" onclick="setAdminTab('requests')">📋 الطلبات</button>
+<button class="tab ${adminTab==='messages'?'active':''}" onclick="setAdminTab('messages')">💬 الرسائل</button>
+<button class="tab ${adminTab==='doctors'?'active':''}" onclick="setAdminTab('doctors')">👥 الأطباء</button>
+</div>
+<div id="admin-tab-content"></div>
+</div>`;
+if(adminTab==='requests')await renderAdminRequestsTab();
+else if(adminTab==='messages')await renderAdminMessagesTab();
+else await renderAdminDoctorsTab();
 }
 
-async function viewChat(doctorId) {
-    const { data: d } = await supabaseClient.from('doctors').select('*').eq('id', doctorId).single();
-    const { data: msgs } = await supabaseClient.from('messages').select('*').eq('doctor_id', doctorId).order('created_at', { ascending: true });
-    $('#app').innerHTML = `
-        <div class="dash-container">
-            <button onclick="renderAdmin(document.getElementById('app'))" class="btn btn-primary" style="margin-bottom:16px;">← رجوع للوحة الأدمن</button>
-            <div class="dash-header">
-                <div style="flex:1;"><h2 style="color:#F0B90B;">💬 محادثة مع ${esc(d.full_name)}</h2><p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p></div>
-            </div>
-            <div class="chat-box">
-                ${(msgs || []).length === 0 ? '<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد</p>' :
-                  (msgs || []).map(m => `
-                    <div class="chat-msg ${m.sender_type === 'admin' ? 'chat-doctor' : 'chat-admin'}">
-                        <div>${esc(m.content)}</div>
-                        <div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
-                    </div>
-                  `).join('')}
-            </div>
-            <div class="chat-input-row">
-                <input type="text" id="admin-chat-input" placeholder="اكتب رسالة للطبيب...">
-                <button onclick="adminSendMessage('${doctorId}')">إرسال</button>
-            </div>
-        </div>
-    `;
+function setAdminTab(t){adminTab=t;renderAdmin($('#app'));}
+
+async function renderAdminRequestsTab(){
+const content=$('#admin-tab-content');
+const{data:pending}=await supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false).order('created_at',{ascending:false});
+const pendingList=pending||[];
+content.innerHTML=`
+<h3 style="color:#F0B90B;margin:16px 0;">📋 الطلبات المعلقة (${pendingList.length})</h3>
+${pendingList.length===0?'<div class="empty-msg">لا توجد طلبات معلقة حالياً</div>':
+pendingList.map(d=>`
+<div class="pending-card">
+<div style="flex-shrink:0;">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
+</div>
+<div class="info">
+<h4>${esc(d.full_name)}</h4>
+<p>📧 ${esc(d.email)}</p>
+<p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
+${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅ قبول</button>
+<button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌ رفض</button>
+</div>
+</div>`).join('')}`;
 }
 
-async function adminSendMessage(doctorId) {
-    const input = $('#admin-chat-input');
-    const content = input.value.trim();
-    if (!content) return;
-    await supabaseClient.from('messages').insert({ doctor_id: doctorId, sender_type: 'admin', content: content });
-    input.value = '';
-    await viewChat(doctorId);
+async function approveDoc(id){
+await supabaseClient.from('doctors').update({status:'approved'}).eq('id',id);
+await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'🎉 مبروك! تم قبول حسابك، وملفك الشخصي ظاهر الآن للزوار.'});
+await renderAdminRequestsTab();
 }
 
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', e => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (!window.matchMedia('(display-mode: standalone)').matches) $('#installBtn').classList.remove('hidden');
+async function rejectDoc(id){
+const r=prompt('سبب الرفض:')||'';
+await supabaseClient.from('doctors').update({status:'rejected',rejection_reason:r}).eq('id',id);
+await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'❌ تم رفض حسابك. السبب: '+r});
+await renderAdminRequestsTab();
+}
+
+async function viewDoctorProfile(id){
+const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',id).single();
+if(!d)return;
+$('#admin-tab-content').innerHTML=`
+<button onclick="renderAdminRequestsTab()" class="btn btn-primary" style="margin:16px 0;">← رجوع</button>
+<div id="edit-alert"></div>
+<div class="form-section">
+<h3>👤 بيانات الطبيب - يمكنك التعديل</h3>
+<div class="form-group"><label>الاسم</label><input type="text" id="edit_full_name" value="${esc(d.full_name||'')}"></div>
+<div class="form-group"><label>البريد</label><input type="email" id="edit_email" value="${esc(d.email||'')}" disabled></div>
+<div class="form-group"><label>الهاتف الخاص (للإدارة)</label><input type="tel" id="edit_phone_private" value="${esc(d.phone_private||'')}" dir="ltr"></div>
+<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="edit_specialty" value="${esc(d.specialty||'')}"></div>
+<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="edit_sub_specialty" value="${esc(d.sub_specialty||'')}"></div>
+<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="edit_phone1" value="${esc(d.phone1||'')}" dir="ltr"></div>
+<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="edit_phone2" value="${esc(d.phone2||'')}" dir="ltr"></div>
+<div class="form-group"><label>المحافظة</label><input type="text" id="edit_governorate" value="${esc(d.governorate||'')}"></div>
+<div class="form-group"><label>المدينة</label><input type="text" id="edit_city" value="${esc(d.city||'')}"></div>
+<div class="form-group"><label>المنطقة</label><input type="text" id="edit_region" value="${esc(d.region||'')}"></div>
+<div class="form-group"><label>العنوان</label><textarea id="edit_address">${esc(d.address||'')}</textarea></div>
+<div class="form-group"><label>أيام العمل</label><input type="text" id="edit_work_days" value="${esc(d.work_days||'')}"></div>
+<div class="form-group"><label>من الساعة</label><input type="text" id="edit_work_start" value="${esc(d.work_start||'')}"></div>
+<div class="form-group"><label>إلى الساعة</label><input type="text" id="edit_work_end" value="${esc(d.work_end||'')}"></div>
+<div class="form-group"><label>المؤهلات</label><textarea id="edit_qualifications">${esc(d.qualifications||'')}</textarea></div>
+<div class="form-group"><label>الشهادات</label><textarea id="edit_certificates">${esc(d.certificates||'')}</textarea></div>
+<div class="form-group"><label>الخبرات</label><textarea id="edit_experience">${esc(d.experience||'')}</textarea></div>
+<div class="form-group"><label>نبذة</label><textarea id="edit_about">${esc(d.about||'')}</textarea></div>
+</div>
+<button onclick="adminSaveDoctor('${d.id}')" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ التعديلات</button>
+<button onclick="approveDoc('${d.id}')" class="btn btn-success" style="margin-bottom:20px;">✅ قبول الطبيب</button>
+<button onclick="rejectDoc('${d.id}')" class="btn btn-danger" style="margin-bottom:20px;">❌ رفض الطبيب</button>`;
+}
+
+async function adminSaveDoctor(id){
+const u={
+full_name:$('#edit_full_name').value.trim(),
+phone_private:$('#edit_phone_private').value.trim(),
+specialty:$('#edit_specialty').value.trim(),
+sub_specialty:$('#edit_sub_specialty').value.trim(),
+phone1:$('#edit_phone1').value.trim(),
+phone2:$('#edit_phone2').value.trim(),
+governorate:$('#edit_governorate').value.trim(),
+city:$('#edit_city').value.trim(),
+region:$('#edit_region').value.trim(),
+address:$('#edit_address').value.trim(),
+work_days:$('#edit_work_days').value.trim(),
+work_start:$('#edit_work_start').value.trim(),
+work_end:$('#edit_work_end').value.trim(),
+qualifications:$('#edit_qualifications').value.trim(),
+certificates:$('#edit_certificates').value.trim(),
+experience:$('#edit_experience').value.trim(),
+about:$('#edit_about').value.trim()
+};
+const{error}=await supabaseClient.from('doctors').update(u).eq('id',id);
+const al=$('#edit-alert');
+if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.message)}</div>`;return;}
+al.innerHTML='<div class="alert alert-success">✅ تم حفظ التعديلات بنجاح</div>';
+}
+
+async function renderAdminMessagesTab(){
+const content=$('#admin-tab-content');
+const{data:doctors}=await supabaseClient.from('doctors').select('id, full_name, email').eq('deleted',false);
+const{data:messages}=await supabaseClient.from('messages').select('*').order('created_at',{ascending:false}).limit(200);
+const grouped={};
+(messages||[]).forEach(m=>{if(!grouped[m.doctor_id])grouped[m.doctor_id]=[];grouped[m.doctor_id].push(m);});
+const doctorMap={};
+(doctors||[]).forEach(d=>{doctorMap[d.id]=d;});
+const chatList=Object.keys(grouped).map(id=>{
+const msgs=grouped[id];
+const last=msgs[0];
+const doc=doctorMap[id]||{full_name:'غير معروف',email:''};
+return{doctorId:id,doctor:doc,last,count:msgs.length};
+});
+content.innerHTML=`
+<h3 style="color:#F0B90B;margin:16px 0;">💬 المحادثات (${chatList.length})</h3>
+${chatList.length===0?'<div class="empty-msg">لا توجد رسائل بعد</div>':
+chatList.map(c=>`
+<div class="pending-card" onclick="openAdminChat('${c.doctorId}')" style="cursor:pointer;">
+<div class="info">
+<h4>${esc(c.doctor.full_name)}</h4>
+<p>${esc(c.last.content.substring(0,60))}${c.last.content.length>60?'...':''}</p>
+<p style="color:#707A8A;font-size:0.7rem;">${new Date(c.last.created_at).toLocaleString('ar-EG')} · ${c.count} رسالة</p>
+</div>
+<span style="color:#F0B90B;font-size:1.3rem;">◀</span>
+</div>`).join('')}`;
+}
+
+async function openAdminChat(doctorId){
+const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',doctorId).single();
+const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',doctorId).order('created_at',{ascending:true});
+$('#admin-tab-content').innerHTML=`
+<button onclick="renderAdminMessagesTab()" class="btn btn-primary" style="margin:16px 0;">← رجوع للمحادثات</button>
+<div class="dash-header">
+<div style="flex:1;">
+<h2 style="color:#F0B90B;">💬 ${esc(d.full_name)}</h2>
+<p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p>
+</div>
+</div>
+<div class="chat-box" style="min-height:300px;">
+${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;">لا توجد رسائل</p>':
+(msgs||[]).map(m=>`
+<div class="chat-msg ${m.sender_type==='admin'?'chat-doctor':'chat-admin'}">
+<div>${esc(m.content)}</div>
+<div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
+</div>`).join('')}
+</div>
+<div class="chat-input-row">
+<input type="text" id="admin-chat-input" placeholder="اكتب رسالة للطبيب...">
+<button onclick="adminSendMessage('${doctorId}')">📤 إرسال</button>
+</div>`;
+}
+
+async function adminSendMessage(doctorId){
+const input=$('#admin-chat-input');
+const content=input.value.trim();
+if(!content)return;
+await supabaseClient.from('messages').insert({doctor_id:doctorId,sender_type:'admin',content:content});
+input.value='';
+await openAdminChat(doctorId);
+}
+
+async function renderAdminDoctorsTab(){
+const content=$('#admin-tab-content');
+const[p,a,r]=await Promise.all([
+supabaseClient.from('doctors').select('*').eq('status','pending').eq('deleted',false),
+supabaseClient.from('doctors').select('*').eq('status','approved').eq('deleted',false),
+supabaseClient.from('doctors').select('*').eq('status','rejected').eq('deleted',false)
+]);
+const allData={pending:p.data||[],approved:a.data||[],rejected:r.data||[]};
+const listData=allData[adminFilter]||[];
+content.innerHTML=`
+<div class="stats-grid">
+<div class="stat-card" onclick="setAdminFilter('pending')" style="cursor:pointer; ${adminFilter==='pending'?'border-color:#F0B90B;':''}"><h3>قيد المراجعة</h3><p>${allData.pending.length}</p></div>
+<div class="stat-card" onclick="setAdminFilter('approved')" style="cursor:pointer; ${adminFilter==='approved'?'border-color:#F0B90B;':''}"><h3>مقبول</h3><p>${allData.approved.length}</p></div>
+<div class="stat-card" onclick="setAdminFilter('rejected')" style="cursor:pointer; ${adminFilter==='rejected'?'border-color:#F0B90B;':''}"><h3>مرفوض</h3><p>${allData.rejected.length}</p></div>
+</div>
+<div class="tabs">
+<button class="tab ${adminFilter==='pending'?'active':''}" onclick="setAdminFilter('pending')">⏳ قيد المراجعة</button>
+<button class="tab ${adminFilter==='approved'?'active':''}" onclick="setAdminFilter('approved')">✅ المقبولون</button>
+<button class="tab ${adminFilter==='rejected'?'active':''}" onclick="setAdminFilter('rejected')">❌ المرفوضون</button>
+</div>
+<div>
+${listData.length===0?'<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>':
+listData.map(d=>`
+<div class="pending-card">
+<div style="flex-shrink:0;">
+${d.image_url?`<img src="${esc(d.image_url)}" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">`:`<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>`}
+</div>
+<div class="info">
+<h4>${esc(d.full_name)}</h4>
+<p>📧 ${esc(d.email)}</p>
+<p>📱 <span style="color:#F0B90B;direction:ltr;">${esc(d.phone_private||'')}</span></p>
+${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
+</div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;">
+<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
+<button class="btn btn-sm btn-success" onclick="openAdminChat('${d.id}')">💬 رسالة</button>
+${d.status==='pending'?`
+<button class="btn btn-sm btn-success" onclick="approveDoc('${d.id}')">✅</button>
+<button class="btn btn-sm btn-danger" onclick="rejectDoc('${d.id}')">❌</button>`:''}
+</div>
+</div>`).join('')}
+</div>`;
+}
+
+function setAdminFilter(f){adminFilter=f;renderAdminDoctorsTab();}
+
+/* ============ PWA ============ */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+e.preventDefault();
+deferredPrompt=e;
+if(!window.matchMedia('(display-mode: standalone)').matches)$('#installBtn').classList.remove('hidden');
 });
 
-function installApp() {
-    const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-    if (isIOS) {
-        showModal('<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>');
-        return;
-    }
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(({outcome}) => { if (outcome === 'accepted') $('#installBtn').classList.add('hidden'); deferredPrompt = null; });
-        return;
-    }
-    showModal('<h3>📲 تثبيت التطبيق</h3><p>1. اضغط ⋮ في Chrome</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>');
+function installApp(){
+const isIOS=/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+if(isIOS){showModal('<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>');return;}
+if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(({outcome})=>{if(outcome==='accepted')$('#installBtn').classList.add('hidden');deferredPrompt=null;});return;}
+showModal('<h3>📲 تثبيت التطبيق</h3><p>1. اضغط ⋮ في Chrome</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>');
 }
 
-function showModal(html) { $('#modal-content').innerHTML = html; $('#installModal').classList.add('active'); }
-function closeModal() { $('#installModal').classList.remove('active'); }
+function showModal(html){$('#modal-content').innerHTML=html;$('#installModal').classList.add('active');}
+function closeModal(){$('#installModal').classList.remove('active');}
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./sw.js').catch(e => console.log('SW:', e));
-}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(e=>console.log('SW:',e));}
 
-(async function() {
-    $('#year').textContent = new Date().getFullYear();
-    await checkUser();
-    await route();
+(async function(){
+$('#year').textContent=new Date().getFullYear();
+await checkUser();
+await route();
 })();
 </script>
 </body>

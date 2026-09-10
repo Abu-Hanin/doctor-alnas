@@ -24,7 +24,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.notif-dot{position:absolute;top:-3px;left:-3px;width:14px;height:14px;background:#0ECB81;border-radius:50%;border:2px solid #0B0E11;animation:pulse 1.5s infinite}
 .install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
 .hidden{display:none!important}
 .hero{padding:24px 0 16px;text-align:center}
@@ -95,25 +94,13 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .stat-card:hover,.stat-card.active{border-color:#F0B90B;background:#232830}
 .stat-card h3{color:#707A8A;font-size:0.8rem;margin-bottom:4px}
 .stat-card p{font-size:1.6rem;font-weight:900;color:#F0B90B}
-.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s;cursor:pointer}
-.pending-card:hover{border-color:#F0B90B}
+.pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;transition:all 0.2s}
 .pending-card .info{flex:1;min-width:150px}
-.pending-card .info h4{font-size:0.95rem;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.pending-card .info h4{font-size:0.95rem;margin-bottom:4px}
 .pending-card .info p{color:#707A8A;font-size:0.78rem}
-.unread-dot{display:inline-block;width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
 .tabs{display:flex;gap:6px;margin:20px 0;overflow-x:auto;padding-bottom:4px}
 .tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s;display:flex;align-items:center;gap:6px}
 .tab.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
-.tab .dot-badge{width:10px;height:10px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
-.tab.active .dot-badge{background:#0B0E11}
-.chat-box{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;margin-bottom:16px;min-height:300px;max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
-.chat-msg{padding:10px 14px;border-radius:12px;max-width:80%;font-size:0.88rem;line-height:1.5;word-wrap:break-word}
-.chat-msg.mine{background:#F0B90B;color:#0B0E11;align-self:flex-end}
-.chat-msg.them{background:#2B3139;color:#FFF;align-self:flex-start}
-.chat-time{font-size:0.68rem;opacity:0.7;margin-top:4px}
-.chat-input-row{display:flex;gap:8px}
-.chat-input-row input{flex:1;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
-.chat-input-row button{padding:12px 20px;background:#0ECB81;color:#FFF;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-family:inherit}
 .site-footer{text-align:center;padding:20px;color:#707A8A;border-top:1px solid #1E2329;margin-top:24px;font-size:0.75rem}
 .ios-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px}
 .ios-modal.active{display:flex}
@@ -133,6 +120,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .center-btn:hover{border-color:#F0B90B;color:#F0B90B}
 .center-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
 .support-btn{background:linear-gradient(135deg,#25D366,#128C7E);color:#FFF;border-color:#25D366}
+.support-btn:hover{background:linear-gradient(135deg,#128C7E,#075E54);border-color:#128C7E;color:#FFF}
 @media (max-width:500px){
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
 .doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
@@ -169,7 +157,6 @@ const SUPABASE_URL='https://wfcizftmcclhnzgvukuy.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
 const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let currentUser=null,currentDoctor=null,isAdmin=false;
-let unreadForDoctor=0,unreadForAdmin=0;
 let centersOpen=false;
 const $=s=>document.querySelector(s);
 const esc=str=>{if(!str)return'';const d=document.createElement('div');d.textContent=str;return d.innerHTML;};
@@ -195,46 +182,22 @@ window.addEventListener('hashchange',route);
 
 async function checkUser(){
 const{data:{user}}=await supabaseClient.auth.getUser();
-currentUser=user;currentDoctor=null;isAdmin=false;unreadForDoctor=0;unreadForAdmin=0;
+currentUser=user;currentDoctor=null;isAdmin=false;
 if(user){
 const{data:d}=await supabaseClient.from('doctors').select('*').eq('user_id',user.id).maybeSingle();
 currentDoctor=d;
 const{data:aList}=await supabaseClient.from('admins').select('id').eq('user_id',user.id).limit(1);
 isAdmin=aList&&aList.length>0;
-if(currentDoctor){
-const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
-unreadForDoctor=count||0;
-}
-if(isAdmin){
-const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('sender_type','doctor').eq('read_by_admin',false);
-unreadForAdmin=count||0;
-}
 }
 renderHeaderActions();
-}
-
-async function refreshUnread(){
-if(!currentUser)return;
-let changed=false;
-if(currentDoctor){
-const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
-const n=count||0;
-if(n!==unreadForDoctor){unreadForDoctor=n;changed=true;}
-}
-if(isAdmin){
-const{count}=await supabaseClient.from('messages').select('*',{count:'exact',head:true}).eq('sender_type','doctor').eq('read_by_admin',false);
-const n=count||0;
-if(n!==unreadForAdmin){unreadForAdmin=n;changed=true;}
-}
-if(changed)renderHeaderActions();
 }
 
 function renderHeaderActions(){
 const a=$('#header-actions');
 if(isAdmin){
-a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة${unreadForAdmin>0?'<span class="notif-dot"></span>':''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('admin')">⚙️ الإدارة</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
 }else if(currentUser){
-a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي${unreadForDoctor>0?'<span class="notif-dot"></span>':''}</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
+a.innerHTML=`<button class="btn-header btn-login" onclick="go('doctor-dashboard')">👨‍⚕️ لوحتي</button><button class="btn-header btn-logout" onclick="logout()">خروج</button>`;
 }else{
 a.innerHTML=`<button class="btn-header btn-login" onclick="go('login')">🔑 دخول</button><button class="btn-header btn-register" onclick="go('register')">📝 حساب جديد</button>`;
 }
@@ -248,7 +211,7 @@ window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
 
 async function logout(){
 await supabaseClient.auth.signOut();
-currentUser=null;currentDoctor=null;isAdmin=false;unreadForDoctor=0;unreadForAdmin=0;
+currentUser=null;currentDoctor=null;isAdmin=false;
 renderHeaderActions();go('home');
 }
 
@@ -415,8 +378,6 @@ if(isAdmin)go('admin');else go('doctor-dashboard');
 }
 
 /* ============ لوحة الطبيب ============ */
-let doctorPage='profile';
-
 async function renderDoctorDashboard(app){
 if(!currentUser){go('login');return;}
 await checkUser();
@@ -433,22 +394,9 @@ ${d.image_url?`<img src="${esc(d.image_url)}" style="width:70px;height:70px;bord
 </div>
 ${d.status==='rejected'&&d.rejection_reason?`<div class="alert alert-danger">سبب الرفض: ${esc(d.rejection_reason)}</div>`:''}
 <div class="tabs">
-<button class="tab ${doctorPage==='profile'?'active':''}" onclick="setDoctorPage('profile')">📄 الملف الشخصي</button>
-<button class="tab ${doctorPage==='messages'?'active':''}" onclick="setDoctorPage('messages')">💬 الرسائل ${unreadForDoctor>0?'<span class="dot-badge"></span>':''}</button>
+<button class="tab active">📄 الملف الشخصي</button>
 <button class="tab support-btn" onclick="contactSupport()">💚 تواصل مع الدعم</button>
 </div>
-<div id="doctor-page-content"></div>
-</div>`;
-if(doctorPage==='profile')await renderDoctorProfilePage();
-else await renderDoctorMessagesPage();
-}
-
-function setDoctorPage(p){doctorPage=p;renderDoctorDashboard($('#app'));}
-
-async function renderDoctorProfilePage(){
-const d=currentDoctor;
-const c=$('#doctor-page-content');
-c.innerHTML=`
 <div id="dash-alert"></div>
 <form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">
 <div class="form-section">
@@ -492,30 +440,8 @@ ${CENTERS.map(c=>`<option value="${c}" ${d.city===c?'selected':''}>${c}</option>
 <div class="form-group"><label>نبذة عنك</label><textarea name="about">${esc(d.about||'')}</textarea></div>
 </div>
 <button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>
-</form>`;
-}
-
-async function renderDoctorMessagesPage(){
-const c=$('#doctor-page-content');
-const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:true});
-await supabaseClient.from('messages').update({read_by_doctor:true}).eq('doctor_id',currentDoctor.id).eq('sender_type','admin').eq('read_by_doctor',false);
-unreadForDoctor=0;
-renderHeaderActions();
-c.innerHTML=`
-<div class="chat-box" id="doctor-chat">
-${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;font-size:0.85rem;">لا توجد رسائل بعد<br><small>اكتب رسالتك للإدارة وسيتم الرد عليك</small></p>':
-(msgs||[]).map(m=>`
-<div class="chat-msg ${m.sender_type==='doctor'?'mine':'them'}">
-<div>${esc(m.content)}</div>
-<div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
-</div>`).join('')}
-</div>
-<div class="chat-input-row">
-<input type="text" id="chat-input" placeholder="اكتب رسالة للإدارة...">
-<button onclick="sendMessage()">📤 إرسال</button>
+</form>
 </div>`;
-const box=$('#doctor-chat');
-if(box)box.scrollTop=box.scrollHeight;
 }
 
 function previewImage(input){
@@ -561,16 +487,6 @@ al.innerHTML=`<div class="alert alert-success">✅ تم حفظ بياناتك ب
 window.scrollTo({top:0,behavior:'smooth'});
 }
 
-async function sendMessage(){
-const input=$('#chat-input');
-const content=input.value.trim();
-if(!content||!currentDoctor)return;
-const{error}=await supabaseClient.from('messages').insert({doctor_id:currentDoctor.id,sender_type:'doctor',content:content,read_by_doctor:true,read_by_admin:false});
-if(error){alert('خطأ: '+error.message);return;}
-input.value='';
-await renderDoctorMessagesPage();
-}
-
 /* ============ لوحة الأدمن ============ */
 let adminPage='requests';
 let adminFilter='pending';
@@ -583,13 +499,11 @@ app.innerHTML=`
 <h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>
 <div class="tabs">
 <button class="tab ${adminPage==='requests'?'active':''}" onclick="setAdminPage('requests')">📋 الطلبات</button>
-<button class="tab ${adminPage==='messages'?'active':''}" onclick="setAdminPage('messages')">💬 الرسائل ${unreadForAdmin>0?'<span class="dot-badge"></span>':''}</button>
 <button class="tab ${adminPage==='doctors'?'active':''}" onclick="setAdminPage('doctors')">👥 الأطباء</button>
 </div>
 <div id="admin-page-content"></div>
 </div>`;
 if(adminPage==='requests')await renderAdminRequestsPage();
-else if(adminPage==='messages')await renderAdminMessagesPage();
 else await renderAdminDoctorsPage();
 }
 
@@ -623,14 +537,12 @@ ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 
 async function approveDoc(id){
 await supabaseClient.from('doctors').update({status:'approved'}).eq('id',id);
-await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'🎉 مبروك! تم قبول حسابك، وملفك الشخصي ظاهر الآن للزوار.',read_by_admin:true,read_by_doctor:false});
 await renderAdminRequestsPage();
 }
 
 async function rejectDoc(id){
 const r=prompt('سبب الرفض:')||'';
 await supabaseClient.from('doctors').update({status:'rejected',rejection_reason:r}).eq('id',id);
-await supabaseClient.from('messages').insert({doctor_id:id,sender_type:'admin',content:'❌ تم رفض حسابك. السبب: '+r,read_by_admin:true,read_by_doctor:false});
 await renderAdminRequestsPage();
 }
 
@@ -695,71 +607,6 @@ if(error){al.innerHTML=`<div class="alert alert-danger">خطأ: ${esc(error.mess
 al.innerHTML='<div class="alert alert-success">✅ تم حفظ التعديلات</div>';
 }
 
-async function renderAdminMessagesPage(){
-const c=$('#admin-page-content');
-const{data:messages}=await supabaseClient.from('messages').select('*').order('created_at',{ascending:false}).limit(500);
-const{data:doctors}=await supabaseClient.from('doctors').select('id,full_name,email').eq('deleted',false);
-const doctorMap={};
-(doctors||[]).forEach(d=>{doctorMap[d.id]=d;});
-const grouped={};
-(messages||[]).forEach(m=>{if(!grouped[m.doctor_id])grouped[m.doctor_id]=[];grouped[m.doctor_id].push(m);});
-const chatList=Object.keys(grouped).map(id=>{
-const msgs=grouped[id];
-const unread=msgs.filter(m=>m.sender_type==='doctor'&&!m.read_by_admin).length;
-return{doctorId:id,doctor:doctorMap[id]||{full_name:'غير معروف'},last:msgs[0],unread};
-}).sort((a,b)=>b.unread-a.unread);
-c.innerHTML=`
-<h3 style="color:#F0B90B;margin:16px 0;">💬 المحادثات (${chatList.length})</h3>
-${chatList.length===0?'<div class="empty-msg">لا توجد رسائل بعد</div>':
-chatList.map(x=>`
-<div class="pending-card" onclick="openAdminChat('${x.doctorId}')">
-<div class="info">
-<h4>${x.unread>0?'<span class="unread-dot"></span>':''} ${esc(x.doctor.full_name)}</h4>
-<p>${esc(x.last.content.substring(0,60))}${x.last.content.length>60?'...':''}</p>
-<p style="color:#707A8A;font-size:0.7rem;">${new Date(x.last.created_at).toLocaleString('ar-EG')}</p>
-</div>
-<span style="color:#F0B90B;font-size:1.3rem;">◀</span>
-</div>`).join('')}`;
-}
-
-async function openAdminChat(doctorId){
-const{data:d}=await supabaseClient.from('doctors').select('*').eq('id',doctorId).single();
-const{data:msgs}=await supabaseClient.from('messages').select('*').eq('doctor_id',doctorId).order('created_at',{ascending:true});
-await supabaseClient.from('messages').update({read_by_admin:true}).eq('doctor_id',doctorId).eq('sender_type','doctor').eq('read_by_admin',false);
-await refreshUnread();
-$('#admin-page-content').innerHTML=`
-<button onclick="renderAdminMessagesPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع للمحادثات</button>
-<div class="dash-header">
-<div style="flex:1;">
-<h2 style="color:#F0B90B;">💬 ${esc(d.full_name)}</h2>
-<p style="color:#707A8A;font-size:0.82rem;">${esc(d.email)}</p>
-</div>
-</div>
-<div class="chat-box" id="admin-chat">
-${(msgs||[]).length===0?'<p style="text-align:center;color:#707A8A;">لا توجد رسائل</p>':
-(msgs||[]).map(m=>`
-<div class="chat-msg ${m.sender_type==='admin'?'mine':'them'}">
-<div>${esc(m.content)}</div>
-<div class="chat-time">${new Date(m.created_at).toLocaleString('ar-EG')}</div>
-</div>`).join('')}
-</div>
-<div class="chat-input-row">
-<input type="text" id="admin-chat-input" placeholder="اكتب رسالة للطبيب...">
-<button onclick="adminSendMessage('${doctorId}')">📤 إرسال</button>
-</div>`;
-const box=$('#admin-chat');
-if(box)box.scrollTop=box.scrollHeight;
-}
-
-async function adminSendMessage(doctorId){
-const input=$('#admin-chat-input');
-const content=input.value.trim();
-if(!content)return;
-await supabaseClient.from('messages').insert({doctor_id:doctorId,sender_type:'admin',content:content,read_by_admin:true,read_by_doctor:false});
-input.value='';
-await openAdminChat(doctorId);
-}
-
 async function renderAdminDoctorsPage(){
 const c=$('#admin-page-content');
 const[p,a,r]=await Promise.all([
@@ -789,7 +636,6 @@ ${d.specialty?`<p>🎯 ${esc(d.specialty)}</p>`:''}
 </div>
 <div style="display:flex;gap:6px;flex-wrap:wrap;">
 <button class="btn btn-sm btn-primary" onclick="event.stopPropagation();viewDoctorProfile('${d.id}')">👁️ عرض/تعديل</button>
-<button class="btn btn-sm btn-success" onclick="event.stopPropagation();openAdminChat('${d.id}')">💬 رسالة</button>
 ${d.status==='pending'?`<button class="btn btn-sm btn-success" onclick="event.stopPropagation();approveDoc('${d.id}')">✅</button><button class="btn btn-sm btn-danger" onclick="event.stopPropagation();rejectDoc('${d.id}')">❌</button>`:''}
 </div>
 </div>`).join('')}`;
@@ -821,7 +667,6 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').cat
 $('#year').textContent=new Date().getFullYear();
 await checkUser();
 await route();
-setInterval(refreshUnread,15000);
 })();
 </script>
 </body>

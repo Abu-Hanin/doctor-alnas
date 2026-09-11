@@ -15,25 +15,29 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .container{max-width:700px;margin:0 auto;padding:0 14px}
 .site-header{background:#0B0E11;padding:12px 0;border-bottom:1px solid #1E2329;position:sticky;top:0;z-index:100}
 .header-top-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.logo{font-size:1.4rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6)}
-.pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
+.logo{font-size:1.6rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6);user-select:none;display:flex;align-items:center;gap:6px}
+.logo:hover{color:#D4A309}
+.pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,203,129,0.8)}70%{box-shadow:0 0 0 10px rgba(14,203,129,0)}100%{box-shadow:0 0 0 0 rgba(14,203,129,0)}}
 @keyframes prayerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 .header-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit}
+.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.btn-share{background:#25D366;color:#FFF;border:none;padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
-.btn-share:hover{background:#128C7E}
-.install-btn-row{width:100%;margin-top:10px;background:#0ECB81;color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer}
+.btn-share-header{background:#1E2329;color:#F0B90B;border:1px solid #F0B90B;padding:7px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit}
+.btn-share-header:hover{background:#F0B90B;color:#0B0E11}
+.install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
+.install-btn-row:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(14,203,129,0.4)}
 .hidden{display:none!important}
 .hero{padding:24px 0 16px;text-align:center}
 .hero-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
 .hero-title span{color:#F0B90B}
 .hero-sub{color:#707A8A;font-size:0.8rem;margin-bottom:14px}
-.visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid #0ECB81;font-weight:800;font-size:0.85rem;margin-bottom:14px}
+.visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid #0ECB81;font-weight:800;font-size:0.85rem;margin-bottom:10px}
 .visit-counter .visit-dot{width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite}
+.share-inline-btn{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#FFF;border:none;padding:8px 20px;border-radius:20px;font-family:inherit;font-weight:800;font-size:0.82rem;cursor:pointer;margin-bottom:16px;transition:all 0.2s}
+.share-inline-btn:hover{background:#128C7E;transform:translateY(-1px)}
 .search-box{background:#1E2329;border:1px solid #2B3139;border-radius:40px;padding:4px;display:flex;max-width:480px;margin:0 auto}
 .search-box input{flex:1;border:none;outline:none;padding:10px 18px;background:transparent;color:#FFF;font-family:inherit;font-size:0.88rem}
 .search-box button{background:#F0B90B;color:#0B0E11;border:none;padding:9px 20px;border-radius:30px;cursor:pointer;font-weight:800;font-family:inherit;font-size:0.82rem}
@@ -143,22 +147,15 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .add-hero{background:rgba(14,203,129,0.1);border:2px solid #0ECB81;border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
 .add-hero h2{color:#0ECB81;font-size:1.2rem;font-weight:900;margin-bottom:6px}
 .add-hero p{color:#B7BDC6;font-size:0.85rem}
-.share-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
-.share-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;border-radius:12px;text-decoration:none;color:#FFF;font-weight:700;font-size:0.85rem;cursor:pointer;border:1px solid #2B3139;background:#0B0E11;font-family:inherit}
-.share-item .share-icon{font-size:2rem}
-.share-item.whatsapp{border-color:#25D366}
-.share-item.facebook{border-color:#1877F2}
-.share-item.messenger{border-color:#0084FF}
-.share-item.telegram{border-color:#0088CC}
-.share-item.copy{border-color:#F0B90B}
-.share-item.native{border-color:#2B3139;grid-column:1/-1}
 @media (max-width:500px){
+.logo{font-size:1.35rem}
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
 .doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
 .doc-name{font-size:0.98rem}
 .stats-grid{grid-template-columns:1fr 1fr}
 .days-grid{grid-template-columns:repeat(3,1fr)}
 .time-row{grid-template-columns:1fr}
+.btn-header{padding:6px 10px;font-size:0.72rem}
 }
 </style>
 </head>
@@ -186,19 +183,19 @@ setTimeout(function(){
 <header class="site-header">
   <div class="container">
     <div class="header-top-row">
-      <a class="logo" onclick="go('home')">دكتور الناس<span class="pulse-dot"></span></a>
+      <a class="logo" onclick="reloadHome()">🩺 دكتور الناس<span class="pulse-dot"></span></a>
       <div class="header-actions" id="header-actions"></div>
     </div>
-    <button id="installBtn" class="install-btn-row hidden" onclick="installApp()" style="display:none;">📲 ثبّت التطبيق على هاتفك</button>
+    <button id="installBtn" class="install-btn-row" onclick="installApp()">📲 ثبّت التطبيق على هاتفك</button>
   </div>
 </header>
 
 <main id="app">
-  <div class="loading">جارٍ التحميل...</div>
+  <div class="loading">⏳ جارٍ التحميل...</div>
 </main>
 
 <footer class="site-footer">
-  <span id="year"></span> دكتور الناس — جميع الحقوق محفوظة
+  © <span id="year"></span> دكتور الناس — جميع الحقوق محفوظة
 </footer>
 
 <div class="modal" id="installModal">
@@ -208,22 +205,13 @@ setTimeout(function(){
   </div>
 </div>
 
-<div class="modal" id="shareModal">
-  <div class="modal-box">
-    <button class="close-x" onclick="closeShareModal()">×</button>
-    <h3>📤 شارك التطبيق</h3>
-    <p style="margin-bottom:16px;">ساعد الآخرين في الوصول لأطباء منطقتهم</p>
-    <div class="share-grid" id="share-grid"></div>
-  </div>
-</div>
-
 <script>
-/* ============ 1) الثوابت الأساسية ============ */
+/* ============ 1) الثوابت ============ */
 var SUPABASE_URL = 'https://wfcizftmcclhnzgvukuy.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
 
 var SHARE_URL = 'https://abu-hanin.github.io/doctor-alnas/#home';
-var SHARE_TEXT = 'دكتور الناس - دليل الأطباء الشامل\nابحث عن أفضل الأطباء في محافظتك بسهولة';
+var SHARE_TEXT = '🩺 دكتور الناس - دليل الأطباء الشامل\nابحث عن أفضل الأطباء في محافظتك بسهولة 👇';
 
 var WEEK_DAYS = ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
 var CENTERS = ['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'];
@@ -233,33 +221,28 @@ try {
   if (window.supabase && window.supabase.createClient) {
     supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
   }
-} catch (e) {
-  console.error('Supabase init error:', e);
-}
+} catch (e) { console.error('Supabase init error:', e); }
 
-var currentUser = null;
-var currentDoctor = null;
-var isAdmin = false;
+var currentUser = null, currentDoctor = null, isAdmin = false;
 var centersOpen = false;
-var searchQuery = '';
-var currentCityFilter = '';
-var adminPage = 'requests';
-var adminFilter = 'pending';
+var searchQuery = '', currentCityFilter = '';
+var adminPage = 'requests', adminFilter = 'pending';
 var deferredPrompt = null;
 
-/* ============ 2) أدوات مساعدة ============ */
+/* ============ 2) أدوات ============ */
 function $(sel) { return document.querySelector(sel); }
 function byId(id) { return document.getElementById(id); }
-
 function esc(str) {
   if (str === null || str === undefined) return '';
   var d = document.createElement('div');
   d.textContent = String(str);
   return d.innerHTML;
 }
+function go(page, param) { window.location.hash = param ? '#' + page + '/' + param : '#' + page; }
 
-function go(page, param) {
-  window.location.hash = param ? '#' + page + '/' + param : '#' + page;
+function reloadHome() {
+  window.location.hash = '#home';
+  window.location.reload();
 }
 
 function showAlert(el, msg, type) {
@@ -267,7 +250,22 @@ function showAlert(el, msg, type) {
   el.innerHTML = '<div class="alert alert-' + (type || 'danger') + '">' + esc(msg) + '</div>';
 }
 
-/* ============ 3) أدوات الوقت ============ */
+/* ============ 3) المشاركة المباشرة ============ */
+function shareApp() {
+  var shareData = {
+    title: '🩺 دكتور الناس - دليل الأطباء',
+    text: '🩺 دكتور الناس - دليل الأطباء الشامل\nابحث عن أفضل الأطباء في محافظتك بسهولة 👇',
+    url: SHARE_URL
+  };
+  if (navigator.share) {
+    navigator.share(shareData).catch(function(){});
+  } else {
+    var msg = encodeURIComponent(shareData.text + '\n' + SHARE_URL);
+    window.open('https://wa.me/?text=' + msg, '_blank');
+  }
+}
+
+/* ============ 4) الوقت ============ */
 function parseTimeValue(val) {
   if (!val) return { hour: '', period: '' };
   var s = String(val).trim();
@@ -277,13 +275,11 @@ function parseTimeValue(val) {
   var hour = s.replace(/\s*(صباحاً|مساءً|صباحا|مساء|صباح|مساء|ص|م)\s*$/g, '').trim();
   return { hour: hour, period: period };
 }
-
 function buildTimeValue(hour, period) {
   hour = (hour || '').trim();
   if (!hour) return '';
   return period ? (hour + ' ' + period) : hour;
 }
-
 function formatTimeDisplay(val) {
   var p = parseTimeValue(val);
   if (!p.hour) return '';
@@ -299,12 +295,10 @@ function formatTimeDisplay(val) {
   }
   return p.hour;
 }
-
 function formatTimeRange(start, end) {
   if (!start || !end) return '';
   return 'من ' + formatTimeDisplay(start) + ' إلى ' + formatTimeDisplay(end);
 }
-
 function autoFormatHour(input) {
   if (!input) return;
   var val = input.value.trim();
@@ -322,7 +316,6 @@ function autoFormatHour(input) {
     input.value = (h < 10 ? '0' + h : '' + h) + ':' + m;
   }
 }
-
 function setAmPm(btn, inputId, value) {
   var input = byId(inputId);
   if (!input) return;
@@ -343,7 +336,6 @@ function setAmPm(btn, inputId, value) {
   }
   hidden.value = value;
 }
-
 function initAmPmHidden(inputId, period) {
   var input = byId(inputId);
   if (!input) return;
@@ -357,7 +349,6 @@ function initAmPmHidden(inputId, period) {
   }
   byId(hiddenId).value = period || '';
 }
-
 function buildAmPmButtons(inputId, currentPeriod) {
   var p1 = currentPeriod === 'صباحاً' ? ' active' : '';
   var p2 = currentPeriod === 'مساءً' ? ' active' : '';
@@ -367,9 +358,8 @@ function buildAmPmButtons(inputId, currentPeriod) {
   '</div>';
 }
 
-/* ============ 4) أدوات الأيام ============ */
+/* ============ 5) الأيام ============ */
 function toggleDay(el) { if (el) el.classList.toggle('selected'); }
-
 function getSelectedDays(gridId) {
   var sel = [];
   var grid = byId(gridId);
@@ -378,12 +368,10 @@ function getSelectedDays(gridId) {
   for (var i = 0; i < chips.length; i++) sel.push(chips[i].getAttribute('data-day'));
   return sel;
 }
-
 function parseDays(str) {
   if (!str) return [];
   return str.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return s; });
 }
-
 function renderDaysGrid(selectedDays) {
   var out = '';
   for (var i = 0; i < WEEK_DAYS.length; i++) {
@@ -394,81 +382,28 @@ function renderDaysGrid(selectedDays) {
   return out;
 }
 
-/* ============ 5) مشاركة التطبيق ============ */
-function openShareModal() {
-  var grid = byId('share-grid');
-  if (!grid) return;
-  var encUrl = encodeURIComponent(SHARE_URL);
-  var encText = encodeURIComponent(SHARE_TEXT);
-  var encTextUrl = encodeURIComponent(SHARE_TEXT + '\n' + SHARE_URL);
-
-  grid.innerHTML =
-    '<a href="https://wa.me/?text=' + encTextUrl + '" target="_blank" class="share-item whatsapp"><span class="share-icon">💬</span><span>واتساب</span></a>' +
-    '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encUrl + '" target="_blank" class="share-item facebook"><span class="share-icon">📘</span><span>فيسبوك</span></a>' +
-    '<a href="https://www.facebook.com/dialog/send?link=' + encUrl + '&app_id=291494419107518&redirect_uri=' + encUrl + '" target="_blank" class="share-item messenger"><span class="share-icon">✉️</span><span>ماسنجر</span></a>' +
-    '<a href="https://t.me/share/url?url=' + encUrl + '&text=' + encText + '" target="_blank" class="share-item telegram"><span class="share-icon">📨</span><span>تليجرام</span></a>' +
-    '<button type="button" class="share-item copy" onclick="copyShareLink()"><span class="share-icon">🔗</span><span>نسخ الرابط</span></button>';
-
-  if (navigator.share) {
-    grid.innerHTML += '<button type="button" class="share-item native" onclick="nativeShare()"><span class="share-icon">📱</span><span>مشاركة عبر التطبيقات</span></button>';
-  }
-
-  byId('shareModal').classList.add('active');
-}
-
-function closeShareModal() {
-  var m = byId('shareModal');
-  if (m) m.classList.remove('active');
-}
-
-function copyShareLink() {
-  var text = SHARE_TEXT + '\n' + SHARE_URL;
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(function(){
-      alert('تم نسخ الرابط بنجاح');
-      closeShareModal();
-    }).catch(function(){
-      alert('الرابط: ' + SHARE_URL);
-      closeShareModal();
-    });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); alert('تم نسخ الرابط بنجاح'); } catch(e) { alert('الرابط: ' + SHARE_URL); }
-    document.body.removeChild(ta);
-    closeShareModal();
-  }
-}
-
-function nativeShare() {
-  if (navigator.share) {
-    navigator.share({ title: 'دكتور الناس', text: SHARE_TEXT, url: SHARE_URL }).then(function(){ closeShareModal(); }).catch(function(){});
-  }
-}
-
 /* ============ 6) تثبيت التطبيق ============ */
 window.addEventListener('beforeinstallprompt', function(e){
   e.preventDefault();
   deferredPrompt = e;
-  var b = byId('installBtn');
-  if (b) b.style.display = 'block';
 });
 
 function installApp() {
   var isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
   var content = byId('install-modal-content');
   if (isIOS) {
-    content.innerHTML = '<h3>تثبيت على iPhone</h3><p>1. اضغط زر المشاركة</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>';
+    content.innerHTML = '<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>';
+    byId('installModal').classList.add('active');
   } else if (deferredPrompt) {
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(function(r){ if (r.outcome === 'accepted') { var b = byId('installBtn'); if (b) b.style.display = 'none'; } deferredPrompt = null; });
-    return;
+    deferredPrompt.userChoice.then(function(r){
+      if (r.outcome === 'accepted') { deferredPrompt = null; }
+      deferredPrompt = null;
+    });
   } else {
-    content.innerHTML = '<h3>تثبيت التطبيق</h3><p>1. اضغط قائمة المتصفح</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>';
+    content.innerHTML = '<h3>📲 تثبيت التطبيق</h3><p>1. اضغط قائمة المتصفح (الثلاث نقاط ⋮)</p><p>2. اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "تثبيت"</p>';
+    byId('installModal').classList.add('active');
   }
-  byId('installModal').classList.add('active');
 }
 
 function closeInstallModal() {
@@ -498,16 +433,16 @@ async function checkUser() {
 function renderHeaderActions() {
   var a = byId('header-actions');
   if (!a) return;
-  var html = '<button class="btn-share" onclick="openShareModal()">📤 مشاركة</button>';
+  var html = '<button class="btn-share-header" onclick="shareApp()" title="شارك التطبيق">📤 مشاركة</button>';
   if (isAdmin) {
-    html += '<button class="btn-header btn-login" onclick="go(\'admin\')">الإدارة</button>';
-    html += '<button class="btn-header btn-logout" onclick="logout()">خروج</button>';
+    html += '<button class="btn-header btn-login" onclick="go(\'admin\')">⚙️ الإدارة</button>';
+    html += '<button class="btn-header btn-logout" onclick="logout()">🚪 خروج</button>';
   } else if (currentUser) {
-    html += '<button class="btn-header btn-login" onclick="go(\'doctor-dashboard\')">لوحتي</button>';
-    html += '<button class="btn-header btn-logout" onclick="logout()">خروج</button>';
+    html += '<button class="btn-header btn-login" onclick="go(\'doctor-dashboard\')">👨‍⚕️ لوحتي</button>';
+    html += '<button class="btn-header btn-logout" onclick="logout()">🚪 خروج</button>';
   } else {
-    html += '<button class="btn-header btn-login" onclick="go(\'login\')">دخول</button>';
-    html += '<button class="btn-header btn-register" onclick="go(\'register\')">حساب جديد</button>';
+    html += '<button class="btn-header btn-login" onclick="go(\'login\')">🔑 دخول</button>';
+    html += '<button class="btn-header btn-register" onclick="go(\'register\')">📝 حساب جديد</button>';
   }
   a.innerHTML = html;
 }
@@ -575,24 +510,25 @@ async function renderHome(app) {
       '<h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>' +
       '<p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>' +
       '<div class="visit-counter"><span class="visit-dot"></span><span id="visits-number">...</span> زيارة</div>' +
+      '<div><button class="share-inline-btn" onclick="shareApp()">📤 شارك التطبيق</button></div>' +
       '<form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">' +
-        '<input type="text" name="q" placeholder="ابحث باسم الطبيب أو التخصص..." value="' + esc(searchQuery) + '">' +
+        '<input type="text" name="q" placeholder="🔍 ابحث باسم الطبيب أو التخصص..." value="' + esc(searchQuery) + '">' +
         '<button type="submit">بحث</button>' +
       '</form>' +
     '</div></section>' +
     '<div class="container"><div class="form-section" style="padding:14px;margin-bottom:16px;">' +
-      '<button class="center-toggle" onclick="toggleCenters()">اختر المركز - محافظة بني سويف ' + (centersOpen ? '▲' : '▼') + '</button>' +
+      '<button class="center-toggle" onclick="toggleCenters()">📍 اختر المركز - محافظة بني سويف ' + (centersOpen ? '▲' : '▼') + '</button>' +
       '<div id="centers-grid" class="center-grid" style="display:' + (centersOpen ? 'grid' : 'none') + ';">' +
-        '<button class="center-btn' + (currentCityFilter === '' ? ' active' : '') + '" onclick="filterByCity(\'\')">الكل</button>' +
+        '<button class="center-btn' + (currentCityFilter === '' ? ' active' : '') + '" onclick="filterByCity(\'\')">🌟 الكل</button>' +
         centersHtml +
       '</div>' +
     '</div></div>' +
     '<div class="container">' +
       '<div class="section-header">' +
-        '<h2>الأطباء' + (currentCityFilter ? ' - ' + esc(currentCityFilter) : '') + '</h2>' +
+        '<h2>👨‍⚕️ الأطباء' + (currentCityFilter ? ' - ' + esc(currentCityFilter) : '') + '</h2>' +
         '<span class="count-badge" id="doc-count">...</span>' +
       '</div>' +
-      '<div id="doctors-list" class="doctors-list"><div class="loading">جارٍ التحميل...</div></div>' +
+      '<div id="doctors-list" class="doctors-list"><div class="loading">⏳ جارٍ التحميل...</div></div>' +
     '</div>';
 
   await loadDoctors(searchQuery, currentCityFilter);
@@ -640,7 +576,7 @@ async function loadDoctors(query, city) {
   var countEl = byId('doc-count');
   if (countEl) countEl.textContent = data.length;
   if (data.length === 0) {
-    list.innerHTML = '<div class="empty-msg">لا يوجد أطباء مطابقون' + (city ? ' في ' + esc(city) : '') + '</div>';
+    list.innerHTML = '<div class="empty-msg">📭 لا يوجد أطباء مطابقون' + (city ? ' في ' + esc(city) : '') + '</div>';
     return;
   }
   var html = '';
@@ -648,11 +584,11 @@ async function loadDoctors(query, city) {
     var d = data[i];
     var addr = d.governorate || '';
     html += '<div class="doc-card" onclick="go(\'doctor\',\'' + d.id + '\')">' +
-      (d.image_url ? '<img src="' + esc(d.image_url) + '" class="doc-avatar">' : '<div class="doc-avatar-ph">+</div>') +
+      (d.image_url ? '<img src="' + esc(d.image_url) + '" class="doc-avatar">' : '<div class="doc-avatar-ph">🩺</div>') +
       '<div class="doc-info">' +
         '<div class="doc-name">' + esc(d.full_name) + '</div>' +
-        '<div class="doc-spec">' + esc(d.specialty || '') + (d.sub_specialty ? ' - ' + esc(d.sub_specialty) : '') + '</div>' +
-        (addr ? '<div class="doc-loc">' + esc(addr) + '</div>' : '') +
+        '<div class="doc-spec">' + esc(d.specialty || '') + (d.sub_specialty ? ' • ' + esc(d.sub_specialty) : '') + '</div>' +
+        (addr ? '<div class="doc-loc">📍 ' + esc(addr) + '</div>' : '') +
       '</div>' +
       '<span class="doc-arrow">◀</span>' +
     '</div>';
@@ -673,33 +609,33 @@ async function renderDoctor(app, id) {
   var daysBadges = '';
   if (days.length > 0) {
     var badges = '';
-    for (var i = 0; i < days.length; i++) badges += '<span class="day-badge">' + esc(days[i]) + '</span>';
+    for (var i = 0; i < days.length; i++) badges += '<span class="day-badge">🗓️ ' + esc(days[i]) + '</span>';
     daysBadges = '<div class="days-display">' + badges + '</div>';
   }
   var timeRange = formatTimeRange(d.work_start, d.work_end);
-  var hoursHtml = timeRange ? '<div class="hours-display">' + esc(timeRange) + '</div>' : '';
+  var hoursHtml = timeRange ? '<div class="hours-display">⏰ ' + esc(timeRange) + '</div>' : '';
 
   app.innerHTML =
     '<div class="doctor-full-page">' +
       '<div class="dfp-hero">' +
-        (d.image_url ? '<img src="' + esc(d.image_url) + '" class="dfp-avatar">' : '<div class="dfp-avatar-ph">+</div>') +
+        (d.image_url ? '<img src="' + esc(d.image_url) + '" class="dfp-avatar">' : '<div class="dfp-avatar-ph">🩺</div>') +
         '<h1>' + esc(d.full_name) + '</h1>' +
-        (d.specialty ? '<p class="dfp-spec">' + esc(d.specialty) + '</p>' : '') +
+        (d.specialty ? '<p class="dfp-spec">🎯 ' + esc(d.specialty) + '</p>' : '') +
         (d.sub_specialty ? '<p class="dfp-sub">' + esc(d.sub_specialty) + '</p>' : '') +
-        (d.phone1 ? '<a href="tel:' + esc(d.phone1) + '" class="dfp-call">اتصل بالدكتور الآن</a>' : '') +
+        (d.phone1 ? '<a href="tel:' + esc(d.phone1) + '" class="dfp-call">📞 اتصل بالدكتور الآن</a>' : '') +
       '</div>' +
       '<div class="dfp-body">' +
-        (d.governorate ? '<div class="dfp-card"><span class="dfp-icon">ع</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">' + esc(d.governorate) + '</div></div></div>' : '') +
-        (d.city ? '<div class="dfp-card"><span class="dfp-icon">م</span><div><div class="dfp-label">المركز / المدينة</div><div class="dfp-value">' + esc(d.city) + '</div></div></div>' : '') +
-        (d.address ? '<div class="dfp-card"><span class="dfp-icon">ت</span><div><div class="dfp-label">العنوان التفصيلي</div><div class="dfp-value">' + esc(d.address) + '</div></div></div>' : '') +
-        (d.phone1 ? '<div class="dfp-card"><span class="dfp-icon">ه</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone1) + '</div></div></div>' : '') +
-        (d.phone2 ? '<div class="dfp-card"><span class="dfp-icon">ه</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone2) + '</div></div></div>' : '') +
-        (days.length > 0 ? '<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">ي</span><div style="flex:1;width:100%;"><div class="dfp-label" style="margin-bottom:4px;">أيام وساعات العمل</div>' + daysBadges + hoursHtml + '</div></div></div>' : '') +
-        (d.qualifications ? '<div class="dfp-section"><h3>المؤهلات</h3><p>' + esc(d.qualifications).replace(/\n/g, '<br>') + '</p></div>' : '') +
-        (d.certificates ? '<div class="dfp-section"><h3>الشهادات</h3><p>' + esc(d.certificates).replace(/\n/g, '<br>') + '</p></div>' : '') +
-        (d.experience ? '<div class="dfp-section"><h3>الخبرات</h3><p>' + esc(d.experience).replace(/\n/g, '<br>') + '</p></div>' : '') +
-        (d.about ? '<div class="dfp-section"><h3>نبذة عن الطبيب</h3><p>' + esc(d.about).replace(/\n/g, '<br>') + '</p></div>' : '') +
-        '<button onclick="go(\'home\')" class="dfp-back">رجوع للقائمة</button>' +
+        (d.governorate ? '<div class="dfp-card"><span class="dfp-icon">📍</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">' + esc(d.governorate) + '</div></div></div>' : '') +
+        (d.city ? '<div class="dfp-card"><span class="dfp-icon">🏙️</span><div><div class="dfp-label">المركز / المدينة</div><div class="dfp-value">' + esc(d.city) + '</div></div></div>' : '') +
+        (d.address ? '<div class="dfp-card"><span class="dfp-icon">🏢</span><div><div class="dfp-label">العنوان التفصيلي</div><div class="dfp-value">' + esc(d.address) + '</div></div></div>' : '') +
+        (d.phone1 ? '<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone1) + '</div></div></div>' : '') +
+        (d.phone2 ? '<div class="dfp-card"><span class="dfp-icon">📞</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone2) + '</div></div></div>' : '') +
+        (days.length > 0 ? '<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">🗓️</span><div style="flex:1;width:100%;"><div class="dfp-label" style="margin-bottom:4px;">أيام وساعات العمل</div>' + daysBadges + hoursHtml + '</div></div></div>' : '') +
+        (d.qualifications ? '<div class="dfp-section"><h3>🎓 المؤهلات</h3><p>' + esc(d.qualifications).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.certificates ? '<div class="dfp-section"><h3>📜 الشهادات</h3><p>' + esc(d.certificates).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.experience ? '<div class="dfp-section"><h3>💼 الخبرات</h3><p>' + esc(d.experience).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.about ? '<div class="dfp-section"><h3>ℹ️ نبذة عن الطبيب</h3><p>' + esc(d.about).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        '<button onclick="go(\'home\')" class="dfp-back">← رجوع للقائمة</button>' +
       '</div>' +
     '</div>';
 }
@@ -708,15 +644,15 @@ async function renderDoctor(app, id) {
 function renderRegister(app) {
   app.innerHTML =
     '<div class="container"><div class="form-container">' +
-      '<h2>إنشاء حساب طبيب</h2>' +
+      '<h2>📝 إنشاء حساب طبيب</h2>' +
       '<p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>' +
       '<div id="reg-alert"></div>' +
       '<form onsubmit="event.preventDefault(); doRegister(this);">' +
-        '<div class="form-group"><label>الاسم الكامل *</label><input type="text" name="full_name" required></div>' +
-        '<div class="form-group"><label>البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr"></div>' +
-        '<div class="form-group"><label>كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr"></div>' +
-        '<div class="form-group"><label>رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr"><small>لن يظهر للزوار - للإدارة فقط</small></div>' +
-        '<button type="submit" class="btn btn-success">إنشاء الحساب</button>' +
+        '<div class="form-group"><label>👤 الاسم الكامل *</label><input type="text" name="full_name" required></div>' +
+        '<div class="form-group"><label>📧 البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr"></div>' +
+        '<div class="form-group"><label>🔒 كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr"></div>' +
+        '<div class="form-group"><label>📱 رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr"><small>⚠️ لن يظهر للزوار - للإدارة فقط</small></div>' +
+        '<button type="submit" class="btn btn-success">✅ إنشاء الحساب</button>' +
       '</form>' +
       '<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go(\'login\')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>' +
     '</div></div>';
@@ -737,19 +673,19 @@ async function doRegister(f) {
     deleted: false
   });
   if (r2.error) { showAlert(al, 'خطأ: ' + r2.error.message); return; }
-  showAlert(al, 'تم إنشاء حسابك بنجاح! جارٍ التحويل...', 'success');
+  showAlert(al, '✅ تم إنشاء حسابك بنجاح! جارٍ التحويل...', 'success');
   setTimeout(function(){ go('login'); }, 1500);
 }
 
 function renderLogin(app) {
   app.innerHTML =
     '<div class="container"><div class="form-container">' +
-      '<h2>تسجيل الدخول</h2>' +
+      '<h2>🔑 تسجيل الدخول</h2>' +
       '<p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>' +
       '<div id="log-alert"></div>' +
       '<form onsubmit="event.preventDefault(); doLogin(this);">' +
-        '<div class="form-group"><label>البريد الإلكتروني</label><input type="email" name="email" required dir="ltr"></div>' +
-        '<div class="form-group"><label>كلمة المرور</label><input type="password" name="password" required dir="ltr"></div>' +
+        '<div class="form-group"><label>📧 البريد الإلكتروني</label><input type="email" name="email" required dir="ltr"></div>' +
+        '<div class="form-group"><label>🔒 كلمة المرور</label><input type="password" name="password" required dir="ltr"></div>' +
         '<button type="submit" class="btn btn-primary">دخول</button>' +
       '</form>' +
       '<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go(\'register\')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>' +
@@ -774,10 +710,10 @@ async function renderDoctorDashboard(app) {
     return;
   }
   var d = currentDoctor;
-  var statusText = 'قيد المراجعة';
+  var statusText = '⏳ قيد المراجعة';
   var statusClass = 'status-pending';
-  if (d.status === 'approved') { statusText = 'مقبول'; statusClass = 'status-approved'; }
-  else if (d.status === 'rejected') { statusText = 'مرفوض'; statusClass = 'status-rejected'; }
+  if (d.status === 'approved') { statusText = '✅ مقبول'; statusClass = 'status-approved'; }
+  else if (d.status === 'rejected') { statusText = '❌ مرفوض'; statusClass = 'status-rejected'; }
 
   var selectedDays = parseDays(d.work_days);
   var centersOpts = '';
@@ -790,52 +726,52 @@ async function renderDoctorDashboard(app) {
   app.innerHTML =
     '<div class="dash-container">' +
       '<div class="dash-header">' +
-        (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">' : '<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">+</div>') +
+        (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">' : '<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">🩺</div>') +
         '<div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">' + esc(d.full_name) + '</h2><p style="color:#707A8A;font-size:0.82rem;">' + esc(d.email) + '</p></div>' +
         '<span class="status-badge ' + statusClass + '">' + statusText + '</span>' +
       '</div>' +
       (d.status === 'rejected' && d.rejection_reason ? '<div class="alert alert-danger">سبب الرفض: ' + esc(d.rejection_reason) + '</div>' : '') +
       '<div class="tabs">' +
-        '<button class="tab active">الملف الشخصي</button>' +
-        '<button class="tab support-btn" onclick="contactSupport()">تواصل مع الدعم</button>' +
+        '<button class="tab active">📄 الملف الشخصي</button>' +
+        '<button class="tab support-btn" onclick="contactSupport()">💚 تواصل مع الدعم</button>' +
       '</div>' +
       '<div id="dash-alert"></div>' +
       '<form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">' +
-        '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+        '<div class="form-section"><h3>📸 الصورة الشخصية</h3>' +
           '<div class="image-upload-section">' +
-            (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="current-img">' : '<div class="img-preview-placeholder" id="current-img-ph">+</div>') +
-            '<label class="file-input-label">اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);"></label>' +
+            (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="current-img">' : '<div class="img-preview-placeholder" id="current-img-ph">🩺</div>') +
+            '<label class="file-input-label">📁 اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);"></label>' +
             '<small style="color:#707A8A;font-size:0.75rem;display:block;margin-top:8px;">JPG أو PNG أو WebP - الحد الأقصى 5 MB</small>' +
           '</div>' +
         '</div>' +
-        '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+        '<div class="form-section"><h3>👤 البيانات الأساسية</h3>' +
           '<div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="' + esc(d.full_name) + '" required></div>' +
-          '<div class="form-group"><label>التخصص الرئيسي</label><input type="text" name="specialty" value="' + esc(d.specialty || '') + '"></div>' +
-          '<div class="form-group"><label>التخصص الدقيق</label><input type="text" name="sub_specialty" value="' + esc(d.sub_specialty || '') + '"></div>' +
+          '<div class="form-group"><label>🎯 التخصص الرئيسي</label><input type="text" name="specialty" value="' + esc(d.specialty || '') + '"></div>' +
+          '<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty" value="' + esc(d.sub_specialty || '') + '"></div>' +
         '</div>' +
-        '<div class="form-section"><h3>العنوان</h3>' +
+        '<div class="form-section"><h3>📍 العنوان</h3>' +
           '<div class="form-group"><label>العنوان (يظهر للزوار)</label><input type="text" name="governorate" value="' + esc(d.governorate || '') + '"></div>' +
           '<div class="form-group"><label>المركز / المدينة (للفلترة فقط)</label><select name="city"><option value="">اختر المركز</option>' + centersOpts + '</select><small>يُستخدم لتصنيفك فقط - لا يظهر للزوار</small></div>' +
           '<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">' + esc(d.address || '') + '</textarea></div>' +
         '</div>' +
-        '<div class="form-section"><h3>أرقام التواصل</h3>' +
+        '<div class="form-section"><h3>📞 أرقام التواصل</h3>' +
           '<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="' + esc(d.phone1 || '') + '" dir="ltr"></div>' +
           '<div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="' + esc(d.phone2 || '') + '" dir="ltr"></div>' +
         '</div>' +
-        '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+        '<div class="form-section"><h3>🗓️ أيام وساعات العمل</h3>' +
           '<div class="form-group"><label>اختر الأيام</label><div class="days-grid" id="days-grid">' + renderDaysGrid(selectedDays) + '</div></div>' +
           '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
-            '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_start_input', sParse.period) + '</div>' +
-            '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_end_input', eParse.period) + '</div>' +
+            '<div class="time-box"><span class="time-label">🕐 من الساعة</span><input type="text" id="work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_start_input', sParse.period) + '</div>' +
+            '<div class="time-box"><span class="time-label">🕐 إلى الساعة</span><input type="text" id="work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_end_input', eParse.period) + '</div>' +
           '</div></div>' +
         '</div>' +
-        '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+        '<div class="form-section"><h3>🎓 المؤهلات والخبرات</h3>' +
           '<div class="form-group"><label>المؤهلات</label><textarea name="qualifications">' + esc(d.qualifications || '') + '</textarea></div>' +
           '<div class="form-group"><label>الشهادات</label><textarea name="certificates">' + esc(d.certificates || '') + '</textarea></div>' +
           '<div class="form-group"><label>الخبرات</label><textarea name="experience">' + esc(d.experience || '') + '</textarea></div>' +
           '<div class="form-group"><label>نبذة عنك</label><textarea name="about">' + esc(d.about || '') + '</textarea></div>' +
         '</div>' +
-        '<button type="submit" class="btn btn-primary" style="margin-bottom:20px;">حفظ وإرسال للمراجعة</button>' +
+        '<button type="submit" class="btn btn-primary" style="margin-bottom:20px;">💾 حفظ وإرسال للمراجعة</button>' +
       '</form>' +
     '</div>';
 
@@ -870,10 +806,10 @@ function previewImage(input) {
 
 async function saveDoctor(f) {
   var al = byId('dash-alert');
-  al.innerHTML = '<div class="loading">جارٍ الحفظ...</div>';
+  al.innerHTML = '<div class="loading">⏳ جارٍ الحفظ...</div>';
   var selectedDays = getSelectedDays('days-grid');
   if (selectedDays.length === 0) {
-    showAlert(al, 'يرجى اختيار يوم عمل واحد على الأقل');
+    showAlert(al, '⚠️ يرجى اختيار يوم عمل واحد على الأقل');
     window.scrollTo({top:0, behavior:'smooth'});
     return;
   }
@@ -915,7 +851,7 @@ async function saveDoctor(f) {
   var r = await supabaseClient.from('doctors').update(upd).eq('user_id', currentUser.id);
   if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
   for (var k in upd) currentDoctor[k] = upd[k];
-  showAlert(al, 'تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة.', 'success');
+  showAlert(al, '✅ تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة.', 'success');
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -931,11 +867,11 @@ async function renderAdmin(app) {
   await checkUser();
   app.innerHTML =
     '<div class="dash-container">' +
-      '<h1 style="color:#F0B90B;margin-bottom:20px;">لوحة الإدارة</h1>' +
+      '<h1 style="color:#F0B90B;margin-bottom:20px;">⚙️ لوحة الإدارة</h1>' +
       '<div class="tabs">' +
-        '<button class="tab' + (adminPage === 'requests' ? ' active' : '') + '" onclick="setAdminPage(\'requests\')">الطلبات</button>' +
-        '<button class="tab' + (adminPage === 'doctors' ? ' active' : '') + '" onclick="setAdminPage(\'doctors\')">الأطباء</button>' +
-        '<button class="tab tab-add' + (adminPage === 'add' ? ' active' : '') + '" onclick="setAdminPage(\'add\')">إضافة طبيب</button>' +
+        '<button class="tab' + (adminPage === 'requests' ? ' active' : '') + '" onclick="setAdminPage(\'requests\')">📋 الطلبات</button>' +
+        '<button class="tab' + (adminPage === 'doctors' ? ' active' : '') + '" onclick="setAdminPage(\'doctors\')">👥 الأطباء</button>' +
+        '<button class="tab tab-add' + (adminPage === 'add' ? ' active' : '') + '" onclick="setAdminPage(\'add\')">➕ إضافة طبيب</button>' +
       '</div>' +
       '<div id="admin-page-content"></div>' +
     '</div>';
@@ -953,46 +889,46 @@ function renderAdminAddDoctorPage() {
   for (var i = 0; i < CENTERS.length; i++) centersOpts += '<option value="' + CENTERS[i] + '">' + CENTERS[i] + '</option>';
 
   c.innerHTML =
-    '<div class="add-hero"><h2>إضافة طبيب جديد</h2><p>سيظهر مباشرة للزوار بدون مراجعة</p></div>' +
+    '<div class="add-hero"><h2>➕ إضافة طبيب جديد</h2><p>سيظهر مباشرة للزوار بدون مراجعة</p></div>' +
     '<div id="add-alert"></div>' +
     '<form onsubmit="event.preventDefault(); adminAddDoctor(this);" enctype="multipart/form-data">' +
-      '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+      '<div class="form-section"><h3>📸 الصورة الشخصية</h3>' +
         '<div class="image-upload-section">' +
-          '<div class="img-preview-placeholder" id="add-img-ph">+</div>' +
+          '<div class="img-preview-placeholder" id="add-img-ph">🩺</div>' +
           '<img id="add-current-img" class="img-preview hidden" src="">' +
-          '<label class="file-input-label">اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewAddImage(this);"></label>' +
+          '<label class="file-input-label">📁 اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewAddImage(this);"></label>' +
         '</div>' +
       '</div>' +
-      '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+      '<div class="form-section"><h3>👤 البيانات الأساسية</h3>' +
         '<div class="form-group"><label>الاسم الكامل *</label><input type="text" name="full_name" required></div>' +
-        '<div class="form-group"><label>البريد الإلكتروني (اختياري)</label><input type="email" name="email" dir="ltr"></div>' +
-        '<div class="form-group"><label>التخصص الرئيسي *</label><input type="text" name="specialty" required></div>' +
-        '<div class="form-group"><label>التخصص الدقيق</label><input type="text" name="sub_specialty"></div>' +
+        '<div class="form-group"><label>📧 البريد الإلكتروني (اختياري)</label><input type="email" name="email" dir="ltr"></div>' +
+        '<div class="form-group"><label>🎯 التخصص الرئيسي *</label><input type="text" name="specialty" required></div>' +
+        '<div class="form-group"><label>🎯 التخصص الدقيق</label><input type="text" name="sub_specialty"></div>' +
       '</div>' +
-      '<div class="form-section"><h3>العنوان</h3>' +
+      '<div class="form-section"><h3>📍 العنوان</h3>' +
         '<div class="form-group"><label>العنوان (يظهر للزوار)</label><input type="text" name="governorate"></div>' +
         '<div class="form-group"><label>المركز / المدينة (للفلترة)</label><select name="city"><option value="">اختر المركز</option>' + centersOpts + '</select></div>' +
         '<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address"></textarea></div>' +
       '</div>' +
-      '<div class="form-section"><h3>أرقام التواصل</h3>' +
+      '<div class="form-section"><h3>📞 أرقام التواصل</h3>' +
         '<div class="form-group"><label>رقم الهاتف الخاص</label><input type="tel" name="phone_private" dir="ltr"></div>' +
         '<div class="form-group"><label>الهاتف العام 1</label><input type="tel" name="phone1" dir="ltr"></div>' +
         '<div class="form-group"><label>الهاتف العام 2</label><input type="tel" name="phone2" dir="ltr"></div>' +
       '</div>' +
-      '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+      '<div class="form-section"><h3>🗓️ أيام وساعات العمل</h3>' +
         '<div class="form-group"><label>اختر الأيام</label><div class="days-grid" id="add-days-grid">' + renderDaysGrid([]) + '</div></div>' +
         '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
-          '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="add_work_start_input" class="time-main-input" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_start_input', '') + '</div>' +
-          '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="add_work_end_input" class="time-main-input" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_end_input', '') + '</div>' +
+          '<div class="time-box"><span class="time-label">🕐 من الساعة</span><input type="text" id="add_work_start_input" class="time-main-input" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_start_input', '') + '</div>' +
+          '<div class="time-box"><span class="time-label">🕐 إلى الساعة</span><input type="text" id="add_work_end_input" class="time-main-input" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_end_input', '') + '</div>' +
         '</div></div>' +
       '</div>' +
-      '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+      '<div class="form-section"><h3>🎓 المؤهلات والخبرات</h3>' +
         '<div class="form-group"><label>المؤهلات</label><textarea name="qualifications"></textarea></div>' +
         '<div class="form-group"><label>الشهادات</label><textarea name="certificates"></textarea></div>' +
         '<div class="form-group"><label>الخبرات</label><textarea name="experience"></textarea></div>' +
         '<div class="form-group"><label>نبذة</label><textarea name="about"></textarea></div>' +
       '</div>' +
-      '<button type="submit" class="btn btn-success" style="margin-bottom:20px;">إضافة الطبيب مباشرة</button>' +
+      '<button type="submit" class="btn btn-success" style="margin-bottom:20px;">✅ إضافة الطبيب مباشرة</button>' +
     '</form>';
 
   initAmPmHidden('add_work_start_input', '');
@@ -1014,11 +950,11 @@ function previewAddImage(input) {
 
 async function adminAddDoctor(f) {
   var al = byId('add-alert');
-  al.innerHTML = '<div class="loading">جارٍ الإضافة...</div>';
+  al.innerHTML = '<div class="loading">⏳ جارٍ الإضافة...</div>';
   var selectedDays = getSelectedDays('add-days-grid');
-  if (selectedDays.length === 0) { showAlert(al, 'يرجى اختيار يوم عمل'); return; }
+  if (selectedDays.length === 0) { showAlert(al, '⚠️ يرجى اختيار يوم عمل'); return; }
   var fullName = f.full_name.value.trim();
-  if (!fullName) { showAlert(al, 'يرجى إدخال اسم الطبيب'); return; }
+  if (!fullName) { showAlert(al, '⚠️ يرجى إدخال اسم الطبيب'); return; }
   var imageUrl = '';
   var fileInput = f.image_file;
   if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -1060,7 +996,7 @@ async function adminAddDoctor(f) {
 
   var r = await supabaseClient.from('doctors').insert(doc);
   if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
-  showAlert(al, 'تم إضافة الطبيب ' + fullName + ' بنجاح! سيظهر مباشرة للزوار.', 'success');
+  showAlert(al, '✅ تم إضافة الطبيب ' + fullName + ' بنجاح! سيظهر مباشرة للزوار.', 'success');
   window.scrollTo({top:0, behavior:'smooth'});
   setTimeout(function(){ renderAdminAddDoctorPage(); }, 1800);
 }
@@ -1069,28 +1005,28 @@ async function renderAdminRequestsPage() {
   var c = byId('admin-page-content');
   var r = await supabaseClient.from('doctors').select('*').eq('status', 'pending').eq('deleted', false).order('created_at', { ascending: false });
   var list = r.data || [];
-  var html = '<h3 style="color:#F0B90B;margin:16px 0;">الطلبات المعلقة (' + list.length + ')</h3>';
+  var html = '<h3 style="color:#F0B90B;margin:16px 0;">📋 الطلبات المعلقة (' + list.length + ')</h3>';
   if (list.length === 0) {
-    html += '<div class="empty-msg">لا توجد طلبات معلقة</div>';
+    html += '<div class="empty-msg">✨ لا توجد طلبات معلقة</div>';
   } else {
     for (var i = 0; i < list.length; i++) {
       var d = list[i];
       var days = parseDays(d.work_days);
       var timeRange = formatTimeRange(d.work_start, d.work_end);
       html += '<div class="pending-card">' +
-        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">+</div>') + '</div>' +
+        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>') + '</div>' +
         '<div class="info">' +
           '<h4>' + esc(d.full_name) + '</h4>' +
-          '<p>البريد: ' + esc(d.email) + '</p>' +
-          '<p>الهاتف: <span style="color:#F0B90B;direction:ltr;">' + esc(d.phone_private || '') + '</span></p>' +
-          (d.specialty ? '<p>التخصص: ' + esc(d.specialty) + '</p>' : '') +
-          (days.length > 0 ? '<p style="color:#0ECB81;">الأيام: ' + esc(days.join(' - ')) + '</p>' : '') +
-          (timeRange ? '<p style="color:#F0B90B;">' + esc(timeRange) + '</p>' : '') +
+          '<p>📧 ' + esc(d.email) + '</p>' +
+          '<p>📱 <span style="color:#F0B90B;direction:ltr;">' + esc(d.phone_private || '') + '</span></p>' +
+          (d.specialty ? '<p>🎯 ' + esc(d.specialty) + '</p>' : '') +
+          (days.length > 0 ? '<p style="color:#0ECB81;">🗓️ ' + esc(days.join(' • ')) + '</p>' : '') +
+          (timeRange ? '<p style="color:#F0B90B;">⏰ ' + esc(timeRange) + '</p>' : '') +
         '</div>' +
         '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">عرض/تعديل</button>' +
-          '<button class="btn btn-sm btn-success" onclick="approveDoc(\'' + d.id + '\')">قبول</button>' +
-          '<button class="btn btn-sm btn-danger" onclick="rejectDoc(\'' + d.id + '\')">رفض</button>' +
+          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">👁️ عرض/تعديل</button>' +
+          '<button class="btn btn-sm btn-success" onclick="approveDoc(\'' + d.id + '\')">✅ قبول</button>' +
+          '<button class="btn btn-sm btn-danger" onclick="rejectDoc(\'' + d.id + '\')">❌ رفض</button>' +
         '</div>' +
       '</div>';
     }
@@ -1122,48 +1058,48 @@ async function viewDoctorProfile(id) {
   var eParse = parseTimeValue(d.work_end || '');
 
   byId('admin-page-content').innerHTML =
-    '<button onclick="renderAdminRequestsPage()" class="btn btn-primary" style="margin:16px 0;">رجوع</button>' +
+    '<button onclick="renderAdminRequestsPage()" class="btn btn-primary" style="margin:16px 0;">← رجوع</button>' +
     '<div id="edit-alert"></div>' +
     '<form onsubmit="event.preventDefault(); adminSaveDoctor(this, \'' + d.id + '\');" enctype="multipart/form-data">' +
-      '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+      '<div class="form-section"><h3>📸 الصورة الشخصية</h3>' +
         '<div class="image-upload-section">' +
-          (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="edit-current-img">' : '<div class="img-preview-placeholder" id="edit-current-img-ph">+</div>') +
-          '<label class="file-input-label">تغيير الصورة<input type="file" name="edit_image_file" accept="image/*" onchange="previewEditImage(this);"></label>' +
+          (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="edit-current-img">' : '<div class="img-preview-placeholder" id="edit-current-img-ph">🩺</div>') +
+          '<label class="file-input-label">📁 تغيير الصورة<input type="file" name="edit_image_file" accept="image/*" onchange="previewEditImage(this);"></label>' +
         '</div>' +
       '</div>' +
-      '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+      '<div class="form-section"><h3>👤 البيانات الأساسية</h3>' +
         '<div class="form-group"><label>الاسم</label><input type="text" id="e_full_name" value="' + esc(d.full_name || '') + '"></div>' +
         '<div class="form-group"><label>البريد (للقراءة فقط)</label><input type="email" value="' + esc(d.email || '') + '" disabled></div>' +
         '<div class="form-group"><label>الهاتف الخاص</label><input type="tel" id="e_phone_private" value="' + esc(d.phone_private || '') + '" dir="ltr"></div>' +
         '<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="e_specialty" value="' + esc(d.specialty || '') + '"></div>' +
         '<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="e_sub_specialty" value="' + esc(d.sub_specialty || '') + '"></div>' +
       '</div>' +
-      '<div class="form-section"><h3>العنوان</h3>' +
+      '<div class="form-section"><h3>📍 العنوان</h3>' +
         '<div class="form-group"><label>العنوان</label><input type="text" id="e_governorate" value="' + esc(d.governorate || '') + '"></div>' +
         '<div class="form-group"><label>المركز / المدينة (للفلترة)</label><select id="e_city"><option value="">اختر</option>' + centersOpts + '</select></div>' +
         '<div class="form-group"><label>العنوان التفصيلي</label><textarea id="e_address">' + esc(d.address || '') + '</textarea></div>' +
       '</div>' +
-      '<div class="form-section"><h3>أرقام التواصل</h3>' +
+      '<div class="form-section"><h3>📞 أرقام التواصل</h3>' +
         '<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="e_phone1" value="' + esc(d.phone1 || '') + '" dir="ltr"></div>' +
         '<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="e_phone2" value="' + esc(d.phone2 || '') + '" dir="ltr"></div>' +
       '</div>' +
-      '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+      '<div class="form-section"><h3>🗓️ أيام وساعات العمل</h3>' +
         '<div class="form-group"><label>أيام العمل</label><div class="days-grid" id="admin-days-grid">' + renderDaysGrid(selectedDays) + '</div></div>' +
         '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
-          '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="e_work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_start_input', sParse.period) + '</div>' +
-          '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="e_work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_end_input', eParse.period) + '</div>' +
+          '<div class="time-box"><span class="time-label">🕐 من الساعة</span><input type="text" id="e_work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_start_input', sParse.period) + '</div>' +
+          '<div class="time-box"><span class="time-label">🕐 إلى الساعة</span><input type="text" id="e_work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_end_input', eParse.period) + '</div>' +
         '</div></div>' +
       '</div>' +
-      '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+      '<div class="form-section"><h3>🎓 المؤهلات والخبرات</h3>' +
         '<div class="form-group"><label>المؤهلات</label><textarea id="e_qualifications">' + esc(d.qualifications || '') + '</textarea></div>' +
         '<div class="form-group"><label>الشهادات</label><textarea id="e_certificates">' + esc(d.certificates || '') + '</textarea></div>' +
         '<div class="form-group"><label>الخبرات</label><textarea id="e_experience">' + esc(d.experience || '') + '</textarea></div>' +
         '<div class="form-group"><label>نبذة</label><textarea id="e_about">' + esc(d.about || '') + '</textarea></div>' +
       '</div>' +
-      '<button type="submit" class="btn btn-primary" style="margin-bottom:10px;">حفظ التعديلات</button>' +
+      '<button type="submit" class="btn btn-primary" style="margin-bottom:10px;">💾 حفظ التعديلات</button>' +
     '</form>' +
-    '<button onclick="approveDoc(\'' + d.id + '\')" class="btn btn-success" style="margin-bottom:10px;">قبول</button>' +
-    '<button onclick="rejectDoc(\'' + d.id + '\')" class="btn btn-danger" style="margin-bottom:20px;">رفض</button>';
+    '<button onclick="approveDoc(\'' + d.id + '\')" class="btn btn-success" style="margin-bottom:10px;">✅ قبول</button>' +
+    '<button onclick="rejectDoc(\'' + d.id + '\')" class="btn btn-danger" style="margin-bottom:20px;">❌ رفض</button>';
 
   initAmPmHidden('e_work_start_input', sParse.period);
   initAmPmHidden('e_work_end_input', eParse.period);
@@ -1196,7 +1132,7 @@ function previewEditImage(input) {
 
 async function adminSaveDoctor(f, id) {
   var al = byId('edit-alert');
-  if (al) al.innerHTML = '<div class="loading">جارٍ الحفظ...</div>';
+  if (al) al.innerHTML = '<div class="loading">⏳ جارٍ الحفظ...</div>';
   var selectedDays = getSelectedDays('admin-days-grid');
   var imageUrl = null;
   var fileInput = f.edit_image_file;
@@ -1235,7 +1171,7 @@ async function adminSaveDoctor(f, id) {
   if (imageUrl) upd.image_url = imageUrl;
   var r = await supabaseClient.from('doctors').update(upd).eq('id', id);
   if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
-  showAlert(al, 'تم حفظ التعديلات بنجاح', 'success');
+  showAlert(al, '✅ تم حفظ التعديلات بنجاح', 'success');
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -1249,29 +1185,30 @@ async function renderAdminDoctorsPage() {
   var all = { pending: res[0].data || [], approved: res[1].data || [], rejected: res[2].data || [] };
   var list = all[adminFilter] || [];
   var html = '<div class="stats-grid">' +
-    '<div class="stat-card' + (adminFilter === 'pending' ? ' active' : '') + '" onclick="setAdminFilter(\'pending\')"><h3>قيد المراجعة</h3><p>' + all.pending.length + '</p></div>' +
-    '<div class="stat-card' + (adminFilter === 'approved' ? ' active' : '') + '" onclick="setAdminFilter(\'approved\')"><h3>مقبول</h3><p>' + all.approved.length + '</p></div>' +
-    '<div class="stat-card' + (adminFilter === 'rejected' ? ' active' : '') + '" onclick="setAdminFilter(\'rejected\')"><h3>مرفوض</h3><p>' + all.rejected.length + '</p></div>' +
+    '<div class="stat-card' + (adminFilter === 'pending' ? ' active' : '') + '" onclick="setAdminFilter(\'pending\')"><h3>⏳ قيد المراجعة</h3><p>' + all.pending.length + '</p></div>' +
+    '<div class="stat-card' + (adminFilter === 'approved' ? ' active' : '') + '" onclick="setAdminFilter(\'approved\')"><h3>✅ مقبول</h3><p>' + all.approved.length + '</p></div>' +
+    '<div class="stat-card' + (adminFilter === 'rejected' ? ' active' : '') + '" onclick="setAdminFilter(\'rejected\')"><h3>❌ مرفوض</h3><p>' + all.rejected.length + '</p></div>' +
   '</div>';
 
   if (list.length === 0) {
-    html += '<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>';
+    html += '<div class="empty-msg">📭 لا يوجد أطباء في هذه القائمة</div>';
   } else {
     for (var i = 0; i < list.length; i++) {
       var d = list[i];
       var days = parseDays(d.work_days);
       var timeRange = formatTimeRange(d.work_start, d.work_end);
       html += '<div class="pending-card">' +
-        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">+</div>') + '</div>' +
+        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🩺</div>') + '</div>' +
         '<div class="info">' +
           '<h4>' + esc(d.full_name) + '</h4>' +
-          '<p>البريد: ' + esc(d.email) + '</p>' +
-          (d.specialty ? '<p>التخصص: ' + esc(d.specialty) + '</p>' : '') +
-          (days.length > 0 ? '<p style="color:#0ECB81;">الأيام: ' + esc(days.join(' - ')) + '</p>' : '') +
-          (timeRange ? '<p style="color:#F0B90B;">' + esc(timeRange) + '</p>' : '') +
+          '<p>📧 ' + esc(d.email) + '</p>' +
+          '<p>📱 <span style="color:#F0B90B;direction:ltr;">' + esc(d.phone_private || '') + '</span></p>' +
+          (d.specialty ? '<p>🎯 ' + esc(d.specialty) + '</p>' : '') +
+          (days.length > 0 ? '<p style="color:#0ECB81;">🗓️ ' + esc(days.join(' • ')) + '</p>' : '') +
+          (timeRange ? '<p style="color:#F0B90B;">⏰ ' + esc(timeRange) + '</p>' : '') +
         '</div>' +
         '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
-          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">عرض/تعديل</button>' +
+          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">👁️ عرض/تعديل</button>' +
         '</div>' +
       '</div>';
     }
@@ -1289,7 +1226,7 @@ async function route() {
   var param = parts[1];
   var app = byId('app');
   if (!app) return;
-  app.innerHTML = '<div class="loading">جارٍ التحميل...</div>';
+  app.innerHTML = '<div class="loading">⏳ جارٍ التحميل...</div>';
   try {
     if (page === 'home') await renderHome(app);
     else if (page === 'doctor') await renderDoctor(app, param);
@@ -1305,7 +1242,6 @@ async function route() {
   window.scrollTo(0, 0);
 }
 
-/* ============ 15) التشغيل ============ */
 window.addEventListener('hashchange', route);
 
 if ('serviceWorker' in navigator) {

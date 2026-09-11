@@ -25,8 +25,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.btn-share-header{background:#1E2329;color:#F0B90B;border:1px solid #F0B90B;padding:7px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit}
-.btn-share-header:hover{background:#F0B90B;color:#0B0E11}
 .install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
 .install-btn-row:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(14,203,129,0.4)}
 .hidden{display:none!important}
@@ -241,8 +239,12 @@ function esc(str) {
 function go(page, param) { window.location.hash = param ? '#' + page + '/' + param : '#' + page; }
 
 function reloadHome() {
-  window.location.hash = '#home';
-  window.location.reload();
+  if (window.location.hash === '#home' || window.location.hash === '') {
+    window.location.reload();
+  } else {
+    window.location.hash = '#home';
+    window.location.reload();
+  }
 }
 
 function showAlert(el, msg, type) {
@@ -250,7 +252,7 @@ function showAlert(el, msg, type) {
   el.innerHTML = '<div class="alert alert-' + (type || 'danger') + '">' + esc(msg) + '</div>';
 }
 
-/* ============ 3) المشاركة المباشرة ============ */
+/* ============ 3) المشاركة ============ */
 function shareApp() {
   var shareData = {
     title: '🩺 دكتور الناس - دليل الأطباء',
@@ -383,27 +385,47 @@ function renderDaysGrid(selectedDays) {
 }
 
 /* ============ 6) تثبيت التطبيق ============ */
+function isStandaloneMode() {
+  return window.matchMedia('(display-mode: standalone)').matches ||
+         window.navigator.standalone === true;
+}
+
+function hideInstallButton() {
+  var b = byId('installBtn');
+  if (b) b.style.display = 'none';
+}
+
 window.addEventListener('beforeinstallprompt', function(e){
   e.preventDefault();
   deferredPrompt = e;
+  var b = byId('installBtn');
+  if (b) b.style.display = 'flex';
+});
+
+window.addEventListener('appinstalled', function(){
+  hideInstallButton();
+  deferredPrompt = null;
 });
 
 function installApp() {
   var isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
   var content = byId('install-modal-content');
-  if (isIOS) {
-    content.innerHTML = '<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>';
-    byId('installModal').classList.add('active');
-  } else if (deferredPrompt) {
+  if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then(function(r){
-      if (r.outcome === 'accepted') { deferredPrompt = null; }
+      if (r.outcome === 'accepted') {
+        hideInstallButton();
+      }
       deferredPrompt = null;
     });
+    return;
+  }
+  if (isIOS) {
+    content.innerHTML = '<h3>📲 تثبيت على iPhone</h3><p>1. اضغط زر المشاركة ⬆️</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>';
   } else {
     content.innerHTML = '<h3>📲 تثبيت التطبيق</h3><p>1. اضغط قائمة المتصفح (الثلاث نقاط ⋮)</p><p>2. اختر "تثبيت التطبيق" أو "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "تثبيت"</p>';
-    byId('installModal').classList.add('active');
   }
+  byId('installModal').classList.add('active');
 }
 
 function closeInstallModal() {
@@ -433,7 +455,7 @@ async function checkUser() {
 function renderHeaderActions() {
   var a = byId('header-actions');
   if (!a) return;
-  var html = '<button class="btn-share-header" onclick="shareApp()" title="شارك التطبيق">📤 مشاركة</button>';
+  var html = '';
   if (isAdmin) {
     html += '<button class="btn-header btn-login" onclick="go(\'admin\')">⚙️ الإدارة</button>';
     html += '<button class="btn-header btn-logout" onclick="logout()">🚪 خروج</button>';
@@ -1255,6 +1277,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('load', async function() {
   try {
+    /* إخفاء زر التثبيت فقط إذا كان التطبيق مثبتاً بالفعل */
+    if (isStandaloneMode()) {
+      hideInstallButton();
+    }
     await checkUser();
     await route();
   } catch (e) {

@@ -5,37 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>دكتور الناس - دليل الأطباء</title>
 <meta name="theme-color" content="#F0B90B">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-512.png">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rtl;min-height:100vh;line-height:1.6}
 .container{max-width:700px;margin:0 auto;padding:0 14px}
-.site-header{background:rgba(11,14,17,0.98);backdrop-filter:blur(10px);padding:12px 0 10px;border-bottom:1px solid #1E2329;position:sticky;top:0;z-index:100}
+.site-header{background:#0B0E11;padding:12px 0;border-bottom:1px solid #1E2329;position:sticky;top:0;z-index:100}
 .header-top-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
 .logo{font-size:1.4rem;font-weight:900;color:#F0B90B;cursor:pointer;text-shadow:0 0 20px rgba(240,185,11,0.6)}
 .pulse-dot{display:inline-block;width:8px;height:8px;background:#0ECB81;border-radius:50%;margin-right:4px;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(14,203,129,0.8)}70%{box-shadow:0 0 0 10px rgba(14,203,129,0)}100%{box-shadow:0 0 0 0 rgba(14,203,129,0)}}
-@keyframes prayerPulse{0%,100%{transform:scale(1);box-shadow:0 8px 30px rgba(240,185,11,0.25)}50%{transform:scale(1.05);box-shadow:0 8px 40px rgba(240,185,11,0.4)}}
+@keyframes prayerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
 .header-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit;position:relative}
+.btn-header{padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;border:none;cursor:pointer;font-family:inherit}
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.btn-share{background:linear-gradient(135deg,#25D366,#128C7E);color:#FFF;border:none;padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
-.btn-share:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.4)}
-.install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-share{background:#25D366;color:#FFF;border:none;padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.btn-share:hover{background:#128C7E}
+.install-btn-row{width:100%;margin-top:10px;background:#0ECB81;color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer}
 .hidden{display:none!important}
 .hero{padding:24px 0 16px;text-align:center}
 .hero-title{font-size:1.25rem;font-weight:900;margin-bottom:4px}
 .hero-title span{color:#F0B90B}
 .hero-sub{color:#707A8A;font-size:0.8rem;margin-bottom:14px}
-.visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid rgba(14,203,129,0.35);font-weight:800;font-size:0.85rem;margin-bottom:14px}
-.visit-counter .visit-dot{width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
-.visit-counter #visits-number{font-weight:900;font-size:1rem;letter-spacing:0.5px}
+.visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid #0ECB81;font-weight:800;font-size:0.85rem;margin-bottom:14px}
+.visit-counter .visit-dot{width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite}
 .search-box{background:#1E2329;border:1px solid #2B3139;border-radius:40px;padding:4px;display:flex;max-width:480px;margin:0 auto}
 .search-box input{flex:1;border:none;outline:none;padding:10px 18px;background:transparent;color:#FFF;font-family:inherit;font-size:0.88rem}
 .search-box button{background:#F0B90B;color:#0B0E11;border:none;padding:9px 20px;border-radius:30px;cursor:pointer;font-weight:800;font-family:inherit;font-size:0.82rem}
@@ -44,7 +42,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .count-badge{background:#F0B90B;color:#0B0E11;font-size:0.7rem;font-weight:900;padding:2px 9px;border-radius:20px}
 .doctors-list{display:flex;flex-direction:column;gap:12px}
 .doc-card{background:#1E2329;border:1px solid #2B3139;border-radius:16px;padding:16px;display:grid;grid-template-columns:100px 1fr 20px;gap:14px;cursor:pointer;align-items:center;transition:all 0.2s}
-.doc-card:hover{border-color:#F0B90B;background:#232830;transform:translateY(-2px)}
+.doc-card:hover{border-color:#F0B90B;background:#232830}
 .doc-avatar{width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B}
 .doc-avatar-ph{width:100px;height:100px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2.4rem}
 .doc-info{display:flex;flex-direction:column;gap:5px;min-width:0}
@@ -59,26 +57,22 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .form-group{margin-bottom:14px}
 .form-group label{display:block;margin-bottom:6px;font-weight:600;font-size:0.88rem}
 .form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;background:#0B0E11;border:1px solid #2B3139;border-radius:10px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none}
-.form-group input:focus,.form-group textarea:focus{border-color:#F0B90B;box-shadow:0 0 0 3px rgba(240,185,11,0.1)}
+.form-group input:focus,.form-group textarea:focus{border-color:#F0B90B}
 .form-group textarea{min-height:80px;resize:vertical}
 .form-group small{color:#707A8A;font-size:0.75rem;display:block;margin-top:4px}
 .days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px;margin-top:8px}
-.day-chip{padding:10px 8px;background:#0B0E11;border:2px solid #2B3139;border-radius:12px;color:#B7BDC6;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;transition:all 0.2s;text-align:center;user-select:none;position:relative}
-.day-chip:hover{border-color:#F0B90B}
-.day-chip.selected{background:linear-gradient(135deg,#F0B90B,#D4A309);color:#0B0E11;border-color:#F0B90B}
-.day-chip .check{position:absolute;top:4px;left:6px;font-size:0.7rem;opacity:0;transition:opacity 0.2s}
+.day-chip{padding:10px 8px;background:#0B0E11;border:2px solid #2B3139;border-radius:12px;color:#B7BDC6;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;text-align:center;user-select:none;position:relative}
+.day-chip.selected{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
+.day-chip .check{position:absolute;top:4px;left:6px;font-size:0.7rem;opacity:0}
 .day-chip.selected .check{opacity:1}
 .time-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
-.time-box{background:#0B0E11;border:2px solid #2B3139;border-radius:14px;padding:12px;transition:all 0.2s}
-.time-box:focus-within{border-color:#F0B90B}
+.time-box{background:#0B0E11;border:2px solid #2B3139;border-radius:14px;padding:12px}
 .time-label{color:#707A8A;font-size:0.75rem;font-weight:600;margin-bottom:8px;display:block;text-align:center}
 .time-main-input{padding:6px;border:none;background:transparent;font-size:1.2rem;font-weight:900;color:#F0B90B;text-align:center;width:100%;letter-spacing:1px;font-family:inherit;outline:none}
-.time-main-input::placeholder{color:#4a5560;font-weight:500;font-size:0.9rem}
 .ampm-group{display:flex;gap:6px;justify-content:center;margin-top:10px}
-.ampm-btn{padding:7px 16px;border-radius:10px;background:#1E2329;border:1px solid #2B3139;color:#707A8A;font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer;transition:all 0.2s}
-.ampm-btn:hover{border-color:#F0B90B;color:#F0B90B}
-.ampm-btn.active{background:linear-gradient(135deg,#F0B90B,#D4A309);color:#0B0E11;border-color:#F0B90B}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%;transition:all 0.2s}
+.ampm-btn{padding:7px 16px;border-radius:10px;background:#1E2329;border:1px solid #2B3139;color:#707A8A;font-family:inherit;font-weight:700;font-size:0.78rem;cursor:pointer}
+.ampm-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:12px 20px;border-radius:30px;font-weight:800;cursor:pointer;border:none;font-family:inherit;font-size:0.9rem;width:100%}
 .btn-primary{background:#F0B90B;color:#0B0E11}
 .btn-success{background:#0ECB81;color:#FFF}
 .btn-danger{background:#F6465D;color:#FFF}
@@ -87,8 +81,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .alert-success{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
 .alert-danger{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
 .doctor-full-page{max-width:700px;margin:20px auto;background:#1E2329;border:1px solid #2B3139;border-radius:16px;overflow:hidden}
-.dfp-hero{background:linear-gradient(135deg,#1E2329,#232830);padding:30px 20px;text-align:center;border-bottom:1px solid #2B3139}
-.dfp-avatar{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;object-fit:cover;margin:0 auto 15px;display:block;box-shadow:0 0 25px rgba(240,185,11,0.4)}
+.dfp-hero{background:#232830;padding:30px 20px;text-align:center;border-bottom:1px solid #2B3139}
+.dfp-avatar{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;object-fit:cover;margin:0 auto 15px;display:block}
 .dfp-avatar-ph{width:130px;height:130px;border-radius:50%;border:4px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:3.5rem;margin:0 auto 15px}
 .dfp-hero h1{color:#F0B90B;font-size:1.5rem;font-weight:900;margin-bottom:6px}
 .dfp-spec{font-weight:700;margin-bottom:4px}
@@ -104,9 +98,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .dfp-section p{font-size:0.88rem;line-height:1.8}
 .days-display{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .day-badge{background:rgba(240,185,11,0.15);color:#F0B90B;padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:700;border:1px solid rgba(240,185,11,0.3)}
-.hours-display{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(14,203,129,0.15),rgba(14,203,129,0.08));color:#0ECB81;padding:8px 16px;border-radius:12px;font-size:0.85rem;font-weight:800;border:1px solid rgba(14,203,129,0.35);margin-top:10px;width:100%}
-.hours-display .clock-icon{font-size:1rem}
-.hours-display .time-range{color:#FFF;font-weight:700}
+.hours-display{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.15);color:#0ECB81;padding:8px 16px;border-radius:12px;font-size:0.85rem;font-weight:800;border:1px solid #0ECB81;margin-top:10px;width:100%}
 .dfp-back{display:block;text-align:center;background:transparent;border:1px solid #2B3139;color:#FFF;padding:12px;border-radius:10px;font-weight:700;margin-top:16px;cursor:pointer;width:100%;font-family:inherit;font-size:0.9rem}
 .dash-container{max-width:720px;margin:20px auto;padding:0 16px}
 .dash-header{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
@@ -117,8 +109,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .status-approved{background:rgba(14,203,129,0.15);color:#0ECB81;border:1px solid #0ECB81}
 .status-rejected{background:rgba(246,70,93,0.15);color:#F6465D;border:1px solid #F6465D}
 .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
-.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer;transition:all 0.2s}
-.stat-card:hover,.stat-card.active{border-color:#F0B90B;background:#232830}
+.stat-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer}
+.stat-card.active{border-color:#F0B90B}
 .stat-card h3{color:#707A8A;font-size:0.8rem;margin-bottom:4px}
 .stat-card p{font-size:1.6rem;font-weight:900;color:#F0B90B}
 .pending-card{background:#1E2329;border:1px solid #2B3139;border-radius:12px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -126,44 +118,40 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .pending-card .info h4{font-size:0.95rem;margin-bottom:4px}
 .pending-card .info p{color:#707A8A;font-size:0.78rem}
 .tabs{display:flex;gap:6px;margin:20px 0;overflow-x:auto;padding-bottom:4px}
-.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap;transition:all 0.2s}
+.tab{padding:10px 18px;border-radius:20px;background:#1E2329;border:1px solid #2B3139;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.82rem;white-space:nowrap}
 .tab.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
-.tab-add{background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border-color:#0ECB81}
-.tab-add.active{background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border-color:#0ECB81}
+.tab-add{background:#0ECB81;color:#FFF;border-color:#0ECB81}
+.tab-add.active{background:#0ECB81;color:#FFF;border-color:#0ECB81}
 .site-footer{text-align:center;padding:20px;color:#707A8A;border-top:1px solid #1E2329;margin-top:24px;font-size:0.75rem}
-.ios-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px}
-.ios-modal.active{display:flex}
-.ios-modal-box{background:#1E2329;border:1px solid #2B3139;border-radius:16px;padding:24px;max-width:360px;text-align:center;position:relative}
-.ios-modal-box h3{color:#F0B90B;font-size:1.1rem;margin-bottom:14px}
-.ios-modal-box p{color:#B7BDC6;font-size:0.88rem;line-height:1.8;margin-bottom:8px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;align-items:center;justify-content:center;padding:20px}
+.modal.active{display:flex}
+.modal-box{background:#1E2329;border:1px solid #2B3139;border-radius:16px;padding:24px;max-width:400px;text-align:center;position:relative;width:100%}
+.modal-box h3{color:#F0B90B;font-size:1.1rem;margin-bottom:14px}
+.modal-box p{color:#B7BDC6;font-size:0.88rem;line-height:1.8;margin-bottom:8px}
 .close-x{position:absolute;top:10px;left:14px;background:transparent;border:none;color:#707A8A;font-size:1.5rem;cursor:pointer}
 .loading{text-align:center;padding:40px;color:#F0B90B}
-.img-preview{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B;margin:0 auto 10px;display:block;box-shadow:0 0 20px rgba(240,185,11,0.3)}
+.img-preview{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B;margin:0 auto 10px;display:block}
 .img-preview-placeholder{width:120px;height:120px;border-radius:50%;background:#0B0E11;border:3px dashed #2B3139;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:#4a5560;margin:0 auto 10px}
-.file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer;color:#707A8A;transition:all 0.2s;font-size:0.9rem;font-weight:700}
-.file-input-label:hover{border-color:#F0B90B;color:#F0B90B}
+.file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer;color:#707A8A;font-size:0.9rem;font-weight:700}
 .file-input-label input{display:none}
 .image-upload-section{text-align:center;margin-bottom:16px;padding:16px;background:#0B0E11;border-radius:12px;border:1px solid #2B3139}
-.center-toggle{width:100%;background:transparent;border:1px solid #2B3139;color:#F0B90B;padding:14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.92rem;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}
+.center-toggle{width:100%;background:transparent;border:1px solid #2B3139;color:#F0B90B;padding:14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.92rem;cursor:pointer;margin-bottom:10px}
 .center-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:8px}
-.center-btn{padding:10px 8px;background:#0B0E11;border:1px solid #2B3139;border-radius:12px;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.78rem;transition:all 0.2s;text-align:center}
-.center-btn:hover{border-color:#F0B90B;color:#F0B90B}
+.center-btn{padding:10px 8px;background:#0B0E11;border:1px solid #2B3139;border-radius:12px;color:#FFF;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.78rem;text-align:center}
 .center-btn.active{background:#F0B90B;color:#0B0E11;border-color:#F0B90B}
-.support-btn{background:linear-gradient(135deg,#25D366,#128C7E);color:#FFF;border-color:#25D366}
-.add-hero{background:linear-gradient(135deg,rgba(14,203,129,0.15),rgba(14,203,129,0.05));border:2px solid rgba(14,203,129,0.35);border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
+.support-btn{background:#25D366;color:#FFF;border-color:#25D366}
+.add-hero{background:rgba(14,203,129,0.1);border:2px solid #0ECB81;border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
 .add-hero h2{color:#0ECB81;font-size:1.2rem;font-weight:900;margin-bottom:6px}
 .add-hero p{color:#B7BDC6;font-size:0.85rem}
-/* نافذة المشاركة */
-.share-modal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
-.share-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;border-radius:12px;text-decoration:none;color:#FFF;font-weight:700;font-size:0.85rem;transition:all 0.2s;cursor:pointer;border:1px solid #2B3139;background:#0B0E11}
-.share-item:hover{transform:translateY(-2px);border-color:#F0B90B}
+.share-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.share-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;border-radius:12px;text-decoration:none;color:#FFF;font-weight:700;font-size:0.85rem;cursor:pointer;border:1px solid #2B3139;background:#0B0E11;font-family:inherit}
 .share-item .share-icon{font-size:2rem}
-.share-item.whatsapp{background:linear-gradient(135deg,rgba(37,211,102,0.15),rgba(37,211,102,0.05));border-color:rgba(37,211,102,0.4)}
-.share-item.facebook{background:linear-gradient(135deg,rgba(24,119,242,0.15),rgba(24,119,242,0.05));border-color:rgba(24,119,242,0.4)}
-.share-item.messenger{background:linear-gradient(135deg,rgba(0,132,255,0.15),rgba(0,132,255,0.05));border-color:rgba(0,132,255,0.4)}
-.share-item.telegram{background:linear-gradient(135deg,rgba(0,136,204,0.15),rgba(0,136,204,0.05));border-color:rgba(0,136,204,0.4)}
-.share-item.copy{background:linear-gradient(135deg,rgba(240,185,11,0.15),rgba(240,185,11,0.05));border-color:rgba(240,185,11,0.4)}
-.share-item.native{background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0.03));border-color:#2B3139;grid-column:1/-1}
+.share-item.whatsapp{border-color:#25D366}
+.share-item.facebook{border-color:#1877F2}
+.share-item.messenger{border-color:#0084FF}
+.share-item.telegram{border-color:#0088CC}
+.share-item.copy{border-color:#F0B90B}
+.share-item.native{border-color:#2B3139;grid-column:1/-1}
 @media (max-width:500px){
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
 .doc-avatar,.doc-avatar-ph{width:90px;height:90px;font-size:2.1rem}
@@ -176,8 +164,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 </head>
 <body>
 
-<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;transition:opacity 0.4s ease;">
-<div style="width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,#1E2329,#232830);border:3px solid #F0B90B;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 8px 30px rgba(240,185,11,0.35);animation:prayerPulse 1s infinite;">
+<div id="splash-prayer" style="position:fixed;inset:0;background:rgba(11,14,17,0.95);z-index:99999;display:flex;align-items:center;justify-content:center;">
+<div style="width:200px;height:200px;border-radius:50%;background:#1E2329;border:3px solid #F0B90B;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:prayerPulse 1s infinite;">
 <div style="font-size:2.2rem;color:#F0B90B;line-height:1;margin-bottom:6px;">ﷺ</div>
 <h2 style="color:#F0B90B;font-size:1.05rem;font-weight:900;margin-bottom:2px;">صلي على النبي</h2>
 <p style="color:#0ECB81;font-size:0.72rem;font-weight:600;">صلى الله عليه وسلم</p>
@@ -186,43 +174,1159 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 
 <script>
 setTimeout(function(){
-var s=document.getElementById('splash-prayer');
-if(s){s.style.opacity='0';setTimeout(function(){if(s&&s.parentNode)s.parentNode.removeChild(s);},500);}
-},1000);
+  var s = document.getElementById('splash-prayer');
+  if(s){
+    s.style.transition = 'opacity 0.4s ease';
+    s.style.opacity = '0';
+    setTimeout(function(){ if(s && s.parentNode) s.parentNode.removeChild(s); }, 500);
+  }
+}, 1000);
 </script>
 
 <header class="site-header">
-<div class="container">
-<div class="header-top-row">
-<a class="logo" onclick="go('home')">دكتور الناس<span class="pulse-dot"></span></a>
-<div class="header-actions" id="header-actions"></div>
-</div>
-<button id="installBtn" class="install-btn-row hidden" onclick="installApp()">📲 ثبّت التطبيق على هاتفك</button>
-</div>
+  <div class="container">
+    <div class="header-top-row">
+      <a class="logo" onclick="go('home')">دكتور الناس<span class="pulse-dot"></span></a>
+      <div class="header-actions" id="header-actions"></div>
+    </div>
+    <button id="installBtn" class="install-btn-row hidden" onclick="installApp()" style="display:none;">📲 ثبّت التطبيق على هاتفك</button>
+  </div>
 </header>
 
-<main id="app"><div class="loading">⏳ جارٍ التحميل...</div></main>
+<main id="app">
+  <div class="loading">جارٍ التحميل...</div>
+</main>
 
-<footer class="site-footer">© <span id="year"></span> دكتور الناس — جميع الحقوق محفوظة</footer>
+<footer class="site-footer">
+  <span id="year"></span> دكتور الناس — جميع الحقوق محفوظة
+</footer>
 
-<div class="ios-modal" id="installModal" onclick="if(event.target===this)closeModal()">
-<div class="ios-modal-box">
-<button class="close-x" onclick="closeModal()">×</button>
-<div id="modal-content"></div>
-</div>
+<div class="modal" id="installModal">
+  <div class="modal-box">
+    <button class="close-x" onclick="closeInstallModal()">×</button>
+    <div id="install-modal-content"></div>
+  </div>
 </div>
 
-<div class="ios-modal" id="shareModal" onclick="if(event.target===this)closeShareModal()">
-<div class="ios-modal-box" style="max-width:400px;">
-<button class="close-x" onclick="closeShareModal()">×</button>
-<h3 style="color:#F0B90B;font-size:1.15rem;margin-bottom:8px;">📤 شارك دكتور الناس</h3>
-<p style="color:#B7BDC6;font-size:0.85rem;margin-bottom:6px;">ساعد الآخرين في الوصول لأطباء منطقتهم</p>
-<div class="share-modal-grid" id="share-grid"></div>
-</div>
+<div class="modal" id="shareModal">
+  <div class="modal-box">
+    <button class="close-x" onclick="closeShareModal()">×</button>
+    <h3>📤 شارك التطبيق</h3>
+    <p style="margin-bottom:16px;">ساعد الآخرين في الوصول لأطباء منطقتهم</p>
+    <div class="share-grid" id="share-grid"></div>
+  </div>
 </div>
 
 <script>
+/* ============ 1) الثوابت الأساسية ============ */
 var SUPABASE_URL = 'https://wfcizftmcclhnzgvukuy.supabase.co';
 var SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmY2l6ZnRtY2NsaG56Z3Z1a3V5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwNDI3ODYsImV4cCI6MjEwNDYxODc4Nn0.HZ852U2kZzHkXQveGEWT0qLra-vsVOwZOsT1Zl8nQ80';
+
+var SHARE_URL = 'https://abu-hanin.github.io/doctor-alnas/#home';
+var SHARE_TEXT = 'دكتور الناس - دليل الأطباء الشامل\nابحث عن أفضل الأطباء في محافظتك بسهولة';
+
+var WEEK_DAYS = ['السبت','الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة'];
+var CENTERS = ['بني سويف','الواسطى','ناصر','إهناسيا','ببا','سمسطا','الفشن'];
+
 var supabaseClient = null;
-try { supabaseClient = window.supabase.createClient(SUPABASE_URL, SUP
+try {
+  if (window.supabase && window.supabase.createClient) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  }
+} catch (e) {
+  console.error('Supabase init error:', e);
+}
+
+var currentUser = null;
+var currentDoctor = null;
+var isAdmin = false;
+var centersOpen = false;
+var searchQuery = '';
+var currentCityFilter = '';
+var adminPage = 'requests';
+var adminFilter = 'pending';
+var deferredPrompt = null;
+
+/* ============ 2) أدوات مساعدة ============ */
+function $(sel) { return document.querySelector(sel); }
+function byId(id) { return document.getElementById(id); }
+
+function esc(str) {
+  if (str === null || str === undefined) return '';
+  var d = document.createElement('div');
+  d.textContent = String(str);
+  return d.innerHTML;
+}
+
+function go(page, param) {
+  window.location.hash = param ? '#' + page + '/' + param : '#' + page;
+}
+
+function showAlert(el, msg, type) {
+  if (!el) return;
+  el.innerHTML = '<div class="alert alert-' + (type || 'danger') + '">' + esc(msg) + '</div>';
+}
+
+/* ============ 3) أدوات الوقت ============ */
+function parseTimeValue(val) {
+  if (!val) return { hour: '', period: '' };
+  var s = String(val).trim();
+  var period = '';
+  if (s.indexOf('صباح') !== -1) period = 'صباحاً';
+  else if (s.indexOf('مساء') !== -1) period = 'مساءً';
+  var hour = s.replace(/\s*(صباحاً|مساءً|صباحا|مساء|صباح|مساء|ص|م)\s*$/g, '').trim();
+  return { hour: hour, period: period };
+}
+
+function buildTimeValue(hour, period) {
+  hour = (hour || '').trim();
+  if (!hour) return '';
+  return period ? (hour + ' ' + period) : hour;
+}
+
+function formatTimeDisplay(val) {
+  var p = parseTimeValue(val);
+  if (!p.hour) return '';
+  if (p.period) return p.hour + ' ' + p.period;
+  var parts = p.hour.split(':');
+  if (parts.length >= 2) {
+    var h = parseInt(parts[0], 10);
+    if (!isNaN(h)) {
+      var period2 = h >= 12 ? 'مساءً' : 'صباحاً';
+      h = h % 12 || 12;
+      return h + ':' + parts[1] + ' ' + period2;
+    }
+  }
+  return p.hour;
+}
+
+function formatTimeRange(start, end) {
+  if (!start || !end) return '';
+  return 'من ' + formatTimeDisplay(start) + ' إلى ' + formatTimeDisplay(end);
+}
+
+function autoFormatHour(input) {
+  if (!input) return;
+  var val = input.value.trim();
+  if (!val) return;
+  var map = { '٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9' };
+  val = val.replace(/[٠-٩]/g, function(d){ return map[d]; }).replace(/\s/g, '');
+  var match = val.match(/^(\d{1,2})(?::(\d{0,2}))?$/);
+  if (match) {
+    var h = parseInt(match[1], 10);
+    var m = match[2] || '';
+    if (h > 23) h = 23;
+    if (m.length === 0) m = '00';
+    else if (m.length === 1) m = '0' + m;
+    else if (parseInt(m, 10) > 59) m = '59';
+    input.value = (h < 10 ? '0' + h : '' + h) + ':' + m;
+  }
+}
+
+function setAmPm(btn, inputId, value) {
+  var input = byId(inputId);
+  if (!input) return;
+  var group = btn.parentNode;
+  if (group) {
+    var btns = group.querySelectorAll('.ampm-btn');
+    for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
+  }
+  btn.classList.add('active');
+  var hiddenId = inputId + '_period';
+  var hidden = byId(hiddenId);
+  if (!hidden) {
+    hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = hiddenId;
+    hidden.name = hiddenId;
+    input.parentNode.appendChild(hidden);
+  }
+  hidden.value = value;
+}
+
+function initAmPmHidden(inputId, period) {
+  var input = byId(inputId);
+  if (!input) return;
+  var hiddenId = inputId + '_period';
+  if (!byId(hiddenId)) {
+    var h = document.createElement('input');
+    h.type = 'hidden';
+    h.id = hiddenId;
+    h.name = hiddenId;
+    input.parentNode.appendChild(h);
+  }
+  byId(hiddenId).value = period || '';
+}
+
+function buildAmPmButtons(inputId, currentPeriod) {
+  var p1 = currentPeriod === 'صباحاً' ? ' active' : '';
+  var p2 = currentPeriod === 'مساءً' ? ' active' : '';
+  return '<div class="ampm-group">' +
+    '<button type="button" class="ampm-btn' + p1 + '" onclick="setAmPm(this,\'' + inputId + '\',\'صباحاً\')">صباحاً</button>' +
+    '<button type="button" class="ampm-btn' + p2 + '" onclick="setAmPm(this,\'' + inputId + '\',\'مساءً\')">مساءً</button>' +
+  '</div>';
+}
+
+/* ============ 4) أدوات الأيام ============ */
+function toggleDay(el) { if (el) el.classList.toggle('selected'); }
+
+function getSelectedDays(gridId) {
+  var sel = [];
+  var grid = byId(gridId);
+  if (!grid) return sel;
+  var chips = grid.querySelectorAll('.day-chip.selected');
+  for (var i = 0; i < chips.length; i++) sel.push(chips[i].getAttribute('data-day'));
+  return sel;
+}
+
+function parseDays(str) {
+  if (!str) return [];
+  return str.split(',').map(function(s){ return s.trim(); }).filter(function(s){ return s; });
+}
+
+function renderDaysGrid(selectedDays) {
+  var out = '';
+  for (var i = 0; i < WEEK_DAYS.length; i++) {
+    var day = WEEK_DAYS[i];
+    var isSel = selectedDays.indexOf(day) !== -1;
+    out += '<div class="day-chip' + (isSel ? ' selected' : '') + '" data-day="' + day + '" onclick="toggleDay(this)"><span class="check">✓</span>' + day + '</div>';
+  }
+  return out;
+}
+
+/* ============ 5) مشاركة التطبيق ============ */
+function openShareModal() {
+  var grid = byId('share-grid');
+  if (!grid) return;
+  var encUrl = encodeURIComponent(SHARE_URL);
+  var encText = encodeURIComponent(SHARE_TEXT);
+  var encTextUrl = encodeURIComponent(SHARE_TEXT + '\n' + SHARE_URL);
+
+  grid.innerHTML =
+    '<a href="https://wa.me/?text=' + encTextUrl + '" target="_blank" class="share-item whatsapp"><span class="share-icon">💬</span><span>واتساب</span></a>' +
+    '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encUrl + '" target="_blank" class="share-item facebook"><span class="share-icon">📘</span><span>فيسبوك</span></a>' +
+    '<a href="https://www.facebook.com/dialog/send?link=' + encUrl + '&app_id=291494419107518&redirect_uri=' + encUrl + '" target="_blank" class="share-item messenger"><span class="share-icon">✉️</span><span>ماسنجر</span></a>' +
+    '<a href="https://t.me/share/url?url=' + encUrl + '&text=' + encText + '" target="_blank" class="share-item telegram"><span class="share-icon">📨</span><span>تليجرام</span></a>' +
+    '<button type="button" class="share-item copy" onclick="copyShareLink()"><span class="share-icon">🔗</span><span>نسخ الرابط</span></button>';
+
+  if (navigator.share) {
+    grid.innerHTML += '<button type="button" class="share-item native" onclick="nativeShare()"><span class="share-icon">📱</span><span>مشاركة عبر التطبيقات</span></button>';
+  }
+
+  byId('shareModal').classList.add('active');
+}
+
+function closeShareModal() {
+  var m = byId('shareModal');
+  if (m) m.classList.remove('active');
+}
+
+function copyShareLink() {
+  var text = SHARE_TEXT + '\n' + SHARE_URL;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function(){
+      alert('تم نسخ الرابط بنجاح');
+      closeShareModal();
+    }).catch(function(){
+      alert('الرابط: ' + SHARE_URL);
+      closeShareModal();
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); alert('تم نسخ الرابط بنجاح'); } catch(e) { alert('الرابط: ' + SHARE_URL); }
+    document.body.removeChild(ta);
+    closeShareModal();
+  }
+}
+
+function nativeShare() {
+  if (navigator.share) {
+    navigator.share({ title: 'دكتور الناس', text: SHARE_TEXT, url: SHARE_URL }).then(function(){ closeShareModal(); }).catch(function(){});
+  }
+}
+
+/* ============ 6) تثبيت التطبيق ============ */
+window.addEventListener('beforeinstallprompt', function(e){
+  e.preventDefault();
+  deferredPrompt = e;
+  var b = byId('installBtn');
+  if (b) b.style.display = 'block';
+});
+
+function installApp() {
+  var isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+  var content = byId('install-modal-content');
+  if (isIOS) {
+    content.innerHTML = '<h3>تثبيت على iPhone</h3><p>1. اضغط زر المشاركة</p><p>2. اختر "إضافة إلى الشاشة الرئيسية"</p><p>3. اضغط "إضافة"</p>';
+  } else if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(r){ if (r.outcome === 'accepted') { var b = byId('installBtn'); if (b) b.style.display = 'none'; } deferredPrompt = null; });
+    return;
+  } else {
+    content.innerHTML = '<h3>تثبيت التطبيق</h3><p>1. اضغط قائمة المتصفح</p><p>2. اختر "تثبيت التطبيق"</p><p>3. اضغط "تثبيت"</p>';
+  }
+  byId('installModal').classList.add('active');
+}
+
+function closeInstallModal() {
+  var m = byId('installModal');
+  if (m) m.classList.remove('active');
+}
+
+/* ============ 7) المصادقة ============ */
+async function checkUser() {
+  try {
+    if (!supabaseClient) return;
+    var r = await supabaseClient.auth.getUser();
+    var user = r && r.data ? r.data.user : null;
+    currentUser = user;
+    currentDoctor = null;
+    isAdmin = false;
+    if (user) {
+      var dR = await supabaseClient.from('doctors').select('*').eq('user_id', user.id).maybeSingle();
+      if (dR && dR.data) currentDoctor = dR.data;
+      var aR = await supabaseClient.from('admins').select('id').eq('user_id', user.id).limit(1);
+      if (aR && aR.data && aR.data.length > 0) isAdmin = true;
+    }
+  } catch (e) { console.error('checkUser:', e); }
+  renderHeaderActions();
+}
+
+function renderHeaderActions() {
+  var a = byId('header-actions');
+  if (!a) return;
+  var html = '<button class="btn-share" onclick="openShareModal()">📤 مشاركة</button>';
+  if (isAdmin) {
+    html += '<button class="btn-header btn-login" onclick="go(\'admin\')">الإدارة</button>';
+    html += '<button class="btn-header btn-logout" onclick="logout()">خروج</button>';
+  } else if (currentUser) {
+    html += '<button class="btn-header btn-login" onclick="go(\'doctor-dashboard\')">لوحتي</button>';
+    html += '<button class="btn-header btn-logout" onclick="logout()">خروج</button>';
+  } else {
+    html += '<button class="btn-header btn-login" onclick="go(\'login\')">دخول</button>';
+    html += '<button class="btn-header btn-register" onclick="go(\'register\')">حساب جديد</button>';
+  }
+  a.innerHTML = html;
+}
+
+async function logout() {
+  if (supabaseClient) await supabaseClient.auth.signOut();
+  currentUser = null; currentDoctor = null; isAdmin = false;
+  renderHeaderActions();
+  go('home');
+}
+
+/* ============ 8) عداد الزيارات ============ */
+async function loadVisitCounter() {
+  try {
+    if (!supabaseClient) return;
+    var counted = sessionStorage.getItem('visit_counted');
+    var newCount = null;
+    if (!counted) {
+      try {
+        var r = await supabaseClient.rpc('increment_visits');
+        if (!r.error && r.data !== null && r.data !== undefined) {
+          newCount = r.data;
+          sessionStorage.setItem('visit_counted', '1');
+        }
+      } catch (e) {}
+    }
+    if (newCount === null) {
+      var r2 = await supabaseClient.from('site_stats').select('total_visits').eq('id', 1).maybeSingle();
+      if (!r2.error && r2.data) newCount = r2.data.total_visits;
+    }
+    var el = byId('visits-number');
+    if (newCount !== null && el) {
+      animateNumber(el, newCount);
+    } else if (el && el.parentElement) {
+      el.parentElement.style.display = 'none';
+    }
+  } catch (e) {}
+}
+
+function animateNumber(el, target) {
+  var start = Math.max(0, target - 20);
+  var duration = 1200;
+  var t0 = performance.now();
+  function tick(now) {
+    var elapsed = now - t0;
+    var p = Math.min(elapsed / duration, 1);
+    var eased = 1 - Math.pow(1 - p, 3);
+    var current = Math.floor(start + (target - start) * eased);
+    el.textContent = current.toLocaleString('en-US');
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString('en-US');
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ============ 9) الصفحة الرئيسية ============ */
+async function renderHome(app) {
+  var centersHtml = '';
+  for (var i = 0; i < CENTERS.length; i++) {
+    var c = CENTERS[i];
+    centersHtml += '<button class="center-btn' + (currentCityFilter === c ? ' active' : '') + '" onclick="filterByCity(\'' + c + '\')">' + c + '</button>';
+  }
+  app.innerHTML =
+    '<section class="hero"><div class="container">' +
+      '<h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>' +
+      '<p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>' +
+      '<div class="visit-counter"><span class="visit-dot"></span><span id="visits-number">...</span> زيارة</div>' +
+      '<form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">' +
+        '<input type="text" name="q" placeholder="ابحث باسم الطبيب أو التخصص..." value="' + esc(searchQuery) + '">' +
+        '<button type="submit">بحث</button>' +
+      '</form>' +
+    '</div></section>' +
+    '<div class="container"><div class="form-section" style="padding:14px;margin-bottom:16px;">' +
+      '<button class="center-toggle" onclick="toggleCenters()">اختر المركز - محافظة بني سويف ' + (centersOpen ? '▲' : '▼') + '</button>' +
+      '<div id="centers-grid" class="center-grid" style="display:' + (centersOpen ? 'grid' : 'none') + ';">' +
+        '<button class="center-btn' + (currentCityFilter === '' ? ' active' : '') + '" onclick="filterByCity(\'\')">الكل</button>' +
+        centersHtml +
+      '</div>' +
+    '</div></div>' +
+    '<div class="container">' +
+      '<div class="section-header">' +
+        '<h2>الأطباء' + (currentCityFilter ? ' - ' + esc(currentCityFilter) : '') + '</h2>' +
+        '<span class="count-badge" id="doc-count">...</span>' +
+      '</div>' +
+      '<div id="doctors-list" class="doctors-list"><div class="loading">جارٍ التحميل...</div></div>' +
+    '</div>';
+
+  await loadDoctors(searchQuery, currentCityFilter);
+  await loadVisitCounter();
+}
+
+function doSearch(f) {
+  searchQuery = (f.q && f.q.value) ? f.q.value.trim() : '';
+  loadDoctors(searchQuery, currentCityFilter);
+}
+
+function toggleCenters() {
+  centersOpen = !centersOpen;
+  var g = byId('centers-grid');
+  if (g) g.style.display = centersOpen ? 'grid' : 'none';
+}
+
+function filterByCity(c) {
+  currentCityFilter = c;
+  centersOpen = false;
+  renderHome(byId('app'));
+}
+
+async function loadDoctors(query, city) {
+  query = query || '';
+  city = city || '';
+  var list = byId('doctors-list');
+  if (!list) return;
+  if (!supabaseClient) {
+    list.innerHTML = '<div class="alert alert-danger">خطأ في الاتصال</div>';
+    return;
+  }
+  var q = supabaseClient.from('doctors').select('*').eq('status', 'approved').eq('deleted', false).order('created_at', { ascending: false });
+  if (query) {
+    var t = '%' + query + '%';
+    q = q.or('full_name.ilike.' + t + ',specialty.ilike.' + t + ',sub_specialty.ilike.' + t + ',governorate.ilike.' + t + ',city.ilike.' + t);
+  }
+  if (city) q = q.ilike('city', '%' + city + '%');
+  var r = await q;
+  if (r.error) {
+    list.innerHTML = '<div class="alert alert-danger">خطأ: ' + esc(r.error.message) + '</div>';
+    return;
+  }
+  var data = r.data || [];
+  var countEl = byId('doc-count');
+  if (countEl) countEl.textContent = data.length;
+  if (data.length === 0) {
+    list.innerHTML = '<div class="empty-msg">لا يوجد أطباء مطابقون' + (city ? ' في ' + esc(city) : '') + '</div>';
+    return;
+  }
+  var html = '';
+  for (var i = 0; i < data.length; i++) {
+    var d = data[i];
+    var addr = d.governorate || '';
+    html += '<div class="doc-card" onclick="go(\'doctor\',\'' + d.id + '\')">' +
+      (d.image_url ? '<img src="' + esc(d.image_url) + '" class="doc-avatar">' : '<div class="doc-avatar-ph">+</div>') +
+      '<div class="doc-info">' +
+        '<div class="doc-name">' + esc(d.full_name) + '</div>' +
+        '<div class="doc-spec">' + esc(d.specialty || '') + (d.sub_specialty ? ' - ' + esc(d.sub_specialty) : '') + '</div>' +
+        (addr ? '<div class="doc-loc">' + esc(addr) + '</div>' : '') +
+      '</div>' +
+      '<span class="doc-arrow">◀</span>' +
+    '</div>';
+  }
+  list.innerHTML = html;
+}
+
+/* ============ 10) صفحة الطبيب ============ */
+async function renderDoctor(app, id) {
+  if (!supabaseClient) { app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">خطأ</div></div>'; return; }
+  var r = await supabaseClient.from('doctors').select('*').eq('id', id).eq('status', 'approved').eq('deleted', false).maybeSingle();
+  var d = r.data;
+  if (r.error || !d) {
+    app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">الطبيب غير موجود</div></div>';
+    return;
+  }
+  var days = parseDays(d.work_days);
+  var daysBadges = '';
+  if (days.length > 0) {
+    var badges = '';
+    for (var i = 0; i < days.length; i++) badges += '<span class="day-badge">' + esc(days[i]) + '</span>';
+    daysBadges = '<div class="days-display">' + badges + '</div>';
+  }
+  var timeRange = formatTimeRange(d.work_start, d.work_end);
+  var hoursHtml = timeRange ? '<div class="hours-display">' + esc(timeRange) + '</div>' : '';
+
+  app.innerHTML =
+    '<div class="doctor-full-page">' +
+      '<div class="dfp-hero">' +
+        (d.image_url ? '<img src="' + esc(d.image_url) + '" class="dfp-avatar">' : '<div class="dfp-avatar-ph">+</div>') +
+        '<h1>' + esc(d.full_name) + '</h1>' +
+        (d.specialty ? '<p class="dfp-spec">' + esc(d.specialty) + '</p>' : '') +
+        (d.sub_specialty ? '<p class="dfp-sub">' + esc(d.sub_specialty) + '</p>' : '') +
+        (d.phone1 ? '<a href="tel:' + esc(d.phone1) + '" class="dfp-call">اتصل بالدكتور الآن</a>' : '') +
+      '</div>' +
+      '<div class="dfp-body">' +
+        (d.governorate ? '<div class="dfp-card"><span class="dfp-icon">ع</span><div><div class="dfp-label">العنوان</div><div class="dfp-value">' + esc(d.governorate) + '</div></div></div>' : '') +
+        (d.city ? '<div class="dfp-card"><span class="dfp-icon">م</span><div><div class="dfp-label">المركز / المدينة</div><div class="dfp-value">' + esc(d.city) + '</div></div></div>' : '') +
+        (d.address ? '<div class="dfp-card"><span class="dfp-icon">ت</span><div><div class="dfp-label">العنوان التفصيلي</div><div class="dfp-value">' + esc(d.address) + '</div></div></div>' : '') +
+        (d.phone1 ? '<div class="dfp-card"><span class="dfp-icon">ه</span><div><div class="dfp-label">الهاتف 1</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone1) + '</div></div></div>' : '') +
+        (d.phone2 ? '<div class="dfp-card"><span class="dfp-icon">ه</span><div><div class="dfp-label">الهاتف 2</div><div class="dfp-value" style="direction:ltr;color:#0ECB81;">' + esc(d.phone2) + '</div></div></div>' : '') +
+        (days.length > 0 ? '<div class="dfp-card" style="flex-direction:column;align-items:flex-start;"><div style="display:flex;align-items:center;gap:12px;width:100%;"><span class="dfp-icon">ي</span><div style="flex:1;width:100%;"><div class="dfp-label" style="margin-bottom:4px;">أيام وساعات العمل</div>' + daysBadges + hoursHtml + '</div></div></div>' : '') +
+        (d.qualifications ? '<div class="dfp-section"><h3>المؤهلات</h3><p>' + esc(d.qualifications).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.certificates ? '<div class="dfp-section"><h3>الشهادات</h3><p>' + esc(d.certificates).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.experience ? '<div class="dfp-section"><h3>الخبرات</h3><p>' + esc(d.experience).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        (d.about ? '<div class="dfp-section"><h3>نبذة عن الطبيب</h3><p>' + esc(d.about).replace(/\n/g, '<br>') + '</p></div>' : '') +
+        '<button onclick="go(\'home\')" class="dfp-back">رجوع للقائمة</button>' +
+      '</div>' +
+    '</div>';
+}
+
+/* ============ 11) التسجيل والدخول ============ */
+function renderRegister(app) {
+  app.innerHTML =
+    '<div class="container"><div class="form-container">' +
+      '<h2>إنشاء حساب طبيب</h2>' +
+      '<p class="form-subtitle">سجّل بياناتك وابدأ بإضافة معلوماتك</p>' +
+      '<div id="reg-alert"></div>' +
+      '<form onsubmit="event.preventDefault(); doRegister(this);">' +
+        '<div class="form-group"><label>الاسم الكامل *</label><input type="text" name="full_name" required></div>' +
+        '<div class="form-group"><label>البريد الإلكتروني *</label><input type="email" name="email" required dir="ltr"></div>' +
+        '<div class="form-group"><label>كلمة المرور *</label><input type="password" name="password" required minlength="6" dir="ltr"></div>' +
+        '<div class="form-group"><label>رقم هاتفك الخاص *</label><input type="tel" name="phone_private" required dir="ltr"><small>لن يظهر للزوار - للإدارة فقط</small></div>' +
+        '<button type="submit" class="btn btn-success">إنشاء الحساب</button>' +
+      '</form>' +
+      '<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">لديك حساب؟ <a onclick="go(\'login\')" style="color:#F0B90B;cursor:pointer;font-weight:700;">سجّل دخولك</a></p>' +
+    '</div></div>';
+}
+
+async function doRegister(f) {
+  var al = byId('reg-alert');
+  if (!supabaseClient) { showAlert(al, 'خطأ في الاتصال'); return; }
+  var r1 = await supabaseClient.auth.signUp({ email: f.email.value.trim(), password: f.password.value });
+  if (r1.error) { showAlert(al, 'خطأ: ' + r1.error.message); return; }
+  if (!r1.data.user) { showAlert(al, 'خطأ في التسجيل'); return; }
+  var r2 = await supabaseClient.from('doctors').insert({
+    user_id: r1.data.user.id,
+    full_name: f.full_name.value.trim(),
+    email: f.email.value.trim(),
+    phone_private: f.phone_private.value.trim(),
+    status: 'pending',
+    deleted: false
+  });
+  if (r2.error) { showAlert(al, 'خطأ: ' + r2.error.message); return; }
+  showAlert(al, 'تم إنشاء حسابك بنجاح! جارٍ التحويل...', 'success');
+  setTimeout(function(){ go('login'); }, 1500);
+}
+
+function renderLogin(app) {
+  app.innerHTML =
+    '<div class="container"><div class="form-container">' +
+      '<h2>تسجيل الدخول</h2>' +
+      '<p class="form-subtitle">سجل دخولك كطبيب أو كمسؤول</p>' +
+      '<div id="log-alert"></div>' +
+      '<form onsubmit="event.preventDefault(); doLogin(this);">' +
+        '<div class="form-group"><label>البريد الإلكتروني</label><input type="email" name="email" required dir="ltr"></div>' +
+        '<div class="form-group"><label>كلمة المرور</label><input type="password" name="password" required dir="ltr"></div>' +
+        '<button type="submit" class="btn btn-primary">دخول</button>' +
+      '</form>' +
+      '<p style="text-align:center;margin-top:16px;color:#707A8A;font-size:0.85rem;">ليس لديك حساب؟ <a onclick="go(\'register\')" style="color:#F0B90B;cursor:pointer;font-weight:700;">أنشئ حساباً</a></p>' +
+    '</div></div>';
+}
+
+async function doLogin(f) {
+  var al = byId('log-alert');
+  if (!supabaseClient) { showAlert(al, 'خطأ في الاتصال'); return; }
+  var r = await supabaseClient.auth.signInWithPassword({ email: f.email.value.trim(), password: f.password.value });
+  if (r.error) { showAlert(al, 'البريد أو كلمة المرور غير صحيحة'); return; }
+  await checkUser();
+  if (isAdmin) go('admin'); else go('doctor-dashboard');
+}
+
+/* ============ 12) لوحة الطبيب ============ */
+async function renderDoctorDashboard(app) {
+  if (!currentUser) { go('login'); return; }
+  await checkUser();
+  if (!currentDoctor) {
+    app.innerHTML = '<div class="container" style="padding:40px;"><div class="empty-msg">لا يوجد ملف لهذا الحساب</div></div>';
+    return;
+  }
+  var d = currentDoctor;
+  var statusText = 'قيد المراجعة';
+  var statusClass = 'status-pending';
+  if (d.status === 'approved') { statusText = 'مقبول'; statusClass = 'status-approved'; }
+  else if (d.status === 'rejected') { statusText = 'مرفوض'; statusClass = 'status-rejected'; }
+
+  var selectedDays = parseDays(d.work_days);
+  var centersOpts = '';
+  for (var i = 0; i < CENTERS.length; i++) {
+    centersOpts += '<option value="' + CENTERS[i] + '"' + (d.city === CENTERS[i] ? ' selected' : '') + '>' + CENTERS[i] + '</option>';
+  }
+  var sParse = parseTimeValue(d.work_start || '');
+  var eParse = parseTimeValue(d.work_end || '');
+
+  app.innerHTML =
+    '<div class="dash-container">' +
+      '<div class="dash-header">' +
+        (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;object-fit:cover;">' : '<div style="width:70px;height:70px;border-radius:50%;border:3px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:2rem;">+</div>') +
+        '<div style="flex:1;"><h2 style="color:#F0B90B;font-size:1.15rem;">' + esc(d.full_name) + '</h2><p style="color:#707A8A;font-size:0.82rem;">' + esc(d.email) + '</p></div>' +
+        '<span class="status-badge ' + statusClass + '">' + statusText + '</span>' +
+      '</div>' +
+      (d.status === 'rejected' && d.rejection_reason ? '<div class="alert alert-danger">سبب الرفض: ' + esc(d.rejection_reason) + '</div>' : '') +
+      '<div class="tabs">' +
+        '<button class="tab active">الملف الشخصي</button>' +
+        '<button class="tab support-btn" onclick="contactSupport()">تواصل مع الدعم</button>' +
+      '</div>' +
+      '<div id="dash-alert"></div>' +
+      '<form onsubmit="event.preventDefault(); saveDoctor(this);" enctype="multipart/form-data">' +
+        '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+          '<div class="image-upload-section">' +
+            (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="current-img">' : '<div class="img-preview-placeholder" id="current-img-ph">+</div>') +
+            '<label class="file-input-label">اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewImage(this);"></label>' +
+            '<small style="color:#707A8A;font-size:0.75rem;display:block;margin-top:8px;">JPG أو PNG أو WebP - الحد الأقصى 5 MB</small>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+          '<div class="form-group"><label>الاسم الكامل</label><input type="text" name="full_name" value="' + esc(d.full_name) + '" required></div>' +
+          '<div class="form-group"><label>التخصص الرئيسي</label><input type="text" name="specialty" value="' + esc(d.specialty || '') + '"></div>' +
+          '<div class="form-group"><label>التخصص الدقيق</label><input type="text" name="sub_specialty" value="' + esc(d.sub_specialty || '') + '"></div>' +
+        '</div>' +
+        '<div class="form-section"><h3>العنوان</h3>' +
+          '<div class="form-group"><label>العنوان (يظهر للزوار)</label><input type="text" name="governorate" value="' + esc(d.governorate || '') + '"></div>' +
+          '<div class="form-group"><label>المركز / المدينة (للفلترة فقط)</label><select name="city"><option value="">اختر المركز</option>' + centersOpts + '</select><small>يُستخدم لتصنيفك فقط - لا يظهر للزوار</small></div>' +
+          '<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address">' + esc(d.address || '') + '</textarea></div>' +
+        '</div>' +
+        '<div class="form-section"><h3>أرقام التواصل</h3>' +
+          '<div class="form-group"><label>الهاتف 1 (يظهر للزوار)</label><input type="tel" name="phone1" value="' + esc(d.phone1 || '') + '" dir="ltr"></div>' +
+          '<div class="form-group"><label>الهاتف 2 (اختياري)</label><input type="tel" name="phone2" value="' + esc(d.phone2 || '') + '" dir="ltr"></div>' +
+        '</div>' +
+        '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+          '<div class="form-group"><label>اختر الأيام</label><div class="days-grid" id="days-grid">' + renderDaysGrid(selectedDays) + '</div></div>' +
+          '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
+            '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_start_input', sParse.period) + '</div>' +
+            '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('work_end_input', eParse.period) + '</div>' +
+          '</div></div>' +
+        '</div>' +
+        '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+          '<div class="form-group"><label>المؤهلات</label><textarea name="qualifications">' + esc(d.qualifications || '') + '</textarea></div>' +
+          '<div class="form-group"><label>الشهادات</label><textarea name="certificates">' + esc(d.certificates || '') + '</textarea></div>' +
+          '<div class="form-group"><label>الخبرات</label><textarea name="experience">' + esc(d.experience || '') + '</textarea></div>' +
+          '<div class="form-group"><label>نبذة عنك</label><textarea name="about">' + esc(d.about || '') + '</textarea></div>' +
+        '</div>' +
+        '<button type="submit" class="btn btn-primary" style="margin-bottom:20px;">حفظ وإرسال للمراجعة</button>' +
+      '</form>' +
+    '</div>';
+
+  initAmPmHidden('work_start_input', sParse.period);
+  initAmPmHidden('work_end_input', eParse.period);
+}
+
+function previewImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var ph = byId('current-img-ph');
+      if (ph) ph.style.display = 'none';
+      var preview = byId('current-img');
+      if (preview) {
+        preview.src = e.target.result;
+      } else {
+        preview = document.createElement('img');
+        preview.id = 'current-img';
+        preview.className = 'img-preview';
+        preview.src = e.target.result;
+        var section = input.closest('.image-upload-section');
+        if (section) {
+          var lbl = section.querySelector('.file-input-label');
+          if (lbl) section.insertBefore(preview, lbl);
+        }
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function saveDoctor(f) {
+  var al = byId('dash-alert');
+  al.innerHTML = '<div class="loading">جارٍ الحفظ...</div>';
+  var selectedDays = getSelectedDays('days-grid');
+  if (selectedDays.length === 0) {
+    showAlert(al, 'يرجى اختيار يوم عمل واحد على الأقل');
+    window.scrollTo({top:0, behavior:'smooth'});
+    return;
+  }
+  var imageUrl = currentDoctor.image_url || '';
+  var fileInput = f.image_file;
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    var file = fileInput.files[0];
+    var ext = file.name.split('.').pop().toLowerCase();
+    var fileName = 'doctor_' + currentUser.id + '_' + Date.now() + '.' + ext;
+    var up = await supabaseClient.storage.from('doctor-images').upload(fileName, file, { contentType: file.type, upsert: true });
+    if (up.error) { showAlert(al, 'خطأ رفع الصورة: ' + up.error.message); return; }
+    var u = supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
+    imageUrl = u.data.publicUrl;
+  }
+  var startHour = (byId('work_start_input') || {}).value || '';
+  var startPeriod = (byId('work_start_input_period') || {}).value || '';
+  var endHour = (byId('work_end_input') || {}).value || '';
+  var endPeriod = (byId('work_end_input_period') || {}).value || '';
+
+  var upd = {
+    full_name: (f.full_name ? f.full_name.value.trim() : ''),
+    specialty: (f.specialty ? f.specialty.value.trim() : ''),
+    sub_specialty: (f.sub_specialty ? f.sub_specialty.value.trim() : ''),
+    phone1: (f.phone1 ? f.phone1.value.trim() : ''),
+    phone2: (f.phone2 ? f.phone2.value.trim() : ''),
+    governorate: (f.governorate ? f.governorate.value.trim() : ''),
+    city: (f.city ? f.city.value.trim() : ''),
+    address: (f.address ? f.address.value.trim() : ''),
+    work_days: selectedDays.join(','),
+    work_start: buildTimeValue(startHour, startPeriod),
+    work_end: buildTimeValue(endHour, endPeriod),
+    qualifications: (f.qualifications ? f.qualifications.value.trim() : ''),
+    certificates: (f.certificates ? f.certificates.value.trim() : ''),
+    experience: (f.experience ? f.experience.value.trim() : ''),
+    about: (f.about ? f.about.value.trim() : ''),
+    image_url: imageUrl,
+    status: 'pending'
+  };
+  var r = await supabaseClient.from('doctors').update(upd).eq('user_id', currentUser.id);
+  if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
+  for (var k in upd) currentDoctor[k] = upd[k];
+  showAlert(al, 'تم حفظ بياناتك بنجاح! حسابك الآن قيد المراجعة.', 'success');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function contactSupport() {
+  var phone = '201154846407';
+  var msg = encodeURIComponent('مرحباً، أحتاج مساعدة بخصوص حسابي في دكتور الناس');
+  window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
+}
+
+/* ============ 13) لوحة الأدمن ============ */
+async function renderAdmin(app) {
+  if (!isAdmin) { go('home'); return; }
+  await checkUser();
+  app.innerHTML =
+    '<div class="dash-container">' +
+      '<h1 style="color:#F0B90B;margin-bottom:20px;">لوحة الإدارة</h1>' +
+      '<div class="tabs">' +
+        '<button class="tab' + (adminPage === 'requests' ? ' active' : '') + '" onclick="setAdminPage(\'requests\')">الطلبات</button>' +
+        '<button class="tab' + (adminPage === 'doctors' ? ' active' : '') + '" onclick="setAdminPage(\'doctors\')">الأطباء</button>' +
+        '<button class="tab tab-add' + (adminPage === 'add' ? ' active' : '') + '" onclick="setAdminPage(\'add\')">إضافة طبيب</button>' +
+      '</div>' +
+      '<div id="admin-page-content"></div>' +
+    '</div>';
+
+  if (adminPage === 'requests') await renderAdminRequestsPage();
+  else if (adminPage === 'add') renderAdminAddDoctorPage();
+  else await renderAdminDoctorsPage();
+}
+
+function setAdminPage(p) { adminPage = p; renderAdmin(byId('app')); }
+
+function renderAdminAddDoctorPage() {
+  var c = byId('admin-page-content');
+  var centersOpts = '';
+  for (var i = 0; i < CENTERS.length; i++) centersOpts += '<option value="' + CENTERS[i] + '">' + CENTERS[i] + '</option>';
+
+  c.innerHTML =
+    '<div class="add-hero"><h2>إضافة طبيب جديد</h2><p>سيظهر مباشرة للزوار بدون مراجعة</p></div>' +
+    '<div id="add-alert"></div>' +
+    '<form onsubmit="event.preventDefault(); adminAddDoctor(this);" enctype="multipart/form-data">' +
+      '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+        '<div class="image-upload-section">' +
+          '<div class="img-preview-placeholder" id="add-img-ph">+</div>' +
+          '<img id="add-current-img" class="img-preview hidden" src="">' +
+          '<label class="file-input-label">اختر صورة من هاتفك<input type="file" name="image_file" accept="image/*" onchange="previewAddImage(this);"></label>' +
+        '</div>' +
+      '</div>' +
+      '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+        '<div class="form-group"><label>الاسم الكامل *</label><input type="text" name="full_name" required></div>' +
+        '<div class="form-group"><label>البريد الإلكتروني (اختياري)</label><input type="email" name="email" dir="ltr"></div>' +
+        '<div class="form-group"><label>التخصص الرئيسي *</label><input type="text" name="specialty" required></div>' +
+        '<div class="form-group"><label>التخصص الدقيق</label><input type="text" name="sub_specialty"></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>العنوان</h3>' +
+        '<div class="form-group"><label>العنوان (يظهر للزوار)</label><input type="text" name="governorate"></div>' +
+        '<div class="form-group"><label>المركز / المدينة (للفلترة)</label><select name="city"><option value="">اختر المركز</option>' + centersOpts + '</select></div>' +
+        '<div class="form-group"><label>العنوان التفصيلي</label><textarea name="address"></textarea></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>أرقام التواصل</h3>' +
+        '<div class="form-group"><label>رقم الهاتف الخاص</label><input type="tel" name="phone_private" dir="ltr"></div>' +
+        '<div class="form-group"><label>الهاتف العام 1</label><input type="tel" name="phone1" dir="ltr"></div>' +
+        '<div class="form-group"><label>الهاتف العام 2</label><input type="tel" name="phone2" dir="ltr"></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+        '<div class="form-group"><label>اختر الأيام</label><div class="days-grid" id="add-days-grid">' + renderDaysGrid([]) + '</div></div>' +
+        '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
+          '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="add_work_start_input" class="time-main-input" placeholder="10:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_start_input', '') + '</div>' +
+          '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="add_work_end_input" class="time-main-input" placeholder="08:00" onblur="autoFormatHour(this)">' + buildAmPmButtons('add_work_end_input', '') + '</div>' +
+        '</div></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+        '<div class="form-group"><label>المؤهلات</label><textarea name="qualifications"></textarea></div>' +
+        '<div class="form-group"><label>الشهادات</label><textarea name="certificates"></textarea></div>' +
+        '<div class="form-group"><label>الخبرات</label><textarea name="experience"></textarea></div>' +
+        '<div class="form-group"><label>نبذة</label><textarea name="about"></textarea></div>' +
+      '</div>' +
+      '<button type="submit" class="btn btn-success" style="margin-bottom:20px;">إضافة الطبيب مباشرة</button>' +
+    '</form>';
+
+  initAmPmHidden('add_work_start_input', '');
+  initAmPmHidden('add_work_end_input', '');
+}
+
+function previewAddImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var ph = byId('add-img-ph');
+      if (ph) ph.style.display = 'none';
+      var img = byId('add-current-img');
+      if (img) { img.src = e.target.result; img.classList.remove('hidden'); }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function adminAddDoctor(f) {
+  var al = byId('add-alert');
+  al.innerHTML = '<div class="loading">جارٍ الإضافة...</div>';
+  var selectedDays = getSelectedDays('add-days-grid');
+  if (selectedDays.length === 0) { showAlert(al, 'يرجى اختيار يوم عمل'); return; }
+  var fullName = f.full_name.value.trim();
+  if (!fullName) { showAlert(al, 'يرجى إدخال اسم الطبيب'); return; }
+  var imageUrl = '';
+  var fileInput = f.image_file;
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    var file = fileInput.files[0];
+    var ext = file.name.split('.').pop().toLowerCase();
+    var fileName = 'admin_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    var up = await supabaseClient.storage.from('doctor-images').upload(fileName, file, { contentType: file.type, upsert: true });
+    if (up.error) { showAlert(al, 'خطأ رفع الصورة: ' + up.error.message); return; }
+    var u = supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
+    imageUrl = u.data.publicUrl;
+  }
+  var startHour = (byId('add_work_start_input') || {}).value || '';
+  var startPeriod = (byId('add_work_start_input_period') || {}).value || '';
+  var endHour = (byId('add_work_end_input') || {}).value || '';
+  var endPeriod = (byId('add_work_end_input_period') || {}).value || '';
+
+  var doc = {
+    full_name: f.full_name.value.trim(),
+    specialty: (f.specialty ? f.specialty.value.trim() : ''),
+    sub_specialty: (f.sub_specialty ? f.sub_specialty.value.trim() : ''),
+    phone_private: (f.phone_private ? f.phone_private.value.trim() : ''),
+    phone1: (f.phone1 ? f.phone1.value.trim() : ''),
+    phone2: (f.phone2 ? f.phone2.value.trim() : ''),
+    governorate: (f.governorate ? f.governorate.value.trim() : ''),
+    city: (f.city ? f.city.value.trim() : ''),
+    address: (f.address ? f.address.value.trim() : ''),
+    work_days: selectedDays.join(','),
+    work_start: buildTimeValue(startHour, startPeriod),
+    work_end: buildTimeValue(endHour, endPeriod),
+    qualifications: (f.qualifications ? f.qualifications.value.trim() : ''),
+    certificates: (f.certificates ? f.certificates.value.trim() : ''),
+    experience: (f.experience ? f.experience.value.trim() : ''),
+    about: (f.about ? f.about.value.trim() : ''),
+    image_url: imageUrl,
+    status: 'approved',
+    deleted: false
+  };
+  doc.email = (f.email && f.email.value.trim()) ? f.email.value.trim() : ('admin_' + Date.now() + '@doctor-alnas.local');
+
+  var r = await supabaseClient.from('doctors').insert(doc);
+  if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
+  showAlert(al, 'تم إضافة الطبيب ' + fullName + ' بنجاح! سيظهر مباشرة للزوار.', 'success');
+  window.scrollTo({top:0, behavior:'smooth'});
+  setTimeout(function(){ renderAdminAddDoctorPage(); }, 1800);
+}
+
+async function renderAdminRequestsPage() {
+  var c = byId('admin-page-content');
+  var r = await supabaseClient.from('doctors').select('*').eq('status', 'pending').eq('deleted', false).order('created_at', { ascending: false });
+  var list = r.data || [];
+  var html = '<h3 style="color:#F0B90B;margin:16px 0;">الطلبات المعلقة (' + list.length + ')</h3>';
+  if (list.length === 0) {
+    html += '<div class="empty-msg">لا توجد طلبات معلقة</div>';
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      var d = list[i];
+      var days = parseDays(d.work_days);
+      var timeRange = formatTimeRange(d.work_start, d.work_end);
+      html += '<div class="pending-card">' +
+        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">+</div>') + '</div>' +
+        '<div class="info">' +
+          '<h4>' + esc(d.full_name) + '</h4>' +
+          '<p>البريد: ' + esc(d.email) + '</p>' +
+          '<p>الهاتف: <span style="color:#F0B90B;direction:ltr;">' + esc(d.phone_private || '') + '</span></p>' +
+          (d.specialty ? '<p>التخصص: ' + esc(d.specialty) + '</p>' : '') +
+          (days.length > 0 ? '<p style="color:#0ECB81;">الأيام: ' + esc(days.join(' - ')) + '</p>' : '') +
+          (timeRange ? '<p style="color:#F0B90B;">' + esc(timeRange) + '</p>' : '') +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">عرض/تعديل</button>' +
+          '<button class="btn btn-sm btn-success" onclick="approveDoc(\'' + d.id + '\')">قبول</button>' +
+          '<button class="btn btn-sm btn-danger" onclick="rejectDoc(\'' + d.id + '\')">رفض</button>' +
+        '</div>' +
+      '</div>';
+    }
+  }
+  c.innerHTML = html;
+}
+
+async function approveDoc(id) {
+  await supabaseClient.from('doctors').update({ status: 'approved' }).eq('id', id);
+  await renderAdminRequestsPage();
+}
+
+async function rejectDoc(id) {
+  var r = prompt('سبب الرفض:') || '';
+  await supabaseClient.from('doctors').update({ status: 'rejected', rejection_reason: r }).eq('id', id);
+  await renderAdminRequestsPage();
+}
+
+async function viewDoctorProfile(id) {
+  var r = await supabaseClient.from('doctors').select('*').eq('id', id).single();
+  var d = r.data;
+  if (!d) return;
+  var selectedDays = parseDays(d.work_days);
+  var centersOpts = '';
+  for (var i = 0; i < CENTERS.length; i++) {
+    centersOpts += '<option value="' + CENTERS[i] + '"' + (d.city === CENTERS[i] ? ' selected' : '') + '>' + CENTERS[i] + '</option>';
+  }
+  var sParse = parseTimeValue(d.work_start || '');
+  var eParse = parseTimeValue(d.work_end || '');
+
+  byId('admin-page-content').innerHTML =
+    '<button onclick="renderAdminRequestsPage()" class="btn btn-primary" style="margin:16px 0;">رجوع</button>' +
+    '<div id="edit-alert"></div>' +
+    '<form onsubmit="event.preventDefault(); adminSaveDoctor(this, \'' + d.id + '\');" enctype="multipart/form-data">' +
+      '<div class="form-section"><h3>الصورة الشخصية</h3>' +
+        '<div class="image-upload-section">' +
+          (d.image_url ? '<img src="' + esc(d.image_url) + '" class="img-preview" id="edit-current-img">' : '<div class="img-preview-placeholder" id="edit-current-img-ph">+</div>') +
+          '<label class="file-input-label">تغيير الصورة<input type="file" name="edit_image_file" accept="image/*" onchange="previewEditImage(this);"></label>' +
+        '</div>' +
+      '</div>' +
+      '<div class="form-section"><h3>البيانات الأساسية</h3>' +
+        '<div class="form-group"><label>الاسم</label><input type="text" id="e_full_name" value="' + esc(d.full_name || '') + '"></div>' +
+        '<div class="form-group"><label>البريد (للقراءة فقط)</label><input type="email" value="' + esc(d.email || '') + '" disabled></div>' +
+        '<div class="form-group"><label>الهاتف الخاص</label><input type="tel" id="e_phone_private" value="' + esc(d.phone_private || '') + '" dir="ltr"></div>' +
+        '<div class="form-group"><label>التخصص الرئيسي</label><input type="text" id="e_specialty" value="' + esc(d.specialty || '') + '"></div>' +
+        '<div class="form-group"><label>التخصص الدقيق</label><input type="text" id="e_sub_specialty" value="' + esc(d.sub_specialty || '') + '"></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>العنوان</h3>' +
+        '<div class="form-group"><label>العنوان</label><input type="text" id="e_governorate" value="' + esc(d.governorate || '') + '"></div>' +
+        '<div class="form-group"><label>المركز / المدينة (للفلترة)</label><select id="e_city"><option value="">اختر</option>' + centersOpts + '</select></div>' +
+        '<div class="form-group"><label>العنوان التفصيلي</label><textarea id="e_address">' + esc(d.address || '') + '</textarea></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>أرقام التواصل</h3>' +
+        '<div class="form-group"><label>الهاتف العام 1</label><input type="tel" id="e_phone1" value="' + esc(d.phone1 || '') + '" dir="ltr"></div>' +
+        '<div class="form-group"><label>الهاتف العام 2</label><input type="tel" id="e_phone2" value="' + esc(d.phone2 || '') + '" dir="ltr"></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>أيام وساعات العمل</h3>' +
+        '<div class="form-group"><label>أيام العمل</label><div class="days-grid" id="admin-days-grid">' + renderDaysGrid(selectedDays) + '</div></div>' +
+        '<div class="form-group"><label>ساعات العمل</label><div class="time-row">' +
+          '<div class="time-box"><span class="time-label">من الساعة</span><input type="text" id="e_work_start_input" class="time-main-input" value="' + esc(sParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_start_input', sParse.period) + '</div>' +
+          '<div class="time-box"><span class="time-label">إلى الساعة</span><input type="text" id="e_work_end_input" class="time-main-input" value="' + esc(eParse.hour) + '" onblur="autoFormatHour(this)">' + buildAmPmButtons('e_work_end_input', eParse.period) + '</div>' +
+        '</div></div>' +
+      '</div>' +
+      '<div class="form-section"><h3>المؤهلات والخبرات</h3>' +
+        '<div class="form-group"><label>المؤهلات</label><textarea id="e_qualifications">' + esc(d.qualifications || '') + '</textarea></div>' +
+        '<div class="form-group"><label>الشهادات</label><textarea id="e_certificates">' + esc(d.certificates || '') + '</textarea></div>' +
+        '<div class="form-group"><label>الخبرات</label><textarea id="e_experience">' + esc(d.experience || '') + '</textarea></div>' +
+        '<div class="form-group"><label>نبذة</label><textarea id="e_about">' + esc(d.about || '') + '</textarea></div>' +
+      '</div>' +
+      '<button type="submit" class="btn btn-primary" style="margin-bottom:10px;">حفظ التعديلات</button>' +
+    '</form>' +
+    '<button onclick="approveDoc(\'' + d.id + '\')" class="btn btn-success" style="margin-bottom:10px;">قبول</button>' +
+    '<button onclick="rejectDoc(\'' + d.id + '\')" class="btn btn-danger" style="margin-bottom:20px;">رفض</button>';
+
+  initAmPmHidden('e_work_start_input', sParse.period);
+  initAmPmHidden('e_work_end_input', eParse.period);
+}
+
+function previewEditImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var ph = byId('edit-current-img-ph');
+      if (ph) ph.style.display = 'none';
+      var img = byId('edit-current-img');
+      if (img) {
+        img.src = e.target.result;
+      } else {
+        img = document.createElement('img');
+        img.id = 'edit-current-img';
+        img.className = 'img-preview';
+        img.src = e.target.result;
+        var sec = input.closest('.image-upload-section');
+        if (sec) {
+          var lbl = sec.querySelector('.file-input-label');
+          if (lbl) sec.insertBefore(img, lbl);
+        }
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function adminSaveDoctor(f, id) {
+  var al = byId('edit-alert');
+  if (al) al.innerHTML = '<div class="loading">جارٍ الحفظ...</div>';
+  var selectedDays = getSelectedDays('admin-days-grid');
+  var imageUrl = null;
+  var fileInput = f.edit_image_file;
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    var file = fileInput.files[0];
+    var ext = file.name.split('.').pop().toLowerCase();
+    var fileName = 'admin_edit_' + id + '_' + Date.now() + '.' + ext;
+    var up = await supabaseClient.storage.from('doctor-images').upload(fileName, file, { contentType: file.type, upsert: true });
+    if (up.error) { showAlert(al, 'خطأ رفع الصورة: ' + up.error.message); return; }
+    var u = supabaseClient.storage.from('doctor-images').getPublicUrl(fileName);
+    imageUrl = u.data.publicUrl;
+  }
+  var startHour = (byId('e_work_start_input') || {}).value || '';
+  var startPeriod = (byId('e_work_start_input_period') || {}).value || '';
+  var endHour = (byId('e_work_end_input') || {}).value || '';
+  var endPeriod = (byId('e_work_end_input_period') || {}).value || '';
+
+  var upd = {
+    full_name: (byId('e_full_name') ? byId('e_full_name').value.trim() : ''),
+    phone_private: (byId('e_phone_private') ? byId('e_phone_private').value.trim() : ''),
+    specialty: (byId('e_specialty') ? byId('e_specialty').value.trim() : ''),
+    sub_specialty: (byId('e_sub_specialty') ? byId('e_sub_specialty').value.trim() : ''),
+    phone1: (byId('e_phone1') ? byId('e_phone1').value.trim() : ''),
+    phone2: (byId('e_phone2') ? byId('e_phone2').value.trim() : ''),
+    governorate: (byId('e_governorate') ? byId('e_governorate').value.trim() : ''),
+    city: (byId('e_city') ? byId('e_city').value.trim() : ''),
+    address: (byId('e_address') ? byId('e_address').value.trim() : ''),
+    work_days: selectedDays.join(','),
+    work_start: buildTimeValue(startHour, startPeriod),
+    work_end: buildTimeValue(endHour, endPeriod),
+    qualifications: (byId('e_qualifications') ? byId('e_qualifications').value.trim() : ''),
+    certificates: (byId('e_certificates') ? byId('e_certificates').value.trim() : ''),
+    experience: (byId('e_experience') ? byId('e_experience').value.trim() : ''),
+    about: (byId('e_about') ? byId('e_about').value.trim() : '')
+  };
+  if (imageUrl) upd.image_url = imageUrl;
+  var r = await supabaseClient.from('doctors').update(upd).eq('id', id);
+  if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
+  showAlert(al, 'تم حفظ التعديلات بنجاح', 'success');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+async function renderAdminDoctorsPage() {
+  var c = byId('admin-page-content');
+  var res = await Promise.all([
+    supabaseClient.from('doctors').select('*').eq('status', 'pending').eq('deleted', false),
+    supabaseClient.from('doctors').select('*').eq('status', 'approved').eq('deleted', false),
+    supabaseClient.from('doctors').select('*').eq('status', 'rejected').eq('deleted', false)
+  ]);
+  var all = { pending: res[0].data || [], approved: res[1].data || [], rejected: res[2].data || [] };
+  var list = all[adminFilter] || [];
+  var html = '<div class="stats-grid">' +
+    '<div class="stat-card' + (adminFilter === 'pending' ? ' active' : '') + '" onclick="setAdminFilter(\'pending\')"><h3>قيد المراجعة</h3><p>' + all.pending.length + '</p></div>' +
+    '<div class="stat-card' + (adminFilter === 'approved' ? ' active' : '') + '" onclick="setAdminFilter(\'approved\')"><h3>مقبول</h3><p>' + all.approved.length + '</p></div>' +
+    '<div class="stat-card' + (adminFilter === 'rejected' ? ' active' : '') + '" onclick="setAdminFilter(\'rejected\')"><h3>مرفوض</h3><p>' + all.rejected.length + '</p></div>' +
+  '</div>';
+
+  if (list.length === 0) {
+    html += '<div class="empty-msg">لا يوجد أطباء في هذه القائمة</div>';
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      var d = list[i];
+      var days = parseDays(d.work_days);
+      var timeRange = formatTimeRange(d.work_start, d.work_end);
+      html += '<div class="pending-card">' +
+        '<div style="flex-shrink:0;">' + (d.image_url ? '<img src="' + esc(d.image_url) + '" style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;object-fit:cover;">' : '<div style="width:60px;height:60px;border-radius:50%;border:2px solid #F0B90B;background:#0B0E11;display:flex;align-items:center;justify-content:center;font-size:1.5rem;">+</div>') + '</div>' +
+        '<div class="info">' +
+          '<h4>' + esc(d.full_name) + '</h4>' +
+          '<p>البريد: ' + esc(d.email) + '</p>' +
+          (d.specialty ? '<p>التخصص: ' + esc(d.specialty) + '</p>' : '') +
+          (days.length > 0 ? '<p style="color:#0ECB81;">الأيام: ' + esc(days.join(' - ')) + '</p>' : '') +
+          (timeRange ? '<p style="color:#F0B90B;">' + esc(timeRange) + '</p>' : '') +
+        '</div>' +
+        '<div style="display:flex;gap:6px;flex-wrap:wrap;">' +
+          '<button class="btn btn-sm btn-primary" onclick="viewDoctorProfile(\'' + d.id + '\')">عرض/تعديل</button>' +
+        '</div>' +
+      '</div>';
+    }
+  }
+  c.innerHTML = html;
+}
+
+function setAdminFilter(f) { adminFilter = f; renderAdminDoctorsPage(); }
+
+/* ============ 14) Router ============ */
+async function route() {
+  var hash = window.location.hash.slice(1) || 'home';
+  var parts = hash.split('/');
+  var page = parts[0];
+  var param = parts[1];
+  var app = byId('app');
+  if (!app) return;
+  app.innerHTML = '<div class="loading">جارٍ التحميل...</div>';
+  try {
+    if (page === 'home') await renderHome(app);
+    else if (page === 'doctor') await renderDoctor(app, param);
+    else if (page === 'login') renderLogin(app);
+    else if (page === 'register') renderRegister(app);
+    else if (page === 'doctor-dashboard') await renderDoctorDashboard(app);
+    else if (page === 'admin') await renderAdmin(app);
+    else await renderHome(app);
+  } catch (e) {
+    console.error('Route error:', e);
+    app.innerHTML = '<div class="container"><div class="alert alert-danger">خطأ: ' + esc(e.message || 'unknown') + '</div></div>';
+  }
+  window.scrollTo(0, 0);
+}
+
+/* ============ 15) التشغيل ============ */
+window.addEventListener('hashchange', route);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(function(e){ console.log('SW:', e); });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var y = byId('year');
+  if (y) y.textContent = new Date().getFullYear();
+});
+
+window.addEventListener('load', async function() {
+  try {
+    await checkUser();
+    await route();
+  } catch (e) {
+    console.error('Init error:', e);
+    var app = byId('app');
+    if (app) app.innerHTML = '<div class="container"><div class="alert alert-danger">خطأ في تحميل الصفحة</div></div>';
+  }
+});
+</script>
+</body>
+</html>

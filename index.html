@@ -151,7 +151,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .add-hero h2{color:#0ECB81;font-size:1.2rem;font-weight:900;margin-bottom:6px}
 .add-hero p{color:#B7BDC6;font-size:0.85rem}
 
-/* ============ صفحة علاج مجاني (تصميم احترافي) ============ */
+/* ============ صفحة علاج مجاني ============ */
 .treatments-page{background:#0B0E11;min-height:100vh;padding-bottom:30px}
 .treatments-hero{background:linear-gradient(135deg,#9C27B0 0%,#6A1B9A 60%,#4A148C 100%);padding:36px 20px;text-align:center;position:relative;overflow:hidden;border-radius:0 0 30px 30px;margin-bottom:22px}
 .treatments-hero::before{content:'';position:absolute;top:-60%;right:-40%;width:180%;height:180%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.15),transparent 45%);pointer-events:none}
@@ -190,20 +190,18 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .treatments-header-row .count-badge{background:#9C27B0;color:#FFF;font-size:0.72rem;font-weight:900;padding:3px 11px;border-radius:20px}
 .treatments-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding:0 14px;max-width:700px;margin:0 auto}
 .treatment-card{background:#1E2329;border:1px solid #2B3139;border-radius:18px;overflow:hidden;transition:all 0.3s;display:flex;flex-direction:column;position:relative}
-.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#9C27B0,#E91E63,#9C27B0);opacity:0;transition:opacity 0.3s}
+.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#9C27B0,#E91E63,#9C27B0);opacity:0;transition:opacity 0.3s;z-index:2}
 .treatment-card:hover{border-color:#9C27B0;transform:translateY(-4px);box-shadow:0 12px 30px rgba(156,39,176,0.2)}
 .treatment-card:hover::before{opacity:1}
-.treatment-image-wrapper{position:relative;width:100%;height:200px;overflow:hidden;background:#0B0E11}
-.treatment-image{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+/* ===== صورة العلاج مربعة ===== */
+.treatment-image-wrapper{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:#0B0E11}
+.treatment-image{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s}
 .treatment-card:hover .treatment-image{transform:scale(1.05)}
 .treatment-image-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,#0B0E11,#1E2329);color:#9C27B0}
-.treatment-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#9C27B0,#6A1B9A);color:#FFF;font-size:0.68rem;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:0.5px;box-shadow:0 4px 10px rgba(156,39,176,0.4)}
+.treatment-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#9C27B0,#6A1B9A);color:#FFF;font-size:0.68rem;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:0.5px;box-shadow:0 4px 10px rgba(156,39,176,0.4);z-index:2}
 .treatment-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:12px}
 .treatment-name{font-size:1.1rem;font-weight:900;color:#FFF;line-height:1.4;display:flex;align-items:center;gap:8px}
 .treatment-name .pill-icon{color:#9C27B0;font-size:1.2rem}
-.treatment-phone-row{display:flex;align-items:center;gap:8px;color:#B7BDC6;font-size:0.85rem;background:#0B0E11;padding:9px 13px;border-radius:10px;border:1px solid #2B3139}
-.treatment-phone-row .phone-icon{color:#0ECB81;font-size:1rem}
-.treatment-phone-row .phone-number{color:#0ECB81;font-weight:800;direction:ltr;font-family:'Poppins','Tajawal',sans-serif;letter-spacing:0.5px}
 .treatment-call-btn{background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:12px;border-radius:12px;font-family:inherit;font-weight:900;font-size:0.9rem;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;box-shadow:0 4px 12px rgba(14,203,129,0.3);margin-top:auto}
 .treatment-call-btn:hover{background:linear-gradient(135deg,#0AB872,#0A9862);transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,203,129,0.45)}
 .treatments-empty-state{background:#1E2329;border:2px dashed #2B3139;border-radius:20px;padding:50px 20px;text-align:center;max-width:700px;margin:0 auto;padding-left:14px;padding-right:14px}
@@ -213,7 +211,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .back-home-wrap{text-align:center;margin-top:26px;padding:0 14px}
 .back-home-btn{display:inline-flex;align-items:center;gap:8px;background:#1E2329;color:#F0B90B;border:1.5px solid #F0B90B;padding:10px 22px;border-radius:25px;font-family:inherit;font-weight:800;font-size:0.85rem;cursor:pointer;text-decoration:none;transition:all 0.2s}
 .back-home-btn:hover{background:#F0B90B;color:#0B0E11;transform:translateY(-2px)}
-.back-home-btn:hover{transform:translateY(-2px)}
 
 @media (max-width:500px){
 .logo{font-size:1.35rem}
@@ -228,7 +225,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .treatments-hero h1{font-size:1.35rem}
 .treatments-hero .hero-icon{font-size:2.8rem}
 .treatments-grid{grid-template-columns:1fr;padding:0 12px}
-.treatment-image-wrapper{height:180px}
 .treatment-form-wrapper{padding:0 12px}
 .treatment-form-card{padding:18px}
 }
@@ -893,6 +889,7 @@ async function loadTreatments() {
   var html = '';
   for (var i = 0; i < data.length; i++) {
     var t = data[i];
+    /* ✅ تم إخفاء الرقم من العرض - زر الاتصال فقط */
     html += '<div class="treatment-card">' +
       '<div class="treatment-image-wrapper">' +
         (t.image_url ?
@@ -902,10 +899,6 @@ async function loadTreatments() {
       '</div>' +
       '<div class="treatment-body">' +
         '<div class="treatment-name"><span class="pill-icon">💊</span>' + esc(t.medicine_name) + '</div>' +
-        '<div class="treatment-phone-row">' +
-          '<span class="phone-icon">📞</span>' +
-          '<span class="phone-number">' + esc(t.phone) + '</span>' +
-        '</div>' +
         '<a href="tel:' + esc(t.phone) + '" class="treatment-call-btn">📞 اتصال الآن</a>' +
       '</div>' +
     '</div>';

@@ -25,8 +25,6 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
-.btn-treatments{background:linear-gradient(135deg,#0ECB81,#128C7E);color:#FFF;border:none;padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
-.btn-treatments:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(14,203,129,0.4)}
 .install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
 .install-btn-row:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(14,203,129,0.4)}
 .hidden{display:none!important}
@@ -36,8 +34,12 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .hero-sub{color:#707A8A;font-size:0.8rem;margin-bottom:14px}
 .visit-counter{display:inline-flex;align-items:center;gap:8px;background:rgba(14,203,129,0.1);color:#0ECB81;padding:7px 18px;border-radius:20px;border:1px solid #0ECB81;font-weight:800;font-size:0.85rem;margin-bottom:10px}
 .visit-counter .visit-dot{width:8px;height:8px;background:#0ECB81;border-radius:50%;animation:pulse 1.5s infinite}
-.share-inline-btn{display:inline-flex;align-items:center;gap:6px;background:#25D366;color:#FFF;border:none;padding:8px 20px;border-radius:20px;font-family:inherit;font-weight:800;font-size:0.82rem;cursor:pointer;margin-bottom:16px;transition:all 0.2s}
-.share-inline-btn:hover{background:#128C7E;transform:translateY(-1px)}
+.hero-buttons-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.share-inline-btn,.treatments-inline-btn{display:inline-flex;align-items:center;gap:6px;border:none;padding:9px 22px;border-radius:20px;font-family:inherit;font-weight:800;font-size:0.83rem;cursor:pointer;transition:all 0.2s}
+.share-inline-btn{background:#25D366;color:#FFF}
+.share-inline-btn:hover{background:#128C7E;transform:translateY(-1px);box-shadow:0 4px 12px rgba(37,211,102,0.4)}
+.treatments-inline-btn{background:linear-gradient(135deg,#9C27B0,#6A1B9A);color:#FFF}
+.treatments-inline-btn:hover{background:linear-gradient(135deg,#7B1FA2,#4A148C);transform:translateY(-1px);box-shadow:0 4px 12px rgba(156,39,176,0.4)}
 .search-box{background:#1E2329;border:1px solid #2B3139;border-radius:40px;padding:4px;display:flex;max-width:480px;margin:0 auto}
 .search-box input{flex:1;border:none;outline:none;padding:10px 18px;background:transparent;color:#FFF;font-family:inherit;font-size:0.88rem}
 .search-box button{background:#F0B90B;color:#0B0E11;border:none;padding:9px 20px;border-radius:30px;cursor:pointer;font-weight:800;font-family:inherit;font-size:0.82rem}
@@ -137,6 +139,7 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .img-preview{width:120px;height:120px;border-radius:50%;object-fit:cover;border:3px solid #F0B90B;margin:0 auto 10px;display:block}
 .img-preview-placeholder{width:120px;height:120px;border-radius:50%;background:#0B0E11;border:3px dashed #2B3139;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:#4a5560;margin:0 auto 10px}
 .file-input-label{display:block;background:#0B0E11;border:2px dashed #2B3139;border-radius:12px;padding:16px;text-align:center;cursor:pointer;color:#707A8A;font-size:0.9rem;font-weight:700}
+.file-input-label:hover{border-color:#F0B90B;color:#F0B90B}
 .file-input-label input{display:none}
 .image-upload-section{text-align:center;margin-bottom:16px;padding:16px;background:#0B0E11;border-radius:12px;border:1px solid #2B3139}
 .center-toggle{width:100%;background:transparent;border:1px solid #2B3139;color:#F0B90B;padding:14px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.92rem;cursor:pointer;margin-bottom:10px}
@@ -147,25 +150,71 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .add-hero{background:rgba(14,203,129,0.1);border:2px solid #0ECB81;border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
 .add-hero h2{color:#0ECB81;font-size:1.2rem;font-weight:900;margin-bottom:6px}
 .add-hero p{color:#B7BDC6;font-size:0.85rem}
-/* ============ صفحة علاج مجاني ============ */
-.treatments-header{background:linear-gradient(135deg,#0ECB81,#128C7E);border-radius:16px;padding:24px 20px;text-align:center;margin:20px 0}
-.treatments-header h1{color:#FFF;font-size:1.6rem;font-weight:900;margin-bottom:6px}
-.treatments-header p{color:rgba(255,255,255,0.9);font-size:0.85rem;margin-bottom:16px}
-.add-treatment-btn{background:#FFF;color:#128C7E;border:none;padding:12px 24px;border-radius:25px;font-family:inherit;font-weight:800;font-size:0.9rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s}
-.add-treatment-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
-.treatments-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0}
-.treatment-card{background:#1E2329;border:1px solid #2B3139;border-radius:16px;overflow:hidden;transition:all 0.2s;display:flex;flex-direction:column}
-.treatment-card:hover{border-color:#0ECB81;transform:translateY(-2px)}
-.treatment-image{width:100%;height:180px;object-fit:cover;background:#0B0E11}
-.treatment-image-ph{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#0B0E11}
-.treatment-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:8px}
-.treatment-name{font-size:1.05rem;font-weight:900;color:#FFF}
-.treatment-desc{color:#B7BDC6;font-size:0.83rem;line-height:1.6;flex:1}
-.treatment-phone{color:#0ECB81;font-weight:800;font-size:0.95rem;direction:ltr;display:inline-block}
-.treatment-call-btn{background:#0ECB81;color:#FFF;border:none;padding:10px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.88rem;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;margin-top:6px}
-.treatment-call-btn:hover{background:#0AB872;transform:translateY(-1px)}
-.back-home-btn{display:inline-flex;align-items:center;gap:6px;background:#1E2329;color:#F0B90B;border:1px solid #F0B90B;padding:8px 16px;border-radius:20px;font-family:inherit;font-weight:700;font-size:0.82rem;cursor:pointer;text-decoration:none;margin-top:16px}
-.back-home-btn:hover{background:#F0B90B;color:#0B0E11}
+
+/* ============ صفحة علاج مجاني (تصميم احترافي) ============ */
+.treatments-page{background:#0B0E11;min-height:100vh;padding-bottom:30px}
+.treatments-hero{background:linear-gradient(135deg,#9C27B0 0%,#6A1B9A 60%,#4A148C 100%);padding:36px 20px;text-align:center;position:relative;overflow:hidden;border-radius:0 0 30px 30px;margin-bottom:22px}
+.treatments-hero::before{content:'';position:absolute;top:-60%;right:-40%;width:180%;height:180%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.15),transparent 45%);pointer-events:none}
+.treatments-hero-content{position:relative;z-index:1}
+.treatments-hero .hero-icon{font-size:3.5rem;display:block;margin-bottom:10px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+.treatments-hero h1{color:#FFF;font-size:1.7rem;font-weight:900;margin-bottom:8px;letter-spacing:-0.5px}
+.treatments-hero .hero-tagline{color:rgba(255,255,255,0.95);font-size:0.9rem;margin-bottom:20px;font-weight:600}
+.add-treatment-main-btn{background:#FFF;color:#6A1B9A;border:none;padding:13px 30px;border-radius:30px;font-family:inherit;font-weight:900;font-size:0.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.25s;box-shadow:0 6px 20px rgba(0,0,0,0.25)}
+.add-treatment-main-btn:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,0.35)}
+.add-treatment-main-btn:active{transform:translateY(-1px)}
+.treatments-stats{display:flex;justify-content:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.treatment-stat-pill{background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.25);padding:6px 16px;border-radius:20px;color:#FFF;font-size:0.8rem;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.treatment-form-wrapper{max-width:520px;margin:0 auto 24px;padding:0 14px;animation:slideDown 0.3s ease}
+@keyframes slideDown{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:translateY(0)}}
+.treatment-form-card{background:linear-gradient(160deg,#1E2329,#181C22);border:1px solid #2B3139;border-radius:20px;padding:22px;box-shadow:0 15px 40px rgba(0,0,0,0.4)}
+.treatment-form-card h3{color:#9C27B0;font-size:1.15rem;font-weight:900;margin-bottom:16px;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid #2B3139}
+.treatment-form-card .form-group{margin-bottom:14px}
+.treatment-form-card .form-group label{color:#B7BDC6;font-size:0.85rem;font-weight:700;margin-bottom:8px;display:block}
+.treatment-form-card input[type="text"],
+.treatment-form-card input[type="tel"]{width:100%;padding:13px 16px;background:#0B0E11;border:1.5px solid #2B3139;border-radius:12px;color:#FFF;font-family:inherit;font-size:0.9rem;outline:none;transition:all 0.2s}
+.treatment-form-card input[type="text"]:focus,
+.treatment-form-card input[type="tel"]:focus{border-color:#9C27B0;box-shadow:0 0 0 3px rgba(156,39,176,0.15)}
+.treatment-form-card .image-upload-section{background:#0B0E11;border:1.5px dashed #2B3139;border-radius:14px;padding:20px;text-align:center;margin-bottom:16px;transition:all 0.2s}
+.treatment-form-card .image-upload-section:hover{border-color:#9C27B0}
+.treatment-form-card .image-upload-section .img-preview,
+.treatment-form-card .image-upload-section .img-preview-placeholder{width:130px;height:130px}
+.treatment-form-card .img-preview-placeholder{border-color:#9C27B0;color:#9C27B0;font-size:3rem}
+.treatment-form-card .file-input-label{background:#1E2329;border:1.5px dashed #2B3139;padding:12px;border-radius:10px;font-size:0.85rem}
+.treatment-form-card .file-input-label:hover{border-color:#9C27B0;color:#9C27B0}
+.treatment-form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.treatment-form-actions .btn{flex:1;min-width:120px}
+.btn-purple{background:linear-gradient(135deg,#9C27B0,#6A1B9A);color:#FFF}
+.btn-purple:hover{background:linear-gradient(135deg,#7B1FA2,#4A148C)}
+.treatments-header-row{display:flex;align-items:center;justify-content:space-between;padding:0 14px;max-width:700px;margin:0 auto 14px}
+.treatments-header-row h2{color:#9C27B0;font-size:1.1rem;font-weight:900;display:flex;align-items:center;gap:8px}
+.treatments-header-row .count-badge{background:#9C27B0;color:#FFF;font-size:0.72rem;font-weight:900;padding:3px 11px;border-radius:20px}
+.treatments-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;padding:0 14px;max-width:700px;margin:0 auto}
+.treatment-card{background:#1E2329;border:1px solid #2B3139;border-radius:18px;overflow:hidden;transition:all 0.3s;display:flex;flex-direction:column;position:relative}
+.treatment-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#9C27B0,#E91E63,#9C27B0);opacity:0;transition:opacity 0.3s}
+.treatment-card:hover{border-color:#9C27B0;transform:translateY(-4px);box-shadow:0 12px 30px rgba(156,39,176,0.2)}
+.treatment-card:hover::before{opacity:1}
+.treatment-image-wrapper{position:relative;width:100%;height:200px;overflow:hidden;background:#0B0E11}
+.treatment-image{width:100%;height:100%;object-fit:cover;transition:transform 0.4s}
+.treatment-card:hover .treatment-image{transform:scale(1.05)}
+.treatment-image-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,#0B0E11,#1E2329);color:#9C27B0}
+.treatment-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,#9C27B0,#6A1B9A);color:#FFF;font-size:0.68rem;font-weight:900;padding:4px 12px;border-radius:20px;letter-spacing:0.5px;box-shadow:0 4px 10px rgba(156,39,176,0.4)}
+.treatment-body{padding:16px;flex:1;display:flex;flex-direction:column;gap:12px}
+.treatment-name{font-size:1.1rem;font-weight:900;color:#FFF;line-height:1.4;display:flex;align-items:center;gap:8px}
+.treatment-name .pill-icon{color:#9C27B0;font-size:1.2rem}
+.treatment-phone-row{display:flex;align-items:center;gap:8px;color:#B7BDC6;font-size:0.85rem;background:#0B0E11;padding:9px 13px;border-radius:10px;border:1px solid #2B3139}
+.treatment-phone-row .phone-icon{color:#0ECB81;font-size:1rem}
+.treatment-phone-row .phone-number{color:#0ECB81;font-weight:800;direction:ltr;font-family:'Poppins','Tajawal',sans-serif;letter-spacing:0.5px}
+.treatment-call-btn{background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:12px;border-radius:12px;font-family:inherit;font-weight:900;font-size:0.9rem;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;box-shadow:0 4px 12px rgba(14,203,129,0.3);margin-top:auto}
+.treatment-call-btn:hover{background:linear-gradient(135deg,#0AB872,#0A9862);transform:translateY(-2px);box-shadow:0 6px 18px rgba(14,203,129,0.45)}
+.treatments-empty-state{background:#1E2329;border:2px dashed #2B3139;border-radius:20px;padding:50px 20px;text-align:center;max-width:700px;margin:0 auto;padding-left:14px;padding-right:14px}
+.treatments-empty-state .empty-icon{font-size:4rem;color:#9C27B0;margin-bottom:14px;display:block;opacity:0.7}
+.treatments-empty-state h3{color:#FFF;font-size:1.1rem;font-weight:900;margin-bottom:8px}
+.treatments-empty-state p{color:#707A8A;font-size:0.88rem}
+.back-home-wrap{text-align:center;margin-top:26px;padding:0 14px}
+.back-home-btn{display:inline-flex;align-items:center;gap:8px;background:#1E2329;color:#F0B90B;border:1.5px solid #F0B90B;padding:10px 22px;border-radius:25px;font-family:inherit;font-weight:800;font-size:0.85rem;cursor:pointer;text-decoration:none;transition:all 0.2s}
+.back-home-btn:hover{background:#F0B90B;color:#0B0E11;transform:translateY(-2px)}
+.back-home-btn:hover{transform:translateY(-2px)}
+
 @media (max-width:500px){
 .logo{font-size:1.35rem}
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
@@ -175,8 +224,13 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .days-grid{grid-template-columns:repeat(3,1fr)}
 .time-row{grid-template-columns:1fr}
 .btn-header{padding:6px 10px;font-size:0.72rem}
-.treatments-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-.treatment-image,.treatment-image-ph{height:140px}
+.treatments-hero{padding:26px 16px;border-radius:0 0 22px 22px}
+.treatments-hero h1{font-size:1.35rem}
+.treatments-hero .hero-icon{font-size:2.8rem}
+.treatments-grid{grid-template-columns:1fr;padding:0 12px}
+.treatment-image-wrapper{height:180px}
+.treatment-form-wrapper{padding:0 12px}
+.treatment-form-card{padding:18px}
 }
 </style>
 </head>
@@ -475,7 +529,7 @@ async function checkUser() {
 function renderHeaderActions() {
   var a = byId('header-actions');
   if (!a) return;
-  var html = '<button class="btn-treatments" onclick="go(\'treatments\')" title="صفحة العلاج المجاني">💊 علاج مجاني</button>';
+  var html = '';
   if (isAdmin) {
     html += '<button class="btn-header btn-login" onclick="go(\'admin\')">⚙️ الإدارة</button>';
     html += '<button class="btn-header btn-logout" onclick="logout()">🚪 خروج</button>';
@@ -552,7 +606,10 @@ async function renderHome(app) {
       '<h1 class="hero-title">ابحث عن <span>طبيبك</span></h1>' +
       '<p class="hero-sub">ابحث باسم الطبيب أو التخصص أو المنطقة</p>' +
       '<div class="visit-counter"><span class="visit-dot"></span><span id="visits-number">...</span> زيارة</div>' +
-      '<div><button class="share-inline-btn" onclick="shareApp()">📤 شارك التطبيق</button></div>' +
+      '<div class="hero-buttons-row">' +
+        '<button class="share-inline-btn" onclick="shareApp()">📤 شارك التطبيق</button>' +
+        '<button class="treatments-inline-btn" onclick="go(\'treatments\')">💊 علاج مجاني</button>' +
+      '</div>' +
       '<form class="search-box" onsubmit="event.preventDefault(); doSearch(this);">' +
         '<input type="text" name="q" placeholder="🔍 ابحث باسم الطبيب أو التخصص..." value="' + esc(searchQuery) + '">' +
         '<button type="submit">بحث</button>' +
@@ -686,40 +743,52 @@ async function renderDoctor(app, id) {
 async function renderTreatments(app) {
   treatmentFormVisible = false;
   app.innerHTML =
-    '<div class="container">' +
-      '<div class="treatments-header">' +
-        '<h1>💊 علاج مجاني</h1>' +
-        '<p>منصة للتبرع بالأدوية والعلاجات بالمجان لكل من يحتاجها</p>' +
-        '<button class="add-treatment-btn" onclick="toggleTreatmentForm()">➕ أضف علاج مجاني</button>' +
+    '<div class="treatments-page">' +
+      '<div class="treatments-hero">' +
+        '<div class="treatments-hero-content">' +
+          '<span class="hero-icon">💊</span>' +
+          '<h1>علاج مجاني</h1>' +
+          '<p class="hero-tagline">منصة تبرع بالأدوية لكل من يحتاجها بالمجان 💚</p>' +
+          '<button class="add-treatment-main-btn" onclick="toggleTreatmentForm()">➕ أضف علاج مجاني</button>' +
+          '<div class="treatments-stats">' +
+            '<span class="treatment-stat-pill">🤝 تبرع بدون تسجيل</span>' +
+            '<span class="treatment-stat-pill">📞 تواصل مباشر</span>' +
+          '</div>' +
+        '</div>' +
       '</div>' +
-      '<div id="treatment-form-container" style="display:none;">' +
-        '<div class="form-section">' +
+
+      '<div id="treatment-form-wrapper" class="treatment-form-wrapper" style="display:none;">' +
+        '<div class="treatment-form-card">' +
           '<h3>📝 إضافة علاج مجاني</h3>' +
           '<div id="treatment-alert"></div>' +
           '<form onsubmit="event.preventDefault(); submitTreatment(this);" enctype="multipart/form-data">' +
-            '<div class="form-section" style="background:#0B0E11;"><h3>📸 صورة العلاج</h3>' +
-              '<div class="image-upload-section">' +
-                '<div class="img-preview-placeholder" id="treatment-img-ph">💊</div>' +
-                '<img id="treatment-current-img" class="img-preview hidden" src="">' +
-                '<label class="file-input-label">📁 اختر صورة العلاج<input type="file" name="image_file" accept="image/*" onchange="previewTreatmentImage(this);"></label>' +
-              '</div>' +
+            '<div class="image-upload-section">' +
+              '<div class="img-preview-placeholder" id="treatment-img-ph">💊</div>' +
+              '<img id="treatment-current-img" class="img-preview hidden" src="">' +
+              '<label class="file-input-label" style="margin-top:10px;display:block;">📸 اختر صورة العلاج<input type="file" name="image_file" accept="image/*" onchange="previewTreatmentImage(this);"></label>' +
             '</div>' +
-            '<div class="form-group"><label>💊 اسم العلاج *</label><input type="text" name="medicine_name" required placeholder="مثال: بنادول 500mg"></div>' +
-            '<div class="form-group"><label>📝 العلاج ده لايه بالظبط *</label><textarea name="description" required placeholder="مثال: مسكن للصداع والآلام - علبة كاملة"></textarea></div>' +
-            '<div class="form-group"><label>📞 رقم التليفون للتواصل *</label><input type="tel" name="phone" required dir="ltr" placeholder="01xxxxxxxxx"></div>' +
-            '<div style="display:flex;gap:8px;">' +
-              '<button type="submit" class="btn btn-success">✅ نشر العلاج</button>' +
+            '<div class="form-group">' +
+              '<label>💊 اسم العلاج / عنوان الإعلان *</label>' +
+              '<input type="text" name="medicine_name" required placeholder="مثال: بنادول 500mg - علبة كاملة">' +
+            '</div>' +
+            '<div class="form-group">' +
+              '<label>📞 رقم التليفون للتواصل *</label>' +
+              '<input type="tel" name="phone" required dir="ltr" placeholder="01xxxxxxxxx">' +
+            '</div>' +
+            '<div class="treatment-form-actions">' +
+              '<button type="submit" class="btn btn-purple">✅ نشر العلاج</button>' +
               '<button type="button" class="btn btn-danger" onclick="toggleTreatmentForm()">❌ إلغاء</button>' +
             '</div>' +
           '</form>' +
         '</div>' +
       '</div>' +
-      '<div class="section-header">' +
+
+      '<div class="treatments-header-row">' +
         '<h2>💊 العلاجات المتاحة</h2>' +
         '<span class="count-badge" id="treatments-count">...</span>' +
       '</div>' +
       '<div id="treatments-list" class="treatments-grid"><div class="loading">⏳ جارٍ التحميل...</div></div>' +
-      '<div style="text-align:center;margin-top:20px;">' +
+      '<div class="back-home-wrap">' +
         '<button class="back-home-btn" onclick="go(\'home\')">← العودة للرئيسية</button>' +
       '</div>' +
     '</div>';
@@ -729,11 +798,11 @@ async function renderTreatments(app) {
 
 function toggleTreatmentForm() {
   treatmentFormVisible = !treatmentFormVisible;
-  var c = byId('treatment-form-container');
+  var c = byId('treatment-form-wrapper');
   if (c) c.style.display = treatmentFormVisible ? 'block' : 'none';
   if (treatmentFormVisible) {
-    var el = byId('treatment-form-container');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var el = byId('treatment-form-wrapper');
+    if (el) setTimeout(function(){ el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
   }
 }
 
@@ -756,15 +825,13 @@ async function submitTreatment(f) {
   if (!supabaseClient) { showAlert(al, 'خطأ في الاتصال'); return; }
 
   var medicine_name = f.medicine_name.value.trim();
-  var description = f.description.value.trim();
   var phone = f.phone.value.trim();
 
-  if (!medicine_name || !description || !phone) {
+  if (!medicine_name || !phone) {
     showAlert(al, '⚠️ يرجى ملء جميع الحقول المطلوبة');
     return;
   }
 
-  /* رفع الصورة (إن وُجدت) */
   var imageUrl = '';
   var fileInput = f.image_file;
   if (fileInput && fileInput.files && fileInput.files[0]) {
@@ -777,10 +844,9 @@ async function submitTreatment(f) {
     imageUrl = u.data.publicUrl;
   }
 
-  /* إدراج في قاعدة البيانات */
   var r = await supabaseClient.from('free_treatments').insert({
     medicine_name: medicine_name,
-    description: description,
+    description: '',
     phone: phone,
     image_url: imageUrl
   });
@@ -794,7 +860,7 @@ async function submitTreatment(f) {
 
   setTimeout(async function() {
     treatmentFormVisible = false;
-    var c = byId('treatment-form-container');
+    var c = byId('treatment-form-wrapper');
     if (c) c.style.display = 'none';
     await loadTreatments();
   }, 1500);
@@ -816,7 +882,11 @@ async function loadTreatments() {
   if (countEl) countEl.textContent = data.length;
 
   if (data.length === 0) {
-    list.innerHTML = '<div class="empty-msg" style="grid-column:1/-1;">💊 لا توجد علاجات متاحة حالياً<br><br>كن أول من يتبرع بعلاج 💚</div>';
+    list.outerHTML = '<div class="treatments-empty-state" id="treatments-list">' +
+      '<span class="empty-icon">💊</span>' +
+      '<h3>لا توجد علاجات متاحة حالياً</h3>' +
+      '<p>كن أول من يتبرع بعلاج 💚</p>' +
+    '</div>';
     return;
   }
 
@@ -824,11 +894,18 @@ async function loadTreatments() {
   for (var i = 0; i < data.length; i++) {
     var t = data[i];
     html += '<div class="treatment-card">' +
-      (t.image_url ? '<img src="' + esc(t.image_url) + '" class="treatment-image" loading="lazy" alt="' + esc(t.medicine_name) + '">' : '<div class="treatment-image-ph">💊</div>') +
+      '<div class="treatment-image-wrapper">' +
+        (t.image_url ?
+          '<img src="' + esc(t.image_url) + '" class="treatment-image" loading="lazy" alt="' + esc(t.medicine_name) + '">' :
+          '<div class="treatment-image-ph">💊</div>') +
+        '<span class="treatment-badge">مجاناً</span>' +
+      '</div>' +
       '<div class="treatment-body">' +
-        '<div class="treatment-name">💊 ' + esc(t.medicine_name) + '</div>' +
-        '<div class="treatment-desc">' + esc(t.description).replace(/\n/g, '<br>') + '</div>' +
-        '<div class="treatment-phone">📞 ' + esc(t.phone) + '</div>' +
+        '<div class="treatment-name"><span class="pill-icon">💊</span>' + esc(t.medicine_name) + '</div>' +
+        '<div class="treatment-phone-row">' +
+          '<span class="phone-icon">📞</span>' +
+          '<span class="phone-number">' + esc(t.phone) + '</span>' +
+        '</div>' +
         '<a href="tel:' + esc(t.phone) + '" class="treatment-call-btn">📞 اتصال الآن</a>' +
       '</div>' +
     '</div>';

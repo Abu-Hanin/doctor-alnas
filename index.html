@@ -25,6 +25,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .btn-login{background:#F0B90B;color:#0B0E11}
 .btn-register{background:transparent;color:#0ECB81;border:1px solid #0ECB81}
 .btn-logout{background:transparent;color:#F6465D;border:1px solid #F6465D}
+.btn-treatments{background:linear-gradient(135deg,#0ECB81,#128C7E);color:#FFF;border:none;padding:7px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+.btn-treatments:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(14,203,129,0.4)}
 .install-btn-row{width:100%;margin-top:10px;background:linear-gradient(135deg,#0ECB81,#0AB872);color:#FFF;border:none;padding:11px;border-radius:12px;font-family:inherit;font-size:0.88rem;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s}
 .install-btn-row:hover{transform:translateY(-1px);box-shadow:0 4px 15px rgba(14,203,129,0.4)}
 .hidden{display:none!important}
@@ -145,6 +147,25 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .add-hero{background:rgba(14,203,129,0.1);border:2px solid #0ECB81;border-radius:16px;padding:20px;text-align:center;margin-bottom:20px}
 .add-hero h2{color:#0ECB81;font-size:1.2rem;font-weight:900;margin-bottom:6px}
 .add-hero p{color:#B7BDC6;font-size:0.85rem}
+/* ============ صفحة علاج مجاني ============ */
+.treatments-header{background:linear-gradient(135deg,#0ECB81,#128C7E);border-radius:16px;padding:24px 20px;text-align:center;margin:20px 0}
+.treatments-header h1{color:#FFF;font-size:1.6rem;font-weight:900;margin-bottom:6px}
+.treatments-header p{color:rgba(255,255,255,0.9);font-size:0.85rem;margin-bottom:16px}
+.add-treatment-btn{background:#FFF;color:#128C7E;border:none;padding:12px 24px;border-radius:25px;font-family:inherit;font-weight:800;font-size:0.9rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all 0.2s}
+.add-treatment-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.2)}
+.treatments-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:16px 0}
+.treatment-card{background:#1E2329;border:1px solid #2B3139;border-radius:16px;overflow:hidden;transition:all 0.2s;display:flex;flex-direction:column}
+.treatment-card:hover{border-color:#0ECB81;transform:translateY(-2px)}
+.treatment-image{width:100%;height:180px;object-fit:cover;background:#0B0E11}
+.treatment-image-ph{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;background:#0B0E11}
+.treatment-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:8px}
+.treatment-name{font-size:1.05rem;font-weight:900;color:#FFF}
+.treatment-desc{color:#B7BDC6;font-size:0.83rem;line-height:1.6;flex:1}
+.treatment-phone{color:#0ECB81;font-weight:800;font-size:0.95rem;direction:ltr;display:inline-block}
+.treatment-call-btn{background:#0ECB81;color:#FFF;border:none;padding:10px;border-radius:12px;font-family:inherit;font-weight:800;font-size:0.88rem;cursor:pointer;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;transition:all 0.2s;margin-top:6px}
+.treatment-call-btn:hover{background:#0AB872;transform:translateY(-1px)}
+.back-home-btn{display:inline-flex;align-items:center;gap:6px;background:#1E2329;color:#F0B90B;border:1px solid #F0B90B;padding:8px 16px;border-radius:20px;font-family:inherit;font-weight:700;font-size:0.82rem;cursor:pointer;text-decoration:none;margin-top:16px}
+.back-home-btn:hover{background:#F0B90B;color:#0B0E11}
 @media (max-width:500px){
 .logo{font-size:1.35rem}
 .doc-card{grid-template-columns:90px 1fr 16px;padding:14px;gap:12px}
@@ -154,6 +175,8 @@ body{font-family:'Tajawal',sans-serif;background:#0B0E11;color:#FFF;direction:rt
 .days-grid{grid-template-columns:repeat(3,1fr)}
 .time-row{grid-template-columns:1fr}
 .btn-header{padding:6px 10px;font-size:0.72rem}
+.treatments-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+.treatment-image,.treatment-image-ph{height:140px}
 }
 </style>
 </head>
@@ -226,6 +249,7 @@ var centersOpen = false;
 var searchQuery = '', currentCityFilter = '';
 var adminPage = 'requests', adminFilter = 'pending';
 var deferredPrompt = null;
+var treatmentFormVisible = false;
 
 /* ============ 2) أدوات ============ */
 function $(sel) { return document.querySelector(sel); }
@@ -239,12 +263,8 @@ function esc(str) {
 function go(page, param) { window.location.hash = param ? '#' + page + '/' + param : '#' + page; }
 
 function reloadHome() {
-  if (window.location.hash === '#home' || window.location.hash === '') {
-    window.location.reload();
-  } else {
-    window.location.hash = '#home';
-    window.location.reload();
-  }
+  window.location.hash = '#home';
+  window.location.reload();
 }
 
 function showAlert(el, msg, type) {
@@ -455,7 +475,7 @@ async function checkUser() {
 function renderHeaderActions() {
   var a = byId('header-actions');
   if (!a) return;
-  var html = '';
+  var html = '<button class="btn-treatments" onclick="go(\'treatments\')" title="صفحة العلاج المجاني">💊 علاج مجاني</button>';
   if (isAdmin) {
     html += '<button class="btn-header btn-login" onclick="go(\'admin\')">⚙️ الإدارة</button>';
     html += '<button class="btn-header btn-logout" onclick="logout()">🚪 خروج</button>';
@@ -662,7 +682,161 @@ async function renderDoctor(app, id) {
     '</div>';
 }
 
-/* ============ 11) التسجيل والدخول ============ */
+/* ============ 11) صفحة علاج مجاني ============ */
+async function renderTreatments(app) {
+  treatmentFormVisible = false;
+  app.innerHTML =
+    '<div class="container">' +
+      '<div class="treatments-header">' +
+        '<h1>💊 علاج مجاني</h1>' +
+        '<p>منصة للتبرع بالأدوية والعلاجات بالمجان لكل من يحتاجها</p>' +
+        '<button class="add-treatment-btn" onclick="toggleTreatmentForm()">➕ أضف علاج مجاني</button>' +
+      '</div>' +
+      '<div id="treatment-form-container" style="display:none;">' +
+        '<div class="form-section">' +
+          '<h3>📝 إضافة علاج مجاني</h3>' +
+          '<div id="treatment-alert"></div>' +
+          '<form onsubmit="event.preventDefault(); submitTreatment(this);" enctype="multipart/form-data">' +
+            '<div class="form-section" style="background:#0B0E11;"><h3>📸 صورة العلاج</h3>' +
+              '<div class="image-upload-section">' +
+                '<div class="img-preview-placeholder" id="treatment-img-ph">💊</div>' +
+                '<img id="treatment-current-img" class="img-preview hidden" src="">' +
+                '<label class="file-input-label">📁 اختر صورة العلاج<input type="file" name="image_file" accept="image/*" onchange="previewTreatmentImage(this);"></label>' +
+              '</div>' +
+            '</div>' +
+            '<div class="form-group"><label>💊 اسم العلاج *</label><input type="text" name="medicine_name" required placeholder="مثال: بنادول 500mg"></div>' +
+            '<div class="form-group"><label>📝 العلاج ده لايه بالظبط *</label><textarea name="description" required placeholder="مثال: مسكن للصداع والآلام - علبة كاملة"></textarea></div>' +
+            '<div class="form-group"><label>📞 رقم التليفون للتواصل *</label><input type="tel" name="phone" required dir="ltr" placeholder="01xxxxxxxxx"></div>' +
+            '<div style="display:flex;gap:8px;">' +
+              '<button type="submit" class="btn btn-success">✅ نشر العلاج</button>' +
+              '<button type="button" class="btn btn-danger" onclick="toggleTreatmentForm()">❌ إلغاء</button>' +
+            '</div>' +
+          '</form>' +
+        '</div>' +
+      '</div>' +
+      '<div class="section-header">' +
+        '<h2>💊 العلاجات المتاحة</h2>' +
+        '<span class="count-badge" id="treatments-count">...</span>' +
+      '</div>' +
+      '<div id="treatments-list" class="treatments-grid"><div class="loading">⏳ جارٍ التحميل...</div></div>' +
+      '<div style="text-align:center;margin-top:20px;">' +
+        '<button class="back-home-btn" onclick="go(\'home\')">← العودة للرئيسية</button>' +
+      '</div>' +
+    '</div>';
+
+  await loadTreatments();
+}
+
+function toggleTreatmentForm() {
+  treatmentFormVisible = !treatmentFormVisible;
+  var c = byId('treatment-form-container');
+  if (c) c.style.display = treatmentFormVisible ? 'block' : 'none';
+  if (treatmentFormVisible) {
+    var el = byId('treatment-form-container');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function previewTreatmentImage(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var ph = byId('treatment-img-ph');
+      if (ph) ph.style.display = 'none';
+      var img = byId('treatment-current-img');
+      if (img) { img.src = e.target.result; img.classList.remove('hidden'); }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+async function submitTreatment(f) {
+  var al = byId('treatment-alert');
+  al.innerHTML = '<div class="loading">⏳ جارٍ النشر...</div>';
+  if (!supabaseClient) { showAlert(al, 'خطأ في الاتصال'); return; }
+
+  var medicine_name = f.medicine_name.value.trim();
+  var description = f.description.value.trim();
+  var phone = f.phone.value.trim();
+
+  if (!medicine_name || !description || !phone) {
+    showAlert(al, '⚠️ يرجى ملء جميع الحقول المطلوبة');
+    return;
+  }
+
+  /* رفع الصورة (إن وُجدت) */
+  var imageUrl = '';
+  var fileInput = f.image_file;
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    var file = fileInput.files[0];
+    var ext = file.name.split('.').pop().toLowerCase();
+    var fileName = 'treatment_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8) + '.' + ext;
+    var up = await supabaseClient.storage.from('treatment-images').upload(fileName, file, { contentType: file.type, upsert: true });
+    if (up.error) { showAlert(al, 'خطأ رفع الصورة: ' + up.error.message); return; }
+    var u = supabaseClient.storage.from('treatment-images').getPublicUrl(fileName);
+    imageUrl = u.data.publicUrl;
+  }
+
+  /* إدراج في قاعدة البيانات */
+  var r = await supabaseClient.from('free_treatments').insert({
+    medicine_name: medicine_name,
+    description: description,
+    phone: phone,
+    image_url: imageUrl
+  });
+
+  if (r.error) { showAlert(al, 'خطأ: ' + r.error.message); return; }
+
+  showAlert(al, '✅ تم نشر العلاج بنجاح! شكراً لك على التبرع 💚', 'success');
+  f.reset();
+  var ph = byId('treatment-img-ph'); if (ph) ph.style.display = 'flex';
+  var img = byId('treatment-current-img'); if (img) { img.src = ''; img.classList.add('hidden'); }
+
+  setTimeout(async function() {
+    treatmentFormVisible = false;
+    var c = byId('treatment-form-container');
+    if (c) c.style.display = 'none';
+    await loadTreatments();
+  }, 1500);
+}
+
+async function loadTreatments() {
+  var list = byId('treatments-list');
+  if (!list) return;
+  if (!supabaseClient) { list.innerHTML = '<div class="alert alert-danger">خطأ في الاتصال</div>'; return; }
+
+  var r = await supabaseClient.from('free_treatments').select('*').order('created_at', { ascending: false });
+  if (r.error) {
+    list.innerHTML = '<div class="alert alert-danger">خطأ: ' + esc(r.error.message) + '</div>';
+    return;
+  }
+
+  var data = r.data || [];
+  var countEl = byId('treatments-count');
+  if (countEl) countEl.textContent = data.length;
+
+  if (data.length === 0) {
+    list.innerHTML = '<div class="empty-msg" style="grid-column:1/-1;">💊 لا توجد علاجات متاحة حالياً<br><br>كن أول من يتبرع بعلاج 💚</div>';
+    return;
+  }
+
+  var html = '';
+  for (var i = 0; i < data.length; i++) {
+    var t = data[i];
+    html += '<div class="treatment-card">' +
+      (t.image_url ? '<img src="' + esc(t.image_url) + '" class="treatment-image" loading="lazy" alt="' + esc(t.medicine_name) + '">' : '<div class="treatment-image-ph">💊</div>') +
+      '<div class="treatment-body">' +
+        '<div class="treatment-name">💊 ' + esc(t.medicine_name) + '</div>' +
+        '<div class="treatment-desc">' + esc(t.description).replace(/\n/g, '<br>') + '</div>' +
+        '<div class="treatment-phone">📞 ' + esc(t.phone) + '</div>' +
+        '<a href="tel:' + esc(t.phone) + '" class="treatment-call-btn">📞 اتصال الآن</a>' +
+      '</div>' +
+    '</div>';
+  }
+  list.innerHTML = html;
+}
+
+/* ============ 12) التسجيل والدخول ============ */
 function renderRegister(app) {
   app.innerHTML =
     '<div class="container"><div class="form-container">' +
@@ -723,7 +897,7 @@ async function doLogin(f) {
   if (isAdmin) go('admin'); else go('doctor-dashboard');
 }
 
-/* ============ 12) لوحة الطبيب ============ */
+/* ============ 13) لوحة الطبيب ============ */
 async function renderDoctorDashboard(app) {
   if (!currentUser) { go('login'); return; }
   await checkUser();
@@ -883,7 +1057,7 @@ function contactSupport() {
   window.open('https://wa.me/' + phone + '?text=' + msg, '_blank');
 }
 
-/* ============ 13) لوحة الأدمن ============ */
+/* ============ 14) لوحة الأدمن ============ */
 async function renderAdmin(app) {
   if (!isAdmin) { go('home'); return; }
   await checkUser();
@@ -1240,7 +1414,7 @@ async function renderAdminDoctorsPage() {
 
 function setAdminFilter(f) { adminFilter = f; renderAdminDoctorsPage(); }
 
-/* ============ 14) Router ============ */
+/* ============ 15) Router ============ */
 async function route() {
   var hash = window.location.hash.slice(1) || 'home';
   var parts = hash.split('/');
@@ -1252,6 +1426,7 @@ async function route() {
   try {
     if (page === 'home') await renderHome(app);
     else if (page === 'doctor') await renderDoctor(app, param);
+    else if (page === 'treatments') await renderTreatments(app);
     else if (page === 'login') renderLogin(app);
     else if (page === 'register') renderRegister(app);
     else if (page === 'doctor-dashboard') await renderDoctorDashboard(app);
@@ -1277,7 +1452,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('load', async function() {
   try {
-    /* إخفاء زر التثبيت فقط إذا كان التطبيق مثبتاً بالفعل */
     if (isStandaloneMode()) {
       hideInstallButton();
     }
